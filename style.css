@@ -1,0 +1,700 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    height: 100%;
+    width: 100%;
+
+}
+
+
+.box-header {
+    background: linear-gradient(90deg, rgb(14, 16, 16) 46%, rgb(0, 209, 255) 100%);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 10px;
+    padding: 10px 0;
+}
+
+
+.nav a {
+
+    font-size: 20px;
+    text-decoration: none;
+    color: aliceblue;
+    /* Puedes agregar el color aquí si prefieres */
+}
+
+.nav {
+    display: inline-block;
+    padding: 0 4px;
+}
+
+.box-header2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #c5c5c5;
+    padding: 10px;
+}
+
+.logo-header {
+    width: 30%;
+    padding: 10px;
+}
+
+.titulo-central {
+    font-size: 30px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+}
+
+.logo-carrito {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: center;
+    text-decoration: none;
+    /* Agrega una altura al contenedor */
+}
+
+.logo-carrito img {
+    width: 20%;
+    min-height: 50px;
+    display: block;
+    margin: auto;
+}
+
+.custom-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(0, 49, 131);
+
+}
+
+main {
+    display: flex;
+
+
+}
+
+.sidebar {
+    background: rgb(0, 0, 0);
+    flex-shrink: 0;
+    /* Evita que la barra lateral se reduzca más allá de su contenido */
+    width: 20%;
+    min-width: 250px;
+    z-index: 2;
+    /* Asegura que esté por encima de la sección principal */
+}
+
+.minimizador-sidebar {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.minimizador-sidebar img {
+    width: 50px;
+    padding: 10px;
+}
+
+.titlulo-menu-minimizador {
+    color: aliceblue;
+    font-size: 30px;
+    font-weight: bold;
+    margin-left: 10px;
+    /* Ajusta el espacio entre la imagen y el texto según sea necesario */
+}
+
+.contenido-menu {
+    width: 80%;
+    padding: 25px 10px 10px 15px;
+    overflow-y: auto;
+
+
+}
+
+.titlulo-menu {
+    color: aliceblue;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 0 0 30px;
+}
+
+
+
+.menu-item {
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    text-decoration: none;
+    color: aliceblue;
+    display: block;
+    padding: 5px;
+    border-radius: 5px;
+
+
+}
+
+.menu-item:hover {
+    background: rgb(20, 107, 189);
+    font-size: 20px;
+    font-weight: bold;
+
+}
+
+.sub-menu {
+    margin-top: 10px;
+    cursor: pointer;
+    display: block;
+
+
+
+
+}
+
+.sub-menu h1 {
+    color: aliceblue;
+    font-size: 15px;
+    font-weight: bold;
+
+}
+
+.sublist {
+    background: rgb(9, 27, 102);
+    display: none;
+    cursor: pointer;
+    font-size: 15px;
+    text-decoration: none;
+    color: aliceblue;
+    display: block;
+    padding: 5px 30px;
+    border: rgb(128, 129, 136) solid 1px;
+    border-radius: 10px;
+}
+
+.sublist:hover {
+    background: rgb(20, 107, 189);
+    font-size: 18px;
+    font-weight: bold;
+
+}
+
+.sublist1 h1 {
+
+    padding: 15px;
+}
+
+.sublist1 li {
+    display: none;
+    font-size: 15px;
+    color: aliceblue;
+    display: block;
+    padding: 5px 0 5px 50px;
+    border: rgb(40, 41, 41) solid .5px;
+    background: rgb(70, 71, 71);
+    ;
+    cursor: auto;
+    border: rgb(128, 129, 136) solid 1px;
+    border-radius: 10px;
+}
+
+
+.sublist1 li:hover {
+    background: rgb(20, 107, 189);
+    border-radius: 5px;
+    font-weight: bold;
+
+}
+.principal {
+    width: 80%;
+    position: relative;
+    height: 680px;
+}
+
+.velo {
+
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    /* Asegura que esté por encima de otros elementos dentro de la sección */
+}
+
+.image-container2 {
+    padding: 10px 0 0 2.25%;
+    text-align: left;
+
+}
+
+.image-container2 img {
+    width: 20px;
+}
+
+.map-container {
+    width: 100%;
+    height: 640px;
+    padding: 0;
+    position: relative;
+
+
+}
+
+.overlay {
+    
+    
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(90deg, rgb(14, 16, 16) 46%, rgb(0, 209, 255) 100%);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 10px;
+    text-align: center;
+
+}
+
+#textcontent {
+    padding: 10px;
+    font-size: 30px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    
+}
+.inframes {
+    display: flex;
+    flex-direction: column;
+    height: 90%; /* Establecer la altura del contenedor de los iframes al 90% */
+}
+.mapas {
+    margin: 0 2.25% 0 2.25%;
+    width: 95%;
+    height: 100%;
+    overflow: hidden;
+}
+.overlayInstrucciones {
+    
+    
+    background: rgba(0, 0, 0);
+    width: 400px;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    font-size: 40px;
+    font-weight: bold;
+    position: relative; /* Asegura que las transformaciones se basen en este elemento */
+    top: -50%; /* Mueve el elemento hacia abajo en un 50% de la altura del contenedor padre */
+    left: 50%; /* Mueve el elemento hacia la derecha en un 50% del ancho del contenedor padre */
+    transform: translate(-50%, -50%); /* Corrige el centrado, retrocediendo la mitad del ancho y alto del elemento */
+
+
+}
+.overlay-tipos-red {
+    display: none;
+    position: absolute;
+    bottom: 10px;
+    right: 4%;
+    background: rgba(190, 188, 188, 0.8);
+    width: 150px;
+    padding: 10px;
+    border-radius: 10px;
+    justify-content: center;
+
+}
+
+
+
+p img {
+
+    width: 25px;
+    padding: 5px 10px 0 0;
+}
+
+.overlay-tipos-red h1 {
+    color: rgb(0, 49, 131);
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+
+
+}
+
+.overlay-tipos-red p {
+    color: rgb(0, 49, 131);
+    font-size: 16px;
+    padding: 0 0 5px 0;
+    font-weight: bold;
+
+
+}
+.notas{
+    width: calc(100% - 10px);
+    text-align: center;
+    padding: 5px;
+    font-size: 12px;
+    display: none;
+    
+
+
+}
+
+
+
+
+
+
+.footer {
+
+    display: flex;
+    background: rgb(0, 0, 0);
+    overflow-x: auto;
+    height: 450px;
+    /* Agregado para permitir la barra de desplazamiento horizontal */
+}
+
+.bottom-container {
+    display: flex;
+    flex-direction: row;
+    padding: 30px 0 30px 0;
+    width: 100%;
+}
+
+.column {
+    flex: 0 0 20%;
+    /* Ajusta este valor según tus necesidades */
+    color: aliceblue;
+    padding: 0 2.5%;
+    /* Añade espaciado horizontal entre las columnas */
+    width: 100%;
+}
+
+.column h1 {
+
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+
+
+.column a {
+
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 5px;
+}
+
+.lista-desplegable {
+
+    display: none;
+}
+
+
+
+
+
+.column img {
+    width: 12px;
+    height: auto;
+    margin-right: 5px;
+}
+
+.column div {
+    display: flex;
+    align-items: center;
+}
+
+
+.panel-collapse {
+    display: none;
+    margin-top: 50px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+
+}
+
+#choose-network {
+    text-align: center;
+    display: block;
+    font-size: 18px;
+    padding: 20px;
+    border: 2px solid #ccc;
+    margin: 20px auto;
+    width: 300px;
+}
+
+#contenedor_vacio {
+    background-color: #ffffff;
+    height: auto;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.green {
+    background-color: green;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.texto-contenido {
+    text-align: left;
+    padding: 20px 10% 10% 10%;
+
+}
+
+.texto-contenido ul,
+.texto-contenido ul li {
+    padding: 5px;
+}
+
+/* gradientes coloridosbackground: linear-gradient(20deg, #f3d4ea, #f1b1de, #2da5eb,#4d66f3,#f5acdf, #f3d4ea, #f1b1de, #2da5eb,#4d66f3,#f5acdf);*/
+
+
+.iframe-container {
+    position: relative;
+    width: 100%;
+    height: 510px;
+}
+
+.iframe-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.color-filter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+
+.blue-filter {
+    background: rgba(0, 0, 255, 0.3); /* Blue semi-transparent layer */
+    mix-blend-mode: color;
+}
+
+.orange-filter {
+    background: rgba(255, 165, 0, 0.3); /* Orange semi-transparent layer */
+    mix-blend-mode: color;
+}
+
+.color-filter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(5, 74, 179, 0.5); /* Red semi-transparent layer */
+    mix-blend-mode: multiply; /* Adjust blend mode as needed */
+    pointer-events: none; /* Make sure clicks go through to the iframe */
+}
+
+
+#map {
+    width: calc(100% - 20PX);
+    height: 100vh;
+    position: relative;
+    z-index: 0; /* Asegurar que el mapa esté por debajo */
+}
+
+.search-container {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    width: 600px;
+    background-color: rgba(190, 188, 188, 0.8);
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1; /* Asegurar que el contenedor del buscador esté por encima */
+}
+
+.search-container input[type="text"],
+.search-container button {
+    margin: 5px;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+}
+.search-container input{
+    width: 500px;
+}
+
+@media only screen and (min-width: 769px) {
+    .minimizador-sidebar {
+        display: none;
+    }
+
+}
+
+@media only screen and (max-width: 768px) {
+    .box-header2 {
+        text-align: center;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logo-header {
+        width: 80%;
+        padding: 10px;
+    }
+
+    .titulo-central {
+        display: none;
+    }
+
+    .logo-carrito {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+        justify-content: center;
+        border: solid #032bdb9c;
+        border-radius: 25px;
+        padding: 10px;
+        box-shadow: 0 0 10px rgba(3, 43, 219, 0.5);
+        background: linear-gradient(rgb(2, 74, 199), rgb(95, 94, 94), #ffffff, rgb(2, 71, 190));
+        text-decoration: none;
+
+    }
+
+    .logo-carrito img {
+        display: none;
+    }
+
+
+    main {
+        flex-direction: column;
+        /* Cambia el diseño a una columna */
+    }
+
+    .sidebar {
+        width: 100%;
+        /* Ocupa todo el ancho de su contenedor */
+        position: relative;
+        /* Mantiene la posición relativa al contenedor */
+        min-width: 0;
+        /* Permite que la barra lateral se reduzca más allá de su contenido */
+    }
+
+    .sidebar.menu-abierto {
+        width: 100%;
+        /* Ocupa todo el ancho cuando está abierto */
+    }
+
+    .contenido-menu {
+        display: none;
+
+
+    }
+
+    .titlulo-menu {
+        display: none;
+    }
+
+    .principal {
+        width: 100%;
+    }
+
+    #search-btn {
+        width: 70%;
+    }
+
+    #search-btn:hover {
+        width: 80%;
+    }
+
+    .bottom-container {
+        display: flex;
+        flex-direction: column;
+        padding: 10%;
+        width: 100%;
+    }
+
+    .column {
+        flex: 0;
+        color: aliceblue;
+        padding: 20px;
+        width: 100%;
+    }
+    .overlayInstrucciones {
+       
+        
+        
+        width: calc(100% - 60px);
+        
+    }
+    .overlay-tipos-red {
+        position: absolute;
+        bottom: 85px;
+        left: 5%;
+        right: initial;
+        width: 150px;
+        
+        
+    
+    }
+    .search-container {
+        
+        width: 300px;
+        
+    }
+   
+    .search-container input{
+        width: 280px;
+    }
+    .overlay-tipos-red {
+        padding: 5px;
+        bottom: 120px;
+        width: 100px;
+        
+    
+    }
+    .overlay-tipos-red h1 {
+        
+        font-size: 14px;
+          
+    
+    }
+    
+    .overlay-tipos-red p {
+        font-size: 12px;
+         
+    
+    }
+    p img{
+        padding: 0 3px;
+    }
+    .notas{
+        
+        text-align: center;
+        padding: 5px;
+        font-size: 12px;
+        display: none;
+        
+    }
+
+
+
+}
