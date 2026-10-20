@@ -8,3 +8,7 @@ _respaldo-servidor/
 Thumbs.db
 desktop.ini
 .DS_Store
+
+# Configuracion con contrasenas
+config/config.php
+build/

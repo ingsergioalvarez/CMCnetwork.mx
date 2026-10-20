@@ -1,0 +1,24 @@
+/* Paleta CMC Service Network — tomada del logo (infinito azul -> cian) */
+:root {
+  /* Azules del simbolo */
+  --cmc-azul-profundo: #0510C4;
+  --cmc-azul: #0A2AF0;
+  --cmc-azul-medio: #0A7CFC;
+  --cmc-cian: #00CCFC;
+  --cmc-cian-brillante: #00F0FF;
+  --cmc-marino: #002F90;
+
+  /* Fondos oscuros (secciones con letras blancas) */
+  --cmc-noche: #06123D;
+  --cmc-noche-2: #0B1E5B;
+
+  /* Grises del texto del logo */
+  --cmc-gris: #545454;
+  --cmc-gris-claro: #848484;
+  --cmc-fondo-claro: #F4F7FD;
+  --cmc-blanco: #FFFFFF;
+
+  /* Degradado de marca */
+  --cmc-degradado: linear-gradient(90deg, var(--cmc-azul-profundo) 0%, var(--cmc-azul-medio) 50%, var(--cmc-cian-brillante) 100%);
+  --cmc-degradado-noche: linear-gradient(160deg, var(--cmc-noche) 0%, var(--cmc-noche-2) 60%, var(--cmc-marino) 100%);
+}

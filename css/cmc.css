@@ -1,0 +1,189 @@
+/* Estilos del sitio CMC Service Network. Colores en marca.css */
+
+:root {
+  --bs-body-font-family: 'Poppins', system-ui, sans-serif;
+  --bs-body-color: var(--cmc-gris);
+  --bs-link-color-rgb: 10, 42, 240;
+  --bs-link-hover-color-rgb: 0, 204, 252;
+  --radio: 18px;
+  --sombra: 0 10px 30px rgba(6, 18, 61, .10);
+}
+
+body { background: var(--cmc-blanco); overflow-x: hidden; }
+h1, h2, h3, h4 { font-weight: 700; color: var(--cmc-noche); }
+img { max-width: 100%; }
+.texto-suave { color: var(--cmc-gris-claro); }
+
+/* ---------- Navegacion ---------- */
+.cmc-nav { padding: 18px 0; transition: background .3s, padding .3s, box-shadow .3s; }
+.cmc-nav.solida, .cmc-nav:has(.navbar-collapse.show) { background: rgba(6, 18, 61, .96); padding: 10px 0; box-shadow: 0 6px 24px rgba(0, 0, 0, .25); }
+.cmc-nav .nav-link { color: rgba(255, 255, 255, .85); font-weight: 500; padding: 8px 14px !important; }
+.cmc-nav .nav-link:hover, .cmc-nav .nav-link.active { color: var(--cmc-cian-brillante); }
+@media (max-width: 991.98px) {
+  .cmc-nav .navbar-collapse { padding: 12px 0; }
+  .cmc-nav .btn { margin-top: 8px; }
+}
+
+/* ---------- Botones ---------- */
+.btn-cmc {
+  background: var(--cmc-degradado); background-size: 150% 100%; color: #fff; border: 0;
+  border-radius: 40px; padding: 12px 28px; font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0, 204, 252, .30); transition: background-position .4s, transform .2s, box-shadow .2s;
+}
+.btn-cmc:hover, .btn-cmc:focus { color: #fff; background-position: 100% 0; transform: translateY(-2px); box-shadow: 0 12px 28px rgba(0, 204, 252, .45); }
+.btn-cmc.btn-sm { padding: 8px 20px; }
+.btn-cmc:disabled { opacity: .7; transform: none; }
+.btn-borde { border: 2px solid var(--cmc-cian); color: var(--cmc-cian); border-radius: 40px; padding: 10px 26px; font-weight: 600; }
+.btn-borde:hover { background: var(--cmc-cian); color: var(--cmc-noche); }
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative; min-height: min(92vh, 860px); display: flex; align-items: center;
+  background: var(--cmc-degradado-noche); color: #fff; padding: 130px 0 90px; overflow: hidden;
+}
+.hero::before { /* foto de fondo atenuada */
+  content: ''; position: absolute; inset: 0; background: var(--hero-img, none) center/cover no-repeat; opacity: .18;
+}
+.hero::after { /* resplandor del logo */
+  content: ''; position: absolute; width: 720px; height: 720px; right: -220px; top: -160px;
+  background: radial-gradient(circle, rgba(0, 204, 252, .28) 0%, rgba(10, 42, 240, .12) 40%, transparent 70%);
+}
+.hero .container { position: relative; z-index: 1; }
+.hero h1 { color: #fff; font-size: clamp(34px, 5.2vw, 60px); line-height: 1.08; margin-bottom: 20px; }
+.hero h1 .grad, .grad-texto { background: linear-gradient(90deg, var(--cmc-azul-medio), var(--cmc-cian-brillante)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero p.lead { color: rgba(255, 255, 255, .82); max-width: 580px; font-size: 1.15rem; }
+.hero-corto { min-height: min(56vh, 520px); }
+.hero-simbolo { width: 100%; max-width: 440px; filter: drop-shadow(0 20px 60px rgba(0, 204, 252, .35)); animation: flotar 6s ease-in-out infinite; }
+@keyframes flotar { 50% { transform: translateY(-14px); } }
+
+/* Todas las slides en la misma celda: el alto es el de la mas alta y nada se encima */
+.hero-slides { display: grid; }
+.hero-slide { grid-area: 1 / 1; opacity: 0; transform: translateY(16px); transition: opacity .7s, transform .7s; pointer-events: none; }
+.hero-slide.activo { opacity: 1; transform: none; pointer-events: auto; }
+.hero-puntos { display: flex; gap: 8px; margin-top: 26px; }
+.hero-puntos button { width: 34px; height: 5px; border: 0; border-radius: 3px; background: rgba(255, 255, 255, .25); padding: 0; }
+.hero-puntos button.activo { background: var(--cmc-cian-brillante); }
+
+/* ---------- Secciones ---------- */
+.seccion { padding: 96px 0; }
+.seccion-clara { background: var(--cmc-fondo-claro); }
+.seccion-noche { background: var(--cmc-degradado-noche); color: rgba(255, 255, 255, .85); }
+.seccion-noche h2, .seccion-noche h3 { color: #fff; }
+.titulo-seccion { max-width: 720px; margin: 0 auto 56px; }
+.titulo-seccion h2 { font-size: clamp(28px, 3.6vw, 42px); }
+.titulo-seccion p { font-size: 1.05rem; }
+.etiqueta {
+  display: inline-block; font-size: .78rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--cmc-azul-medio); margin-bottom: 10px;
+}
+.seccion-noche .etiqueta { color: var(--cmc-cian-brillante); }
+
+/* Tarjetas de servicio */
+.tarjeta-servicio {
+  position: relative; overflow: hidden; height: 100%; background: #fff; border-radius: var(--radio); padding: 30px; box-shadow: var(--sombra);
+  transition: transform .25s, box-shadow .25s;
+}
+.tarjeta-servicio::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 4px; background: var(--cmc-degradado); }
+.tarjeta-servicio:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(6, 18, 61, .16); }
+.tarjeta-servicio h3 { font-size: 1.2rem; margin: 18px 0 10px; }
+.tarjeta-servicio p { margin: 0; }
+.icono {
+  width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; font-size: 26px; color: #fff;
+  background: var(--cmc-degradado);
+}
+
+/* Productos */
+.producto { position: relative; border-radius: 24px; overflow: hidden; min-height: 420px; display: flex; align-items: flex-end; color: #fff; box-shadow: var(--sombra); }
+.producto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s; }
+.producto::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6, 18, 61, .05) 20%, rgba(6, 18, 61, .92) 100%); }
+.producto:hover img { transform: scale(1.06); }
+.producto-texto { position: relative; z-index: 1; padding: 34px; }
+.producto h3 { color: #fff; font-size: 1.7rem; }
+.producto p { color: rgba(255, 255, 255, .85); }
+
+/* Contadores */
+.contadores { background: var(--cmc-degradado); color: #fff; padding: 56px 0; }
+.contador strong { display: block; font-size: clamp(36px, 5vw, 54px); font-weight: 700; line-height: 1; }
+.contador span { opacity: .9; }
+
+/* Bloques de detalle (corporativo) */
+.bloque-img { border-radius: 24px; box-shadow: var(--sombra); width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.lista-check { list-style: none; padding: 0; }
+.lista-check li { padding: 6px 0 6px 32px; position: relative; }
+.lista-check li::before { content: '\F26E'; font-family: 'bootstrap-icons'; position: absolute; left: 0; top: 4px; color: var(--cmc-cian); font-size: 1.2rem; }
+.seccion-noche .lista-check li { color: #fff; }
+
+.detalle { position: relative; border-radius: var(--radio); overflow: hidden; aspect-ratio: 1; }
+.detalle img { width: 100%; height: 100%; object-fit: cover; }
+.detalle-texto { position: absolute; inset: 0; padding: 22px; display: flex; flex-direction: column; justify-content: flex-end; background: linear-gradient(180deg, transparent 30%, rgba(6, 18, 61, .94)); color: #fff; }
+.detalle-texto h3 { color: #fff; font-size: 1.1rem; margin-bottom: 6px; }
+.detalle-texto p { font-size: .88rem; margin: 0; opacity: .88; }
+
+/* Planes */
+.plan {
+  height: 100%; background: #fff; border-radius: 24px; padding: 38px 32px; box-shadow: var(--sombra); text-align: center;
+  border: 2px solid transparent; transition: transform .25s;
+}
+.plan:hover { transform: translateY(-6px); }
+.plan.destacado { background: var(--cmc-degradado-noche); color: #fff; border-color: var(--cmc-cian); }
+.plan.destacado h3, .plan.destacado .precio { color: #fff; }
+.plan h3 { font-size: 1.3rem; }
+.plan .velocidad { color: var(--cmc-azul-medio); font-weight: 600; }
+.plan.destacado .velocidad { color: var(--cmc-cian-brillante); }
+.plan .precio { font-size: 3rem; font-weight: 700; color: var(--cmc-noche); margin: 14px 0; }
+.plan .precio small { font-size: 1rem; font-weight: 500; opacity: .7; }
+.plan ul { list-style: none; padding: 0; margin: 0 0 26px; }
+.plan li { padding: 8px 0; border-bottom: 1px solid rgba(132, 132, 132, .18); }
+.insignia { display: inline-block; background: var(--cmc-cian); color: var(--cmc-noche); font-size: .75rem; font-weight: 700; padding: 4px 12px; border-radius: 20px; margin-bottom: 12px; }
+
+/* ---------- Formularios ---------- */
+.tarjeta-vidrio { background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .12); border-radius: 24px; padding: 34px; backdrop-filter: blur(6px); }
+.seccion-noche .form-label { color: #fff; font-weight: 500; font-size: .92rem; }
+.seccion-noche .form-control, .seccion-noche .form-select {
+  background-color: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .2); color: #fff; border-radius: 12px; padding: 12px 14px;
+}
+.seccion-noche .form-control::placeholder { color: rgba(255, 255, 255, .45); }
+.seccion-noche .form-select option { color: var(--cmc-noche); }
+.seccion-noche .form-control:focus, .seccion-noche .form-select:focus { border-color: var(--cmc-cian); box-shadow: 0 0 0 .2rem rgba(0, 204, 252, .25); background-color: rgba(255, 255, 255, .12); color: #fff; }
+.seccion-noche a { color: var(--cmc-cian-brillante); text-decoration: none; }
+.seccion-noche a:hover { text-decoration: underline; }
+.seccion-noche a.btn-cmc { color: #fff; text-decoration: none; }
+.form-control.is-invalid { border-color: #ff6b81 !important; }
+.campo-error { color: #ff8a9c; font-size: .82rem; margin-top: 4px; }
+.campo-trampa { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.form-estado:empty { display: none; }
+.form-estado { border-radius: 12px; padding: 14px 16px; font-weight: 500; }
+.form-estado.ok { background: rgba(0, 204, 252, .15); color: #fff; border: 1px solid var(--cmc-cian); }
+.form-estado.error { background: rgba(255, 107, 129, .12); color: #ffd0d7; border: 1px solid #ff6b81; }
+
+.datos-contacto .dato { display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid rgba(255, 255, 255, .1); }
+.datos-contacto .dato i { font-size: 22px; color: var(--cmc-cian-brillante); }
+.datos-contacto h3 { font-size: .95rem; margin-bottom: 4px; }
+
+.mapa iframe { width: 100%; height: 380px; border: 0; display: block; filter: grayscale(.3); }
+
+/* ---------- Pie ---------- */
+.pie { background: #040C2B; color: rgba(255, 255, 255, .7); padding: 72px 0 28px; font-size: .92rem; }
+.pie h4 { color: #fff; font-size: 1rem; margin-bottom: 16px; }
+.pie ul { list-style: none; padding: 0; }
+.pie li { padding: 4px 0; }
+.pie a { color: rgba(255, 255, 255, .7); text-decoration: none; }
+.pie a:hover { color: var(--cmc-cian-brillante); }
+.pie-logo { height: 54px; width: auto; }
+.pie-final { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; border-top: 1px solid rgba(255, 255, 255, .1); margin-top: 48px; padding-top: 22px; font-size: .82rem; }
+
+/* WhatsApp flotante */
+.whatsapp-flotante {
+  position: fixed; right: 20px; bottom: 20px; z-index: 1030; width: 58px; height: 58px; border-radius: 50%;
+  background: #25D366; color: #fff; display: grid; place-items: center; font-size: 30px; box-shadow: 0 8px 24px rgba(0, 0, 0, .25);
+  transition: transform .2s;
+}
+.whatsapp-flotante:hover { color: #fff; transform: scale(1.08); }
+
+/* Animacion al hacer scroll: solo se oculta si app.js ya corrio (clase .rv), asi sin JS todo es visible */
+.rv .revelar { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+.rv .revelar.visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .rv .revelar { opacity: 1; transform: none; transition: none; }
+  .hero-simbolo { animation: none; }
+}

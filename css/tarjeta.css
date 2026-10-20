@@ -1,0 +1,44 @@
+/* Tarjeta digital del QR (pensada para celular) */
+.tarjeta-body { min-height: 100vh; background: var(--cmc-degradado-noche) fixed; }
+.tarjeta-body::before {
+  content: ''; position: fixed; width: 520px; height: 520px; right: -200px; top: -180px; pointer-events: none;
+  background: radial-gradient(circle, rgba(0, 204, 252, .30) 0%, rgba(10, 42, 240, .12) 45%, transparent 70%);
+}
+.tarjeta-wrap { position: relative; max-width: 460px; margin: 0 auto; padding: 22px 16px calc(28px + env(safe-area-inset-bottom)); }
+
+.tarjeta-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.tarjeta-top img { height: 44px; width: auto; }
+.tarjeta-evento { font-size: .78rem; font-weight: 600; color: var(--cmc-noche); background: var(--cmc-cian-brillante); padding: 5px 12px; border-radius: 20px; }
+
+.tarjeta-perfil { text-align: center; margin-top: 34px; }
+.tarjeta-foto {
+  width: 124px; height: 124px; margin: 0 auto 16px; border-radius: 50%; padding: 4px; background: var(--cmc-degradado);
+  box-shadow: 0 12px 40px rgba(0, 204, 252, .35);
+}
+.tarjeta-foto img, .tarjeta-foto span {
+  width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: grid; place-items: center;
+  background: var(--cmc-noche); color: #fff; font-size: 2.6rem; font-weight: 700;
+}
+.tarjeta-perfil h1 { color: #fff; font-size: 1.7rem; margin-bottom: 2px; }
+.tarjeta-puesto { color: var(--cmc-cian-brillante); font-weight: 500; margin-bottom: 22px; }
+.tarjeta-guardar { padding: 15px; font-size: 1.05rem; }
+
+.tarjeta-acciones { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 16px; }
+.tarjeta-acciones a {
+  display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 14px 4px; border-radius: 16px;
+  background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .12); color: #fff !important; font-size: .78rem; text-decoration: none !important;
+  transition: background .2s, transform .2s;
+}
+.tarjeta-acciones a:hover { background: rgba(0, 204, 252, .18); transform: translateY(-2px); }
+.tarjeta-acciones i { font-size: 1.35rem; color: var(--cmc-cian-brillante); }
+
+.tarjeta-form {
+  margin-top: 30px; background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 24px; padding: 26px 20px; backdrop-filter: blur(6px);
+}
+.tarjeta-form h2 { font-size: 1.35rem; margin-bottom: 4px; }
+.tarjeta-form > p { font-size: .92rem; }
+.tarjeta-form .form-control, .tarjeta-form .form-select { font-size: 16px; } /* evita zoom en iPhone */
+
+.tarjeta-pie { text-align: center; font-size: .8rem; margin-top: 26px; color: rgba(255, 255, 255, .6); }
+.tarjeta-pie a { color: rgba(255, 255, 255, .75) !important; }

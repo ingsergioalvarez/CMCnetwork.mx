@@ -1,0 +1,20 @@
+/* Panel de administracion CMC */
+body { font-family: 'Poppins', system-ui, sans-serif; background: var(--cmc-fondo-claro); color: var(--cmc-gris); font-size: .93rem; }
+h1, h2, h3, h4, h5 { color: var(--cmc-noche); font-weight: 600; }
+a { color: var(--cmc-azul); }
+.admin-nav { background: var(--cmc-degradado-noche); }
+.admin-nav .nav-link.active { color: var(--cmc-cian-brillante) !important; }
+.btn-cmc { background: var(--cmc-degradado); color: #fff; border: 0; font-weight: 600; }
+.btn-cmc:hover, .btn-cmc:focus { color: #fff; filter: brightness(1.08); }
+.card { border: 0; border-radius: 14px; box-shadow: 0 4px 16px rgba(6, 18, 61, .06); }
+.table > :not(caption) > * > * { padding: .65rem .75rem; }
+.table thead th { font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; color: var(--cmc-gris-claro); font-weight: 600; }
+.login-caja { max-width: 380px; margin: 8vh auto 0; }
+.stat { border-radius: 14px; padding: 18px 20px; background: #fff; box-shadow: 0 4px 16px rgba(6, 18, 61, .06); }
+.stat strong { display: block; font-size: 1.8rem; color: var(--cmc-noche); line-height: 1.1; }
+.stat span { font-size: .8rem; color: var(--cmc-gris-claro); }
+.avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; background: var(--cmc-degradado); color: #fff; display: inline-grid; place-items: center; font-weight: 600; }
+.qr-caja { background: #fff; padding: 18px; border-radius: 14px; display: inline-block; }
+.qr-caja svg { display: block; width: 260px; height: 260px; }
+.activo-tarjeta { border: 2px solid var(--cmc-cian) !important; }
+.texto-corto { max-width: 260px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

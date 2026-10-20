@@ -29,5 +29,8 @@ jobs:
             **/.git*/**
             .github/**
             scripts/**
+            sql/**
+            config/config.php
             Anterior/**
-            README.md
+            _*
+            *.md

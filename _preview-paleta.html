@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paleta CMC</title>
+<link rel="icon" href="imagenes/marca/favicon.ico">
+<link rel="stylesheet" href="css/marca.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Poppins, sans-serif; color: var(--cmc-gris); background: var(--cmc-fondo-claro); }
+  .hero { background: var(--cmc-degradado-noche); color: #fff; padding: 48px 24px 64px; }
+  .wrap { max-width: 1100px; margin: 0 auto; }
+  nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  nav img { height: 56px; }
+  nav a { color: #fff; text-decoration: none; margin-left: 20px; opacity: .85; font-weight: 600; }
+  nav a:hover { color: var(--cmc-cian-brillante); opacity: 1; }
+  h1 { font-size: clamp(32px, 5vw, 54px); line-height: 1.1; margin: 56px 0 16px; }
+  h1 span { background: var(--cmc-degradado); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero p { max-width: 560px; opacity: .85; font-size: 18px; }
+  .btn { display: inline-block; padding: 14px 28px; border-radius: 40px; font-weight: 600; text-decoration: none; margin: 24px 12px 0 0; }
+  .btn-primario { background: var(--cmc-degradado); color: #fff; box-shadow: 0 8px 24px rgba(0, 204, 252, .35); }
+  .btn-borde { border: 2px solid var(--cmc-cian); color: var(--cmc-cian); }
+  section { padding: 56px 24px; }
+  h2 { color: var(--cmc-noche); }
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
+  .sw { border-radius: 14px; overflow: hidden; background: #fff; box-shadow: 0 4px 14px rgba(6, 18, 61, .08); }
+  .sw div { height: 90px; }
+  .sw p { margin: 0; padding: 10px 12px; font-size: 13px; }
+  .sw b { display: block; color: var(--cmc-noche); }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .card { background: #fff; border-radius: 18px; padding: 28px; border-top: 4px solid var(--cmc-cian); box-shadow: 0 6px 20px rgba(6, 18, 61, .08); }
+  .card h3 { color: var(--cmc-azul); margin-top: 0; }
+  .grad { height: 14px; border-radius: 8px; background: var(--cmc-degradado); margin-top: 24px; }
+  @media (max-width: 640px) { nav a { margin: 0 16px 0 0; } }
+</style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <nav>
+        <img src="imagenes/marca/logo-cmc-blanco.png" alt="CMC Service Network">
+        <div><a href="#">Residencial</a><a href="#">Corporativo</a><a href="#">Tarifas</a><a href="#">Contacto</a></div>
+      </nav>
+      <h1>Internet que te <span>conecta sin límites</span></h1>
+      <p>Así se verían las secciones oscuras del sitio: fondo azul noche, letras blancas y acentos con el degradado del logo.</p>
+      <a class="btn btn-primario" href="#">Contratar ahora</a>
+      <a class="btn btn-borde" href="#">Ver planes</a>
+    </div>
+  </header>
+
+  <section>
+    <div class="wrap">
+      <h2>Paleta extraída del logo</h2>
+      <div class="swatches">
+        <div class="sw"><div style="background:var(--cmc-azul-profundo)"></div><p><b>Azul profundo</b>#0510C4</p></div>
+        <div class="sw"><div style="background:var(--cmc-azul)"></div><p><b>Azul</b>#0A2AF0</p></div>
+        <div class="sw"><div style="background:var(--cmc-azul-medio)"></div><p><b>Azul medio</b>#0A7CFC</p></div>
+        <div class="sw"><div style="background:var(--cmc-cian)"></div><p><b>Cian</b>#00CCFC</p></div>
+        <div class="sw"><div style="background:var(--cmc-cian-brillante)"></div><p><b>Cian brillante</b>#00F0FF</p></div>
+        <div class="sw"><div style="background:var(--cmc-marino)"></div><p><b>Marino</b>#002F90</p></div>
+        <div class="sw"><div style="background:var(--cmc-noche)"></div><p><b>Noche (fondos)</b>#06123D</p></div>
+        <div class="sw"><div style="background:var(--cmc-gris)"></div><p><b>Gris texto</b>#545454</p></div>
+        <div class="sw"><div style="background:var(--cmc-blanco);border-bottom:1px solid #e3e8f3"></div><p><b>Blanco</b>#FFFFFF</p></div>
+      </div>
+      <div class="grad"></div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <h2>Secciones claras</h2>
+      <div class="cards">
+        <div class="card"><h3>Internet Residencial</h3><p>Tarjetas blancas con borde cian y títulos en azul del logo.</p></div>
+        <div class="card"><h3>Internet Corporativo</h3><p>Enlaces dedicados con la misma identidad visual.</p></div>
+        <div class="card"><h3>Internet para eventos</h3><p>Conectividad temporal para expos y eventos.</p></div>
+      </div>
+      <p style="margin-top:32px"><img src="imagenes/marca/logo-cmc.png" alt="" style="height:70px"></p>
+    </div>
+  </section>
+</body>
+</html>

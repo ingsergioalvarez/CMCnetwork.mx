@@ -1,0 +1,125 @@
+// Interacciones del sitio CMC: menu, animaciones, contadores, slides del hero y formularios.
+(function () {
+  'use strict';
+
+  // Menu solido al hacer scroll
+  var nav = document.getElementById('nav');
+  if (nav) {
+    var alScroll = function () { nav.classList.toggle('solida', window.scrollY > 40); };
+    alScroll();
+    window.addEventListener('scroll', alScroll, { passive: true });
+    // Cerrar menu movil al elegir una opcion
+    nav.querySelectorAll('.nav-link, .btn').forEach(function (a) {
+      a.addEventListener('click', function () {
+        var menu = document.getElementById('menu');
+        if (menu && menu.classList.contains('show') && window.bootstrap) bootstrap.Collapse.getOrCreateInstance(menu).hide();
+      });
+    });
+  }
+
+  // Aparecer al hacer scroll + contadores (sin IntersectionObserver no se oculta nada)
+  if ('IntersectionObserver' in window) document.documentElement.classList.add('rv');
+  var animarContador = function (el) {
+    var fin = parseInt(el.getAttribute('data-hasta'), 10) || 0, ini = null, dur = 1600;
+    var paso = function (t) {
+      if (!ini) ini = t;
+      var p = Math.min((t - ini) / dur, 1);
+      el.textContent = Math.round(fin * (1 - Math.pow(1 - p, 3))).toLocaleString('es-MX');
+      if (p < 1) requestAnimationFrame(paso);
+    };
+    requestAnimationFrame(paso);
+  };
+  var elementos = document.querySelectorAll('.revelar, [data-hasta]');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        if (en.target.hasAttribute('data-hasta')) animarContador(en.target);
+        en.target.classList.add('visible');
+        io.unobserve(en.target);
+      });
+    }, { threshold: 0.15 });
+    elementos.forEach(function (el) { io.observe(el); });
+  } else {
+    elementos.forEach(function (el) { el.classList.add('visible'); });
+  }
+
+  // Slides del hero
+  var slides = document.querySelectorAll('.hero-slide');
+  var puntos = document.querySelector('.hero-puntos');
+  if (slides.length > 1 && puntos) {
+    var actual = 0, timer;
+    var ir = function (i) {
+      slides[actual].classList.remove('activo');
+      puntos.children[actual].classList.remove('activo');
+      actual = (i + slides.length) % slides.length;
+      slides[actual].classList.add('activo');
+      puntos.children[actual].classList.add('activo');
+    };
+    var iniciar = function () { clearInterval(timer); timer = setInterval(function () { ir(actual + 1); }, 6000); };
+    slides.forEach(function (_, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-label', 'Ver mensaje ' + (i + 1));
+      if (i === 0) b.className = 'activo';
+      b.addEventListener('click', function () { ir(i); iniciar(); });
+      puntos.appendChild(b);
+    });
+    iniciar();
+  }
+
+  // Formularios de prospecto (web y tarjeta)
+  document.querySelectorAll('.js-form-prospecto').forEach(function (form) {
+    var estado = form.querySelector('.form-estado');
+    var boton = form.querySelector('[type=submit]');
+    var textoBoton = boton.querySelector('.js-texto') || boton;
+    var original = textoBoton.textContent;
+
+    var limpiarErrores = function () {
+      form.querySelectorAll('.is-invalid').forEach(function (c) { c.classList.remove('is-invalid'); });
+      form.querySelectorAll('.campo-error').forEach(function (c) { c.remove(); });
+    };
+    var marcar = function (nombre, msg) {
+      var campo = form.querySelector('[name="' + nombre + '"]');
+      if (!campo) return;
+      campo.classList.add('is-invalid');
+      var div = document.createElement('div');
+      div.className = 'campo-error';
+      div.textContent = msg;
+      campo.insertAdjacentElement('afterend', div);
+    };
+    var mostrar = function (tipo, msg) { estado.className = 'form-estado ' + tipo; estado.textContent = msg; };
+
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      limpiarErrores();
+      estado.className = 'form-estado';
+      estado.textContent = '';
+
+      // Validacion basica en el navegador
+      var faltan = false;
+      form.querySelectorAll('[required]').forEach(function (c) {
+        if (!c.value.trim()) { marcar(c.name, 'Este campo es obligatorio.'); faltan = true; }
+        else if (c.type === 'email' && !c.checkValidity()) { marcar(c.name, 'El correo no es válido.'); faltan = true; }
+      });
+      if (faltan) { mostrar('error', 'Revisa los campos marcados.'); return; }
+
+      boton.disabled = true;
+      textoBoton.textContent = 'Enviando…';
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+        .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
+        .then(function (res) {
+          if (res.ok) {
+            form.reset();
+            mostrar('ok', res.mensaje || '¡Gracias! Te contactaremos pronto.');
+            form.dispatchEvent(new CustomEvent('prospecto:enviado', { detail: res }));
+          } else {
+            if (res.campos) Object.keys(res.campos).forEach(function (k) { marcar(k, res.campos[k]); });
+            mostrar('error', res.error || 'No pudimos enviar tu mensaje. Intenta de nuevo.');
+          }
+        })
+        .catch(function () { mostrar('error', 'Sin conexión. Revisa tu internet e inténtalo de nuevo.'); })
+        .then(function () { boton.disabled = false; textoBoton.textContent = original; });
+    });
+  });
+})();
