@@ -1,0 +1,10 @@
+# Credenciales FTP (nunca subir)
+.ftp.env
+
+# Copia local de lo que habia en el servidor (respaldo)
+_respaldo-servidor/
+
+# Sistema
+Thumbs.db
+desktop.ini
+.DS_Store

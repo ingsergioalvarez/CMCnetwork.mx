@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Red Comúnicalo</title>
+    <link rel="icon" href="imagenes/icono.png" type="image/png">
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="main.css">
+    <script src="script.js" defer></script>
+
+</head>
+
+<body>
+   
+    <header>
+        <div class="box-header">
+            <nav>
+                <ul>
+                    <li class="nav"><a href="/index.html" class="nav">Home</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="box-header2">
+            <div class="logo">
+                <h1><img src="imagenes/cmc sin fondo.png" class="logo-header"></h1>
+
+            </div>
+
+
+            <div class="logo-carrito">
+               <!-- <a href="https://www.comunicalo.mx/index.php?accion=Contacto" target="_blank">
+                    <img src="imagenes/CARRITO.png" alt="Imagen de carrito">
+                </a>
+                <a href="https://www.comunicalo.mx/index.php?accion=Contacto" target="_blank"><span class="custom-text">
+                        Cotiza aquí</span></a>-->
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="sidebar" id="sidebar-principal">
+            <div class="minimizador-sidebar" id="minimizador">
+                <img src="imagenes/hamburguesa.png" onclick="toggleContenidoMenu()">
+                <span class="titlulo-menu-minimizador">Soluciones</span>
+            </div>
+            <div class="contenido-menu" id="menu">
+                <hi class="titlulo-menu">Soluciones</hi>
+                <div class="menu-principal">
+
+                    <ul class="menu">
+
+                        <li>
+                            <span class="menu-item" onclick="cargarMapa('MO',
+                             'mo.html',
+                             'Red Microonda'); toggleSublist('MOSublist')">Red Microonda</span>
+
+                        </li>
+                    <!--    <li>
+                            <span class="menu-item" onclick="cargarMapa('SAT',
+                             'sat.html',
+                             'Red Satelital'); toggleSublist('SATSublist')">Red Satelital</span>
+                        </li>
+                        <li>
+                            <span class="menu-item" onclick="cargarMapa('FO',
+                                 'fo.html',
+                                 'Red Fibra Optica'); toggleSublist('CoberturaSublist')">Red Fibra Optica</span>
+
+                            <ul class="sub-menu" id="CoberturaSublist" style="display: none;">
+                                <h1> Municipios</h1>
+
+                                <li>
+                                    <span class="sublist">Tizayuca</span>
+                                </li>
+                                <li>
+                                    <span class="sublist">Tolcayuca</span>
+                                </li>
+                                <li>
+                                    <span class="sublist">Otumba-Axapusco</span>
+                                </li>
+                                <li>
+                                    <span class="sublist">Zumpango</span>
+                                </li>
+
+                                <li>
+                                    <span class="sublist">Tecamac</span>
+                                </li>
+                                <li>
+                                    <span class="sublist">Coacalco</span>
+                                </li>
+                                <li>
+                                    <span class="sublist">Azcapotzalco</span>
+                                </li>
+                            </ul>
+                        </li>
+                    -->
+                        <li>
+                            <span class="menu-item" onclick="cargarMapa('LTE',
+                             'https://lbsva.telcel.com/mapas/coberturas/lte',
+                             'Red LTE'); toggleSublist('LTESublist')">Red LTE</span>
+                            <ul class="sub-menu" id="LTESublist" style="display: none;">
+                                <h1> Tecnología</h1>
+                                <!--<li>
+                                    <span class="sublist" onclick="cargarMapa('mapa3g',
+                                 'https://lbsva.telcel.com/mapas/coberturas/umts',
+                                 'Red 3G')">Red 3G</span>
+                                </li>-->
+                                <li>
+                                    <span class="sublist" onclick="cargarMapa('mapa4g',
+                                 'https://lbsva.telcel.com/mapas/coberturas/lte',
+                                 'Red 4G')">Red 4G</span>
+                                </li>
+                                <li>
+                                    <span class="sublist" onclick="cargarMapa('mapa5g',
+                                 'https://lbsva.telcel.com/mapas/coberturas/cdmx',
+                                 'Red 5G')">Red 5G</span>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+
+
+        </section>
+        <section class="principal">
+
+            <div class="map-container">
+                <div class="overlay">
+                    <div id=textcontent>
+                        <h1>Red Comunícalo</h1>
+                    </div>
+                </div>
+                <div class="inframes">
+                    <iframe class="mapas" id="MO" scrolling="no"></iframe>
+                    <iframe class="mapas" id="SAT" scrolling="no"></iframe>
+                    <iframe class="mapas" id="FO" scrolling="no"></iframe>
+                    <iframe class="mapas" id="LTE"></iframe>
+                    <iframe class="mapas" id="mapa3g"></iframe>
+                    <iframe class="mapas" id="mapa4g"></iframe>
+                    <iframe class="mapas" id="mapa5g"></iframe>
+                </div>
+                <div class="notas">
+                    <p>*Los servicios estan sujetos a linea de vista, previo a contratar se realizara factibilidad para garantizar el funcionamiento del servicio.</p>
+                </div>
+                <div class="overlayInstrucciones">
+                    <img src="imagenes/cmc sin fondo.png" class="logo-header">
+                    <p>Selecciona tu tecnologia</p>
+                    <ul>
+                        <li>
+                            <span class="menu-item" onclick="cargarMapa('MO',
+                             'mo.html',
+                             'Red Microonda')">Red Microonda</span>
+
+                        </li>
+                        <!--
+                        <li>
+                            <span class="menu-item" onclick="cargarMapa('SAT',
+                             'sat.html',
+                             'Red Satelital')">Red Satelital</span>
+                        </li>
+                        <li>
+                            <span class="menu-item" onclick="cargarMapa('FO',
+                                 'fo.html',
+                                 'Red Fibra Optica')">Red Fibra Optica</span>
+                        </li>-->
+                        <li>
+                            <span class="menu-item" onclick="cargarMapa('LTE',
+                             'https://lbsva.telcel.com/mapas/coberturas/lte',
+                             'Red LTE')">Red LTE</span>
+                             
+
+                        </li>
+                    </ul>
+                </div>
+                <div class="overlay-tipos-red">
+                    <H1>Disponibilidad de cobertura</H1>
+                    <br>
+                    <p><img id="estadoCobertura" src="imagenes/HEXAGONO AZUL.png">Diponible</p>
+                    <p><img src="imagenes/HEXAGONO AMARILLO.png">Validar</p>
+                </div>
+            </div>
+
+
+
+
+
+
+        </section>
+    </main>
+    <footer class="footer" id="miFooter" >
+        <section class="bottom-container">
+            <div class="footer-logo wow fadeInDown">
+                <img src="imagenes/CMC en blanco.png" alt="logo">
+            </div>
+            
+            <div class="copyright">
+                <p><img src="imagenes/husky1.png" alt="logo" class="small-image"> Developed by <a target="_blank" href="">SKS
+                        Developers</a></p>
+            </div>
+        </section>
+    </footer>    
+   
+        
+
+</body>
+
+
+</html>

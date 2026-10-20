@@ -1,0 +1,33 @@
+# Publica el sitio en cmcnetwork.mx cada vez que hay cambios en main.
+# Requiere los secrets FTP_USER y FTP_PASS en Settings > Secrets and variables > Actions.
+name: Publicar en FTP
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-ftp
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Subir cambios por FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ftp.cmcnetwork.mx
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          server-dir: /paginas/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            scripts/**
+            Anterior/**
+            README.md
