@@ -9,7 +9,7 @@ $CONTACTO = [
     ],
     'whatsapp'   => '525525727241',
     'whatsapp_msg' => 'Hola, estoy interesado en sus servicios. ¿Podrían proporcionarme más información?',
-    'horario'    => ['Lunes a viernes 9:00 a 20:00 hrs', 'Sábados 9:00 a 14:00 hrs', 'Domingos 9:00 a 14:00 hrs'],
+    'horario'    => ['9:00 a 18:00 hrs'],
     'emails'     => [
         ['titulo' => 'Atención a clientes', 'email' => 'atc_clientes@cmcnetwork.mx'],
         ['titulo' => 'Ventas', 'email' => 'ventas@cmcnetwork.mx'],

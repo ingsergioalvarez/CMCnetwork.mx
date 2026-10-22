@@ -12,3 +12,5 @@ desktop.ini
 # Configuracion con contrasenas
 config/config.php
 build/
+*.pptx
+*.ppsx
