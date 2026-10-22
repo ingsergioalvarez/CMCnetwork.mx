@@ -1,4 +1,4 @@
-// Interacciones del sitio CMC: menu, animaciones, contadores, slides del hero y formularios.
+// Interacciones del sitio CMC: menu, animaciones, contadores, slides del hero, carruseles y formularios.
 (function () {
   'use strict';
 
@@ -9,7 +9,7 @@
     alScroll();
     window.addEventListener('scroll', alScroll, { passive: true });
     // Cerrar menu movil al elegir una opcion
-    nav.querySelectorAll('.nav-link, .btn').forEach(function (a) {
+    nav.querySelectorAll('.nav-link:not(.dropdown-toggle), .dropdown-item, .btn').forEach(function (a) {
       a.addEventListener('click', function () {
         var menu = document.getElementById('menu');
         if (menu && menu.classList.contains('show') && window.bootstrap) bootstrap.Collapse.getOrCreateInstance(menu).hide();
@@ -67,6 +67,87 @@
     });
     iniciar();
   }
+
+  // Carruseles: la pista se desliza con scroll-snap; flechas, puntos y avance automatico
+  var sinMovimiento = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('[data-carrusel]').forEach(function (car) {
+    var pista = car.querySelector('.carrusel-pista');
+    var puntosCar = car.querySelector('.carrusel-puntos');
+    var visibles = function () {
+      return Array.prototype.filter.call(pista.children, function (it) { return !it.hidden; });
+    };
+    var paso = function () {
+      var it = visibles()[0];
+      return it ? it.getBoundingClientRect().width + parseFloat(getComputedStyle(pista).columnGap || 0) : pista.clientWidth;
+    };
+    var paginas = function () { return Math.max(1, Math.ceil((pista.scrollWidth - pista.clientWidth) / paso() - 0.01) + 1); };
+    var pagina = function () { return Math.round(pista.scrollLeft / paso()); };
+    var ir = function (i) {
+      var total = paginas();
+      if (i >= total) i = 0;
+      if (i < 0) i = total - 1;
+      pista.scrollTo({ left: i * paso(), behavior: sinMovimiento ? 'auto' : 'smooth' });
+    };
+    var pintarPuntos = function () {
+      puntosCar.innerHTML = '';
+      var total = paginas();
+      car.classList.toggle('sin-controles', total < 2);
+      // Con muchas paginas, un contador "3 / 19" en lugar de puntos
+      if (total > 10) {
+        puntosCar.appendChild(document.createElement('span')).className = 'carrusel-contador';
+        puntosCar.total = total;
+        marcar();
+        return;
+      }
+      puntosCar.total = 0;
+      for (var i = 0; i < total; i++) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('aria-label', 'Ir a ' + (i + 1));
+        b.addEventListener('click', ir.bind(null, i));
+        puntosCar.appendChild(b);
+      }
+      marcar();
+    };
+    var marcar = function () {
+      var p = pagina();
+      if (puntosCar.total) { puntosCar.firstChild.textContent = Math.min(p + 1, puntosCar.total) + ' / ' + puntosCar.total; return; }
+      Array.prototype.forEach.call(puntosCar.children, function (b, i) { b.classList.toggle('activo', i === p); });
+    };
+    car.querySelectorAll('.carrusel-btn').forEach(function (b) {
+      b.addEventListener('click', function () { ir(pagina() + parseInt(b.getAttribute('data-dir'), 10)); });
+    });
+    var espera;
+    pista.addEventListener('scroll', function () { clearTimeout(espera); espera = setTimeout(marcar, 80); }, { passive: true });
+    window.addEventListener('resize', function () { clearTimeout(espera); espera = setTimeout(pintarPuntos, 150); });
+    car.refrescar = function () { pista.scrollLeft = 0; pintarPuntos(); };
+    pintarPuntos();
+
+    // Avance automatico: se pausa al pasar el mouse, al tocar o con el foco dentro
+    var ms = parseInt(car.getAttribute('data-auto'), 10);
+    if (ms && !sinMovimiento) {
+      var pausa = false, reloj = setInterval(function () { if (!pausa && !document.hidden) ir(pagina() + 1); }, ms);
+      ['mouseenter', 'focusin', 'touchstart'].forEach(function (ev) { car.addEventListener(ev, function () { pausa = true; }, { passive: true }); });
+      ['mouseleave', 'focusout'].forEach(function (ev) { car.addEventListener(ev, function () { pausa = false; }); });
+    }
+  });
+
+  // Filtros por pilar sobre un carrusel (botones con data-filtro y data-objetivo)
+  document.querySelectorAll('[data-filtros]').forEach(function (grupo) {
+    var car = document.querySelector(grupo.getAttribute('data-filtros'));
+    if (!car) return;
+    grupo.querySelectorAll('[data-filtro]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var f = b.getAttribute('data-filtro');
+        grupo.querySelectorAll('[data-filtro]').forEach(function (x) { x.classList.toggle('activo', x === b); x.setAttribute('aria-pressed', x === b); });
+        car.querySelectorAll('.carrusel-item').forEach(function (it) {
+          var el = it.querySelector('[data-pilar]');
+          it.hidden = f !== 'todos' && (!el || el.getAttribute('data-pilar') !== f);
+        });
+        if (car.refrescar) car.refrescar();
+      });
+    });
+  });
 
   // Formularios de prospecto (web y tarjeta)
   document.querySelectorAll('.js-form-prospecto').forEach(function (form) {

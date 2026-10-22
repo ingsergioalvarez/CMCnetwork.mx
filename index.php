@@ -1,18 +1,18 @@
 <?php
 require __DIR__ . '/includes/bootstrap.php';
 $pagina = 'inicio';
-$titulo = 'CMC Service Network | Conectividad empresarial y residencial';
+$titulo = 'CMC Service Network | Un solo socio tecnológico';
 require ROOT . '/includes/header.php';
+require ROOT . '/includes/carrusel.php';
 
-$slides = [
-    ['Conectividad empresarial', 'sin fronteras', 'Soluciones de conectividad de clase empresarial para eventos y operaciones críticas, con soporte 7 x 24.'],
-    ['Internet dedicado', 'de alto desempeño', 'Velocidades simétricas y una fiabilidad incomparable para mantener tus operaciones en movimiento sin interrupciones.'],
-    ['Respaldo de alta velocidad', 'con 4G y 5G', 'Mantén tu empresa conectada en todo momento y garantiza la continuidad del negocio en cualquier situación.'],
-    ['Conexión global', 'Internet satelital', 'Cobertura y ancho de banda garantizado para empresas que operan en ubicaciones remotas o desafiantes.'],
-];
+// Un mensaje general y uno por pilar (IoT primero)
+$slides = [['Un solo', 'socio tecnológico', 'Conectamos tu operación con la tecnología que la hace crecer, protegerse y no detenerse nunca.']];
+foreach ($PILARES as $p) {
+    $slides[] = [$p['titulo'][0], $p['titulo'][1], $p['texto']];
+}
 ?>
 
-<header class="hero" style="--hero-img:url('/img/slider/bg2.jpg')">
+<header class="hero" style="--hero-img:url('/img/web/hero-cdmx.jpg')">
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-lg-7">
@@ -26,7 +26,7 @@ $slides = [
         </div>
         <div class="d-flex flex-wrap gap-3 mt-4">
           <a href="#contacto" class="btn btn-cmc">Solicita una cotización</a>
-          <a href="#servicios" class="btn btn-borde">Ver servicios</a>
+          <a href="#portafolio" class="btn btn-borde">Ver portafolio</a>
         </div>
         <div class="hero-puntos"></div>
       </div>
@@ -37,67 +37,98 @@ $slides = [
   </div>
 </header>
 
-<section id="servicios" class="seccion seccion-clara">
+<section class="fortalezas">
+  <div class="container">
+    <div class="row text-center g-4">
+      <div class="col-6 col-md-3 contador"><strong data-hasta="5">0</strong><span>años operando</span></div>
+      <div class="col-6 col-md-3 contador"><strong><span data-hasta="7">0</span> x <span data-hasta="24">0</span></strong><span>monitoreo NOC</span></div>
+      <div class="col-6 col-md-3 contador"><strong data-hasta="<?= count($SOLUCIONES) ?>">0</strong><span>soluciones en un solo proveedor</span></div>
+      <div class="col-6 col-md-3 contador"><strong data-hasta="6">0</strong><span>estados con presencia</span></div>
+    </div>
+    <div class="sellos">
+      <span><i class="bi bi-patch-check-fill"></i>Concesión oficial de telecomunicaciones</span>
+      <span><i class="bi bi-tools"></i>Centro de servicio certificado</span>
+      <span><i class="bi bi-geo-alt-fill"></i>Cobertura nacional</span>
+      <span><i class="bi bi-award-fill"></i>Clientes AAA</span>
+    </div>
+  </div>
+</section>
+
+<section id="portafolio" class="seccion seccion-clara">
   <div class="container">
     <div class="titulo-seccion text-center revelar">
-      <span class="etiqueta">Nuestros servicios</span>
-      <h2>Conectividad para cada operación</h2>
-      <p>Desde conferencias ejecutivas hasta lanzamientos de alto nivel, confía en nosotros para una experiencia sin interrupciones en cada conexión.</p>
+      <span class="etiqueta">Portafolio</span>
+      <h2>Todo lo que tu operación necesita, con un solo socio</h2>
+      <p>IoT, automatización, cadena de suministro, conectividad y TI integrados por un mismo equipo, con un solo contrato y un solo soporte.</p>
+    </div>
+    <div class="filtros" data-filtros="#carrusel-portafolio" role="group" aria-label="Filtrar por área">
+      <button type="button" class="activo" data-filtro="todos" aria-pressed="true">Todas</button>
+      <?php foreach ($PILARES as $clave => $p): ?>
+        <button type="button" data-filtro="<?= e($clave) ?>" aria-pressed="false"><i class="bi <?= e($p['icono']) ?> me-1"></i><?= e($p['nombre']) ?></button>
+      <?php endforeach; ?>
+    </div>
+    <div id="carrusel-portafolio">
+      <?php carrusel(array_map('tarjeta_solucion', array_keys($SOLUCIONES), $SOLUCIONES), ['auto' => true, 'etiqueta' => 'Portafolio de soluciones']); ?>
+    </div>
+  </div>
+</section>
+
+<?php $iot = $PILARES['iot']; $sd = $SOLUCIONES['scardetection']; ?>
+<section class="seccion seccion-noche">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6 revelar">
+        <span class="etiqueta">Destacado · <?= e($iot['nombre']) ?></span>
+        <h2 class="display-6 fw-bold"><?= e($iot['titulo'][0]) ?> <span class="grad-texto"><?= e($iot['titulo'][1]) ?></span></h2>
+        <p class="lead"><?= e($iot['texto']) ?></p>
+        <ul class="lista-check">
+          <?php foreach (soluciones('iot') as $slug => $s): ?>
+            <li><a href="<?= e(solucion_url($slug)) ?>"><strong><?= e($s['nombre']) ?></strong></a> · <?= e($s['sub']) ?></li>
+          <?php endforeach; ?>
+        </ul>
+        <a href="<?= e($iot['url']) ?>" class="btn btn-cmc mt-2">Conoce IoT y Automatización</a>
+      </div>
+      <div class="col-lg-6 revelar">
+        <a href="<?= e(solucion_url('scardetection')) ?>" class="destacado-img d-block">
+          <span class="insignia-nuevo">NUEVO</span>
+          <img src="/img/soluciones/scardetection.jpg" alt="<?= e($sd['nombre']) ?>" loading="lazy" width="960" height="720">
+        </a>
+        <h3 class="h4 mt-4 mb-1"><?= e($sd['nombre']) ?>: <?= e(mb_strtolower($sd['sub'])) ?></h3>
+        <p class="mb-0"><?= e($sd['resumen']) ?></p>
+        <div class="chips"><?php foreach ($sd['destacado'] as $c): ?><span><?= e($c) ?></span><?php endforeach; ?></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion">
+  <div class="container">
+    <div class="titulo-seccion text-center revelar">
+      <span class="etiqueta">Áreas de solución</span>
+      <h2>Cuatro pilares, un mismo equipo</h2>
     </div>
     <div class="row g-4">
-      <?php foreach ($SERVICIOS as $s): ?>
-        <div class="col-md-6 col-lg-4 revelar">
-          <div class="tarjeta-servicio">
-            <div class="icono"><i class="bi <?= e($s['icono']) ?>"></i></div>
-            <h3><?= e($s['titulo']) ?></h3>
-            <p><?= e($s['texto']) ?></p>
-          </div>
+      <?php foreach ($PILARES as $clave => $p): ?>
+        <div class="col-sm-6 col-lg-3 revelar">
+          <a class="pilar" href="<?= e($p['url']) ?>">
+            <div class="icono"><i class="bi <?= e($p['icono']) ?>"></i></div>
+            <h3><?= e($p['nombre']) ?></h3>
+            <p><?= e(implode(' · ', array_column(soluciones($clave), 'nombre'))) ?></p>
+            <span class="tarjeta-sol-mas">Ver soluciones <i class="bi bi-arrow-right"></i></span>
+          </a>
         </div>
       <?php endforeach; ?>
     </div>
   </div>
 </section>
 
-<section id="productos" class="seccion">
+<section class="seccion seccion-noche">
   <div class="container">
     <div class="titulo-seccion text-center revelar">
-      <span class="etiqueta">Productos</span>
-      <h2>Elige la conexión ideal</h2>
+      <span class="etiqueta">Industrias</span>
+      <h2>Soluciones para cada sector</h2>
     </div>
-    <div class="row g-4">
-      <div class="col-lg-6 revelar">
-        <a href="/corporativo.php" class="producto text-decoration-none">
-          <img src="/img/web/corporativo.jpg" alt="Internet corporativo" loading="lazy">
-          <div class="producto-texto">
-            <span class="etiqueta" style="color:var(--cmc-cian-brillante)">Empresas</span>
-            <h3>Internet corporativo</h3>
-            <p>Alta velocidad, conexión segura y soporte 24/7. Mantén a tu equipo siempre conectado.</p>
-            <span class="btn btn-cmc btn-sm">Más detalles</span>
-          </div>
-        </a>
-      </div>
-      <div class="col-lg-6 revelar">
-        <a href="/residencial.php" class="producto text-decoration-none">
-          <img src="/img/web/residencial.jpg" alt="Internet residencial" loading="lazy">
-          <div class="producto-texto">
-            <span class="etiqueta" style="color:var(--cmc-cian-brillante)">Hogar</span>
-            <h3>Internet residencial</h3>
-            <p>Navegación rápida y sin interrupciones para entretenimiento, estudio y trabajo desde casa.</p>
-            <span class="btn btn-cmc btn-sm">Ver planes</span>
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="contadores">
-  <div class="container">
-    <div class="row text-center g-4">
-      <div class="col-md-4 contador"><strong data-hasta="365">0</strong><span>días de soporte al año</span></div>
-      <div class="col-md-4 contador"><strong data-hasta="24">0</strong><span>horas de monitoreo NOC</span></div>
-      <div class="col-md-4 contador"><strong data-hasta="100">0</strong><span>Gbps de capacidad máxima</span></div>
-    </div>
+    <?php carrusel(array_map('tarjeta_industria', $INDUSTRIAS), ['por_vista' => 4, 'auto' => true, 'etiqueta' => 'Industrias que atendemos']); ?>
   </div>
 </section>
 
@@ -106,18 +137,32 @@ $slides = [
     <div class="row align-items-center g-5">
       <div class="col-lg-6 revelar">
         <span class="etiqueta">Nosotros</span>
-        <h2>Expertos en diseño, integración y operación tecnológica</h2>
-        <p>Somos un equipo especializado en conectividad de misión crítica. Diseñamos, integramos y operamos soluciones de Internet dedicado, respaldo móvil y satelital para empresas, eventos y hogares en todo México.</p>
+        <h2>Tu socio tecnológico desde hace 5 años</h2>
+        <p>Diseñamos, integramos y operamos tecnología para empresas que no pueden detenerse. Atendemos a clientes AAA de retail, comercio electrónico, gobierno y municipios, con un mismo equipo responsable de la solución completa: desde el sensor y la cámara hasta la red, el software y el soporte.</p>
         <ul class="lista-check">
+          <li>Un solo proveedor, un contrato y un soporte</li>
+          <li>Monitoreo 7 x 24 desde nuestro NOC</li>
+          <li>Ingenieros certificados y centro de servicio propio</li>
           <li>Cobertura nacional</li>
-          <li>Monitoreo remoto desde la nube</li>
-          <li>Velocidades desde 10 Mbps hasta 100 Gbps</li>
-          <li>Atención personalizada</li>
         </ul>
       </div>
       <div class="col-lg-6 revelar">
-        <img src="/img/web/nosotros.jpg" alt="Equipo CMC" class="bloque-img" loading="lazy">
+        <img src="/img/soluciones/c2.jpg" alt="Centro de monitoreo" class="bloque-img" loading="lazy">
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion pt-0 seccion-clara">
+  <div class="container">
+    <div class="hermana revelar">
+      <img src="/img/web/comunicalo.png" alt="Comunícalo de México" width="420" height="138" loading="lazy">
+      <div>
+        <span class="etiqueta">Empresa hermana</span>
+        <h2>¿Organizas un evento?</h2>
+        <p>Internet y conectividad para eventos, convenciones y exposiciones con <?= e($COMUNICALO['nombre']) ?>.</p>
+      </div>
+      <a href="<?= e($COMUNICALO['url']) ?>" class="btn btn-cmc" target="_blank" rel="noopener">Visitar <?= e(parse_url($COMUNICALO['url'], PHP_URL_HOST)) ?> <i class="bi bi-box-arrow-up-right ms-1"></i></a>
     </div>
   </div>
 </section>

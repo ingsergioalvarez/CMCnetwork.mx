@@ -84,7 +84,7 @@ admin_header('Prospectos', 'prospectos');
             <?php if ($r['telefono'] !== ''): ?><a href="https://wa.me/<?= e(strlen(solo_digitos($r['telefono'])) === 10 ? '52' . solo_digitos($r['telefono']) : solo_digitos($r['telefono'])) ?>" target="_blank" title="WhatsApp"><i class="bi bi-whatsapp text-success"></i></a> <a href="tel:<?= e(solo_digitos($r['telefono'])) ?>"><?= e($r['telefono']) ?></a><br><?php endif; ?>
             <?php if ($r['email'] !== ''): ?><a href="mailto:<?= e($r['email']) ?>"><?= e($r['email']) ?></a><?php endif; ?>
           </td>
-          <td class="small"><?= e(isset($INTERESES[$r['interes']]) ? $INTERESES[$r['interes']] : '') ?></td>
+          <td class="small"><?= e(interes_texto($r['interes'])) ?></td>
           <td class="small">
             <?php if ($r['origen'] === 'tarjeta'): ?>
               <span class="badge text-bg-dark"><i class="bi bi-qr-code"></i> QR</span>

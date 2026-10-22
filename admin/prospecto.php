@@ -41,7 +41,7 @@ $tel = solo_digitos($p['telefono']);
           <?php if ($tel): ?><a class="btn btn-success btn-sm ms-2" target="_blank" href="https://wa.me/<?= e(strlen($tel) === 10 ? '52' . $tel : $tel) ?>"><i class="bi bi-whatsapp"></i> WhatsApp</a>
           <a class="btn btn-light btn-sm" href="tel:<?= e($tel) ?>"><i class="bi bi-telephone"></i> Llamar</a><?php endif; ?></dd>
         <dt class="col-sm-3">Correo</dt><dd class="col-sm-9"><?php if ($p['email']): ?><a href="mailto:<?= e($p['email']) ?>"><?= e($p['email']) ?></a><?php endif; ?></dd>
-        <dt class="col-sm-3">Interés</dt><dd class="col-sm-9"><?= e(isset($INTERESES[$p['interes']]) ? $INTERESES[$p['interes']] : '—') ?></dd>
+        <dt class="col-sm-3">Interés</dt><dd class="col-sm-9"><?= e(interes_texto($p['interes']) ?: '—') ?></dd>
         <dt class="col-sm-3">Mensaje</dt><dd class="col-sm-9"><?= nl2br(e($p['mensaje'])) ?: '—' ?></dd>
         <dt class="col-sm-3">Origen</dt><dd class="col-sm-9"><?= $p['origen'] === 'tarjeta' ? 'Tarjeta QR' : 'Sitio web · ' . e($p['pagina']) ?></dd>
         <?php if ($p['vendedor'] || $p['evento']): ?>

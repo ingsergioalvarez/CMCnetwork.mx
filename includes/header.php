@@ -1,16 +1,14 @@
 <?php
-// Variables esperadas: $titulo, $descripcion, $pagina (inicio|corporativo|residencial)
+// Variables esperadas: $titulo, $descripcion, $pagina (inicio|residencial|clave de un pilar)
 defined('CMC') || exit;
 require_once __DIR__ . '/datos.php';
 
 $titulo = isset($titulo) ? $titulo : 'CMC Service Network';
-$descripcion = isset($descripcion) ? $descripcion : 'Conectividad empresarial y residencial: Internet dedicado, respaldo 4G/5G, satelital e Internet para eventos.';
+$descripcion = isset($descripcion) ? $descripcion : 'Un solo socio tecnológico: IoT y automatización, videovigilancia con IA, RFID y cadena de suministro, conectividad de misión crítica, ciberseguridad y software.';
 $pagina = isset($pagina) ? $pagina : '';
 
-$menu = [
-    'inicio'      => ['/', 'Inicio'],
-    'corporativo' => ['/corporativo.php', 'Corporativo'],
-];
+// El pilar destacado va directo en el menu; los demas en el desplegable "Soluciones"
+$menu_soluciones = array_diff_key($PILARES, ['iot' => 1]);
 $wa = 'https://wa.me/' . $CONTACTO['whatsapp'] . '?text=' . rawurlencode($CONTACTO['whatsapp_msg']);
 ?>
 <!doctype html>
@@ -32,7 +30,7 @@ $wa = 'https://wa.me/' . $CONTACTO['whatsapp'] . '?text=' . rawurlencode($CONTAC
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="/css/marca.css">
-  <link rel="stylesheet" href="/css/cmc.css?v=4">
+  <link rel="stylesheet" href="/css/cmc.css?v=5">
 </head>
 <body class="pagina-<?= e($pagina) ?>">
 
@@ -44,9 +42,17 @@ $wa = 'https://wa.me/' . $CONTACTO['whatsapp'] . '?text=' . rawurlencode($CONTAC
     </button>
     <div class="collapse navbar-collapse" id="menu">
       <ul class="navbar-nav ms-auto align-items-lg-center">
-        <?php foreach ($menu as $clave => $item): ?>
-          <li class="nav-item"><a class="nav-link<?= $clave === $pagina ? ' active' : '' ?>" href="<?= e($item[0]) ?>"><?= e($item[1]) ?></a></li>
-        <?php endforeach; ?>
+        <li class="nav-item"><a class="nav-link<?= $pagina === 'inicio' ? ' active' : '' ?>" href="/">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link<?= $pagina === 'iot' ? ' active' : '' ?>" href="<?= e($PILARES['iot']['url']) ?>"><?= e($PILARES['iot']['nombre']) ?></a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle<?= isset($menu_soluciones[$pagina]) ? ' active' : '' ?>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Soluciones</a>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <?php foreach ($menu_soluciones as $clave => $mp): ?>
+              <li><a class="dropdown-item<?= $clave === $pagina ? ' active' : '' ?>" href="<?= e($mp['url']) ?>"><i class="bi <?= e($mp['icono']) ?> me-2"></i><?= e($mp['nombre']) ?></a></li>
+            <?php endforeach; ?>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="/#nosotros">Nosotros</a></li>
         <li class="nav-item ms-lg-3"><a class="btn btn-cmc btn-sm" href="#contacto">Contáctanos</a></li>
       </ul>
     </div>

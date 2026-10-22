@@ -12,7 +12,7 @@ return [
     ],
 
     // Quien recibe el aviso de cada prospecto nuevo
-    'notificar' => ['mgarcia@cmcnetwork.mx'],
+    'notificar' => ['ventas@cmcnetwork.mx'],
 
     'mail' => [
         'from'      => 'noreply@cmcnetwork.mx',

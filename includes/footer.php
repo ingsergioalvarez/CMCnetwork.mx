@@ -7,15 +7,20 @@ require_once __DIR__ . '/datos.php';
     <div class="row g-5">
       <div class="col-lg-3">
         <img src="/imagenes/marca/logo-cmc-blanco-web.png" alt="CMC Service Network" class="pie-logo" loading="lazy">
-        <p class="texto-suave mt-3">Conectividad empresarial y residencial con monitoreo 7 x 24.</p>
+        <p class="texto-suave mt-3">Un solo socio tecnológico: IoT, automatización, cadena de suministro, conectividad y TI.</p>
         <p class="mb-1"><?php foreach ($CONTACTO['telefonos'] as $t): ?><a href="tel:<?= e($t['tel']) ?>"><?= e($t['texto']) ?></a><br><?php endforeach; ?></p>
       </div>
       <div class="col-sm-6 col-lg-3">
-        <h4>Servicios</h4>
+        <h4>Soluciones</h4>
         <ul>
-          <li><a href="/corporativo.php#eventos">Internet para eventos</a></li>
-          <li><a href="/corporativo.php">Internet corporativo</a></li>
+          <?php foreach ($PILARES as $p): ?>
+            <li><a href="<?= e($p['url']) ?>"><?= e($p['nombre']) ?></a></li>
+          <?php endforeach; ?>
           <li><a href="/residencial.php">Internet residencial</a></li>
+        </ul>
+        <h4 class="mt-4">Empresa hermana</h4>
+        <ul>
+          <li><a href="<?= e($COMUNICALO['url']) ?>" target="_blank" rel="noopener"><?= e($COMUNICALO['nombre']) ?> · Internet para eventos <i class="bi bi-box-arrow-up-right"></i></a></li>
         </ul>
       </div>
       <?php foreach ($LEGALES as $grupo => $docs): ?>
@@ -36,7 +41,7 @@ require_once __DIR__ . '/datos.php';
   </div>
 </footer>
 
-<script src="/js/app.js?v=2" defer></script>
+<script src="/js/app.js?v=3" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
 </body>
 </html>

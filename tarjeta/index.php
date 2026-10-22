@@ -33,7 +33,7 @@ header('Cache-Control: no-store'); // el vendedor activo cambia desde el panel
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="/css/marca.css">
-  <link rel="stylesheet" href="/css/cmc.css?v=4">
+  <link rel="stylesheet" href="/css/cmc.css?v=5">
   <link rel="stylesheet" href="/css/tarjeta.css?v=1">
 </head>
 <body class="tarjeta-body seccion-noche">
@@ -96,6 +96,7 @@ header('Cache-Control: no-store'); // el vendedor activo cambia desde el panel
       <div class="mb-3">
         <label class="form-label" for="t-interes">Me interesa</label>
         <select class="form-select" id="t-interes" name="interes">
+          <option value="">Selecciona una opción</option>
           <?php foreach ($INTERESES as $valor => $texto): ?>
             <option value="<?= e($valor) ?>"><?= e($texto) ?></option>
           <?php endforeach; ?>
@@ -116,7 +117,7 @@ header('Cache-Control: no-store'); // el vendedor activo cambia desde el panel
   </footer>
 </main>
 
-<script src="/js/app.js?v=2" defer></script>
+<script src="/js/app.js?v=3" defer></script>
 <script>
   // Tras enviar, ocultar el formulario y dejar el mensaje de gracias
   document.addEventListener('prospecto:enviado', function (ev) {

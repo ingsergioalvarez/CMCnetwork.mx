@@ -1,13 +1,15 @@
 <?php
-// Seccion de contacto con formulario. Variable opcional: $pagina (se guarda como origen).
+// Seccion de contacto con formulario. Variables opcionales: $pagina (se guarda como origen) y $interes (opcion preseleccionada).
 defined('CMC') || exit;
 require_once __DIR__ . '/datos.php';
+// ?interes=slug en la URL (botones "Solicitar informacion") tiene prioridad
+$interes_sel = isset($_GET['interes']) && is_string($_GET['interes']) ? $_GET['interes'] : (isset($interes) ? $interes : '');
 ?>
 <section id="contacto" class="seccion seccion-noche">
   <div class="container">
     <div class="titulo-seccion text-center revelar">
       <span class="etiqueta">Contacto</span>
-      <h2>Hablemos de tu conectividad</h2>
+      <h2>Hablemos de tu proyecto</h2>
       <p>Déjanos tus datos y uno de nuestros asesores te contactará con una solución a tu medida.</p>
     </div>
 
@@ -39,8 +41,9 @@ require_once __DIR__ . '/datos.php';
             <div class="col-12">
               <label class="form-label" for="c-interes">Me interesa</label>
               <select class="form-select" id="c-interes" name="interes">
+                <option value="">Selecciona una opción</option>
                 <?php foreach ($INTERESES as $valor => $texto): ?>
-                  <option value="<?= e($valor) ?>"<?= (isset($pagina) && $pagina === $valor) ? ' selected' : '' ?>><?= e($texto) ?></option>
+                  <option value="<?= e($valor) ?>"<?= $interes_sel === $valor ? ' selected' : '' ?>><?= e($texto) ?></option>
                 <?php endforeach; ?>
               </select>
             </div>

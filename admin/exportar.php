@@ -22,7 +22,7 @@ while ($r = $st->fetch()) {
     };
     fputcsv($out, array_map($celda, [
         $r['creado'], $r['nombre'], $r['empresa'], $r['telefono'], $r['email'],
-        isset($INTERESES[$r['interes']]) ? $INTERESES[$r['interes']] : $r['interes'],
+        interes_texto($r['interes']),
         $r['mensaje'], $r['origen'] === 'tarjeta' ? 'QR' : 'Web', $r['pagina'], $r['vendedor'], $r['evento'],
         isset($ESTADOS[$r['estado']]) ? $ESTADOS[$r['estado']][0] : $r['estado'], $r['notas'],
     ]));
