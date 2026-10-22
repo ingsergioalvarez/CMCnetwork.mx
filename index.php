@@ -38,23 +38,6 @@ foreach ($PILARES as $p) {
   </div>
 </header>
 
-<section class="fortalezas">
-  <div class="container">
-    <div class="row text-center g-4">
-      <div class="col-6 col-md-3 contador"><strong data-hasta="5">0</strong><span>años operando</span></div>
-      <div class="col-6 col-md-3 contador"><strong><span data-hasta="7">0</span> x <span data-hasta="24">0</span></strong><span>monitoreo NOC</span></div>
-      <div class="col-6 col-md-3 contador"><strong data-hasta="<?= count($SOLUCIONES) ?>">0</strong><span>soluciones en un solo proveedor</span></div>
-      <div class="col-6 col-md-3 contador"><strong data-hasta="6">0</strong><span>estados con presencia</span></div>
-    </div>
-    <div class="sellos">
-      <span><?= icono('patch-check-fill') ?>Concesión oficial de telecomunicaciones</span>
-      <span><?= icono('tools') ?>Centro de servicio certificado</span>
-      <span><?= icono('geo-alt-fill') ?>Cobertura nacional</span>
-      <span><?= icono('award-fill') ?>Clientes AAA</span>
-    </div>
-  </div>
-</section>
-
 <section id="portafolio" class="seccion seccion-clara">
   <div class="container">
     <div class="titulo-seccion text-center revelar">
@@ -152,20 +135,6 @@ foreach ($PILARES as $p) {
       <div class="col-lg-6 revelar">
         <?= img_solucion('c2', 'Centro de monitoreo', '(max-width: 991px) 92vw, 560px', 'class="bloque-img" loading="lazy"') ?>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="seccion pt-0 seccion-clara">
-  <div class="container">
-    <div class="hermana revelar">
-      <img src="/img/web/comunicalo.webp" alt="Comunícalo de México" width="420" height="138" loading="lazy">
-      <div>
-        <span class="etiqueta">Empresa hermana</span>
-        <h2>¿Organizas un evento?</h2>
-        <p>Internet y conectividad para eventos, convenciones y exposiciones con <?= e($COMUNICALO['nombre']) ?>.</p>
-      </div>
-      <a href="<?= e($COMUNICALO['url']) ?>" class="btn btn-cmc" target="_blank" rel="noopener">Visitar <?= e(parse_url($COMUNICALO['url'], PHP_URL_HOST)) ?> <?= icono('box-arrow-up-right', 'ms-1') ?></a>
     </div>
   </div>
 </section>

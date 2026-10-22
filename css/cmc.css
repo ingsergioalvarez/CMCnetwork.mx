@@ -174,12 +174,6 @@ img { max-width: 100%; }
 .filtros button:hover { border-color: var(--cmc-cian); }
 .filtros button.activo { background: var(--cmc-degradado); color: #fff; border-color: transparent; }
 
-/* Fortalezas */
-.fortalezas { background: var(--cmc-degradado); color: #fff; padding: 56px 0; }
-.fortalezas .contador strong { display: block; font-size: clamp(36px, 5vw, 54px); font-weight: 700; line-height: 1; }
-.fortalezas .contador span { opacity: .9; }
-.sellos { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 28px; margin-top: 34px; padding-top: 28px; border-top: 1px solid rgba(255, 255, 255, .25); font-weight: 500; }
-.sellos .bi { color: var(--cmc-cian-brillante); margin-right: 6px; }
 
 /* Bloque destacado (IoT, Scardetection) */
 .destacado-img { position: relative; border-radius: 24px; overflow: hidden; box-shadow: 0 24px 60px rgba(0, 0, 0, .35); }
@@ -209,12 +203,6 @@ img { max-width: 100%; }
 .paso h3 { font-size: 1.05rem; }
 .paso p { font-size: .9rem; margin: 0; }
 
-/* Empresa hermana */
-.hermana { display: flex; flex-wrap: wrap; align-items: center; gap: 24px 40px; background: #fff; border-radius: 24px; padding: 32px 40px; box-shadow: var(--sombra); }
-.hermana img { width: 210px; height: auto; }
-.hermana div { flex: 1 1 320px; }
-.hermana h2 { font-size: 1.5rem; margin-bottom: 6px; }
-.hermana p { margin: 0; }
 
 /* Menu desplegable */
 @media (min-width: 992px) { .cmc-nav .dropdown-menu { top: 100%; left: 0; margin-top: 8px; } }
