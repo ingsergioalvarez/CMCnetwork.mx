@@ -2,6 +2,7 @@
 require __DIR__ . '/includes/bootstrap.php';
 $pagina = 'inicio';
 $titulo = 'CMC Service Network | Un solo socio tecnológico';
+$precargar = '/img/web/hero-cdmx.webp';
 require ROOT . '/includes/header.php';
 require ROOT . '/includes/carrusel.php';
 
@@ -12,7 +13,7 @@ foreach ($PILARES as $p) {
 }
 ?>
 
-<header class="hero" style="--hero-img:url('/img/web/hero-cdmx.jpg')">
+<header class="hero" style="--hero-img:url('/img/web/hero-cdmx.webp')">
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-lg-7">
@@ -31,7 +32,7 @@ foreach ($PILARES as $p) {
         <div class="hero-puntos"></div>
       </div>
       <div class="col-lg-5 text-center d-none d-lg-block">
-        <img src="/imagenes/marca/simbolo-cmc.png?v=2" alt="" class="hero-simbolo" width="440" height="440">
+        <img src="/imagenes/marca/simbolo-cmc.webp" alt="" class="hero-simbolo" width="440" height="440" fetchpriority="low">
       </div>
     </div>
   </div>
@@ -46,10 +47,10 @@ foreach ($PILARES as $p) {
       <div class="col-6 col-md-3 contador"><strong data-hasta="6">0</strong><span>estados con presencia</span></div>
     </div>
     <div class="sellos">
-      <span><i class="bi bi-patch-check-fill"></i>Concesión oficial de telecomunicaciones</span>
-      <span><i class="bi bi-tools"></i>Centro de servicio certificado</span>
-      <span><i class="bi bi-geo-alt-fill"></i>Cobertura nacional</span>
-      <span><i class="bi bi-award-fill"></i>Clientes AAA</span>
+      <span><?= icono('patch-check-fill') ?>Concesión oficial de telecomunicaciones</span>
+      <span><?= icono('tools') ?>Centro de servicio certificado</span>
+      <span><?= icono('geo-alt-fill') ?>Cobertura nacional</span>
+      <span><?= icono('award-fill') ?>Clientes AAA</span>
     </div>
   </div>
 </section>
@@ -64,7 +65,7 @@ foreach ($PILARES as $p) {
     <div class="filtros" data-filtros="#carrusel-portafolio" role="group" aria-label="Filtrar por área">
       <button type="button" class="activo" data-filtro="todos" aria-pressed="true">Todas</button>
       <?php foreach ($PILARES as $clave => $p): ?>
-        <button type="button" data-filtro="<?= e($clave) ?>" aria-pressed="false"><i class="bi <?= e($p['icono']) ?> me-1"></i><?= e($p['nombre']) ?></button>
+        <button type="button" data-filtro="<?= e($clave) ?>" aria-pressed="false"><?= icono($p['icono'], 'me-1') ?><?= e($p['nombre']) ?></button>
       <?php endforeach; ?>
     </div>
     <div id="carrusel-portafolio">
@@ -91,7 +92,7 @@ foreach ($PILARES as $p) {
       <div class="col-lg-6 revelar">
         <a href="<?= e(solucion_url('scardetection')) ?>" class="destacado-img d-block">
           <span class="insignia-nuevo">NUEVO</span>
-          <img src="/img/soluciones/scardetection.jpg" alt="<?= e($sd['nombre']) ?>" loading="lazy" width="960" height="720">
+          <?= img_solucion('scardetection', $sd['nombre'], '(max-width: 991px) 92vw, 560px') ?>
         </a>
         <h3 class="h4 mt-4 mb-1"><?= e($sd['nombre']) ?>: <?= e(mb_strtolower($sd['sub'])) ?></h3>
         <p class="mb-0"><?= e($sd['resumen']) ?></p>
@@ -111,10 +112,10 @@ foreach ($PILARES as $p) {
       <?php foreach ($PILARES as $clave => $p): ?>
         <div class="col-sm-6 col-lg-3 revelar">
           <a class="pilar" href="<?= e($p['url']) ?>">
-            <div class="icono"><i class="bi <?= e($p['icono']) ?>"></i></div>
+            <div class="icono"><?= icono($p['icono']) ?></div>
             <h3><?= e($p['nombre']) ?></h3>
             <p><?= e(implode(' · ', array_column(soluciones($clave), 'nombre'))) ?></p>
-            <span class="tarjeta-sol-mas">Ver soluciones <i class="bi bi-arrow-right"></i></span>
+            <span class="tarjeta-sol-mas">Ver soluciones <?= icono('arrow-right') ?></span>
           </a>
         </div>
       <?php endforeach; ?>
@@ -149,7 +150,7 @@ foreach ($PILARES as $p) {
         </ul>
       </div>
       <div class="col-lg-6 revelar">
-        <img src="/img/soluciones/c2.jpg" alt="Centro de monitoreo" class="bloque-img" loading="lazy">
+        <?= img_solucion('c2', 'Centro de monitoreo', '(max-width: 991px) 92vw, 560px', 'class="bloque-img" loading="lazy"') ?>
       </div>
     </div>
   </div>
@@ -158,19 +159,28 @@ foreach ($PILARES as $p) {
 <section class="seccion pt-0 seccion-clara">
   <div class="container">
     <div class="hermana revelar">
-      <img src="/img/web/comunicalo.png" alt="Comunícalo de México" width="420" height="138" loading="lazy">
+      <img src="/img/web/comunicalo.webp" alt="Comunícalo de México" width="420" height="138" loading="lazy">
       <div>
         <span class="etiqueta">Empresa hermana</span>
         <h2>¿Organizas un evento?</h2>
         <p>Internet y conectividad para eventos, convenciones y exposiciones con <?= e($COMUNICALO['nombre']) ?>.</p>
       </div>
-      <a href="<?= e($COMUNICALO['url']) ?>" class="btn btn-cmc" target="_blank" rel="noopener">Visitar <?= e(parse_url($COMUNICALO['url'], PHP_URL_HOST)) ?> <i class="bi bi-box-arrow-up-right ms-1"></i></a>
+      <a href="<?= e($COMUNICALO['url']) ?>" class="btn btn-cmc" target="_blank" rel="noopener">Visitar <?= e(parse_url($COMUNICALO['url'], PHP_URL_HOST)) ?> <?= icono('box-arrow-up-right', 'ms-1') ?></a>
     </div>
   </div>
 </section>
 
 <?php require ROOT . '/includes/form-contacto.php'; ?>
 
-<div class="mapa"><iframe src="<?= e($CONTACTO['mapa_embed']) ?>" loading="lazy" title="Ubicación de CMC" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+<div class="mapa mapa-fachada" data-mapa="<?= e($CONTACTO['mapa_embed']) ?>">
+  <div>
+    <?= icono('geo-alt-fill') ?>
+    <p><?= e($CONTACTO['direccion']) ?></p>
+    <div class="d-flex flex-wrap justify-content-center gap-3">
+      <button type="button" class="btn btn-cmc">Ver mapa</button>
+      <a href="<?= e($CONTACTO['mapa_link']) ?>" class="btn btn-borde" target="_blank" rel="noopener">Abrir en Google Maps</a>
+    </div>
+  </div>
+</div>
 
 <?php require ROOT . '/includes/footer.php'; ?>

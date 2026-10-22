@@ -30,7 +30,7 @@
   transition: background .2s, transform .2s;
 }
 .tarjeta-acciones a:hover { background: rgba(0, 204, 252, .18); transform: translateY(-2px); }
-.tarjeta-acciones i { font-size: 1.35rem; color: var(--cmc-cian-brillante); }
+.tarjeta-acciones .bi { font-size: 1.35rem; color: var(--cmc-cian-brillante); }
 
 .tarjeta-form {
   margin-top: 30px; background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .12);

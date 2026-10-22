@@ -3,6 +3,7 @@
 require __DIR__ . '/../includes/bootstrap.php';
 require ROOT . '/includes/datos.php';
 require ROOT . '/includes/tarjeta.php';
+require ROOT . '/includes/recursos.php';
 
 $vslug = isset($_GET['v']) ? slugify($_GET['v']) : '';
 $eslug = isset($_GET['e']) ? slugify($_GET['e']) : '';
@@ -27,21 +28,16 @@ header('Cache-Control: no-store'); // el vendedor activo cambia desde el panel
   <meta name="theme-color" content="#06123D">
   <link rel="icon" href="/imagenes/marca/favicon.ico">
   <link rel="apple-touch-icon" href="/imagenes/marca/apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="/css/marca.css">
-  <link rel="stylesheet" href="/css/cmc.css?v=6">
-  <link rel="stylesheet" href="/css/tarjeta.css?v=1">
+  <link rel="preload" href="/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/poppins-400.woff2" as="font" type="font/woff2" crossorigin>
+  <style><?= css_en_linea(['bootstrap-sitio.css', 'fuentes.css', 'marca.css', 'cmc.css', 'tarjeta.css']) ?></style>
 </head>
 <body class="tarjeta-body seccion-noche">
 <main class="tarjeta-wrap">
 
   <header class="tarjeta-top">
-    <img src="/imagenes/marca/logo-cmc-blanco-web.png" alt="CMC Service Network" width="170" height="48">
-    <?php if ($evento): ?><span class="tarjeta-evento"><i class="bi bi-geo-alt"></i> <?= e($evento['nombre']) ?></span><?php endif; ?>
+    <img src="/imagenes/marca/logo-cmc-nav.png" alt="CMC Service Network" width="170" height="48">
+    <?php if ($evento): ?><span class="tarjeta-evento"><?= icono('geo-alt') ?> <?= e($evento['nombre']) ?></span><?php endif; ?>
   </header>
 
   <section class="tarjeta-perfil">
@@ -55,13 +51,13 @@ header('Cache-Control: no-store'); // el vendedor activo cambia desde el panel
     <h1><?= e($v['nombre']) ?></h1>
     <p class="tarjeta-puesto"><?= e($v['puesto']) ?></p>
 
-    <a href="<?= e($vcard) ?>" class="btn btn-cmc w-100 tarjeta-guardar"><i class="bi bi-person-plus-fill me-2"></i>Guardar contacto</a>
+    <a href="<?= e($vcard) ?>" class="btn btn-cmc w-100 tarjeta-guardar"><?= icono('person-plus-fill', 'me-2') ?>Guardar contacto</a>
 
     <div class="tarjeta-acciones">
-      <?php if ($v['telefono']): ?><a href="tel:<?= e(solo_digitos($v['telefono'])) ?>"><i class="bi bi-telephone-fill"></i><span>Llamar</span></a><?php endif; ?>
-      <a href="<?= e($wa) ?>" target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i><span>WhatsApp</span></a>
-      <?php if ($v['email']): ?><a href="mailto:<?= e($v['email']) ?>"><i class="bi bi-envelope-fill"></i><span>Correo</span></a><?php endif; ?>
-      <a href="/" target="_blank"><i class="bi bi-globe2"></i><span>Sitio web</span></a>
+      <?php if ($v['telefono']): ?><a href="tel:<?= e(solo_digitos($v['telefono'])) ?>"><?= icono('telephone-fill') ?><span>Llamar</span></a><?php endif; ?>
+      <a href="<?= e($wa) ?>" target="_blank" rel="noopener"><?= icono('whatsapp') ?><span>WhatsApp</span></a>
+      <?php if ($v['email']): ?><a href="mailto:<?= e($v['email']) ?>"><?= icono('envelope-fill') ?><span>Correo</span></a><?php endif; ?>
+      <a href="/" target="_blank"><?= icono('globe2') ?><span>Sitio web</span></a>
     </div>
   </section>
 
@@ -117,7 +113,8 @@ header('Cache-Control: no-store'); // el vendedor activo cambia desde el panel
   </footer>
 </main>
 
-<script src="/js/app.js?v=3" defer></script>
+<?= sprite_iconos() ?>
+<script><?= js_en_linea('app.js') ?></script>
 <script>
   // Tras enviar, ocultar el formulario y dejar el mensaje de gracias
   document.addEventListener('prospecto:enviado', function (ev) {

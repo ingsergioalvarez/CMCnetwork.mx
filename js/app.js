@@ -8,13 +8,40 @@
     var alScroll = function () { nav.classList.toggle('solida', window.scrollY > 40); };
     alScroll();
     window.addEventListener('scroll', alScroll, { passive: true });
-    // Cerrar menu movil al elegir una opcion
-    nav.querySelectorAll('.nav-link:not(.dropdown-toggle), .dropdown-item, .btn').forEach(function (a) {
-      a.addEventListener('click', function () {
-        var menu = document.getElementById('menu');
-        if (menu && menu.classList.contains('show') && window.bootstrap) bootstrap.Collapse.getOrCreateInstance(menu).hide();
+    // Menu movil (sin el JS de Bootstrap)
+    var boton = nav.querySelector('.navbar-toggler');
+    var menu = document.getElementById('menu');
+    var abrirMenu = function (abrir) {
+      menu.classList.toggle('show', abrir);
+      boton.setAttribute('aria-expanded', abrir);
+    };
+    if (boton && menu) {
+      boton.addEventListener('click', function () { abrirMenu(!menu.classList.contains('show')); });
+      // Cerrar al elegir una opcion
+      nav.querySelectorAll('.nav-link:not(.dropdown-toggle), .dropdown-item, .btn').forEach(function (a) {
+        a.addEventListener('click', function () { abrirMenu(false); });
+      });
+    }
+
+    // Desplegables del menu
+    var cerrarDesplegables = function (excepto) {
+      nav.querySelectorAll('.dropdown-toggle').forEach(function (t) {
+        if (t === excepto) return;
+        t.setAttribute('aria-expanded', 'false');
+        t.nextElementSibling.classList.remove('show');
+      });
+    };
+    nav.querySelectorAll('.dropdown-toggle').forEach(function (t) {
+      t.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        var abierto = t.getAttribute('aria-expanded') === 'true';
+        cerrarDesplegables(t);
+        t.setAttribute('aria-expanded', !abierto);
+        t.nextElementSibling.classList.toggle('show', !abierto);
       });
     });
+    document.addEventListener('click', function (ev) { if (!ev.target.closest('.dropdown')) cerrarDesplegables(); });
+    document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape') cerrarDesplegables(); });
   }
 
   // Aparecer al hacer scroll + contadores (sin IntersectionObserver no se oculta nada)
@@ -56,7 +83,7 @@
       slides[actual].classList.add('activo');
       puntos.children[actual].classList.add('activo');
     };
-    var iniciar = function () { clearInterval(timer); timer = setInterval(function () { ir(actual + 1); }, 6000); };
+    var iniciar = function () { clearTimeout(timer); clearInterval(timer); timer = setInterval(function () { ir(actual + 1); }, 6000); };
     slides.forEach(function (_, i) {
       var b = document.createElement('button');
       b.type = 'button';
@@ -65,7 +92,8 @@
       b.addEventListener('click', function () { ir(i); iniciar(); });
       puntos.appendChild(b);
     });
-    iniciar();
+    // El primer mensaje se queda mas tiempo: es el contenido principal mientras carga la pagina
+    timer = setTimeout(function () { ir(1); iniciar(); }, 10000);
   }
 
   // Carruseles: la pista se desliza con scroll-snap; flechas, puntos y avance automatico
@@ -146,6 +174,21 @@
         });
         if (car.refrescar) car.refrescar();
       });
+    });
+  });
+
+  // Mapa: el iframe de Google (~500 KB) se carga solo al pedirlo
+  document.querySelectorAll('[data-mapa]').forEach(function (caja) {
+    var b = caja.querySelector('button');
+    if (!b) return;
+    b.addEventListener('click', function () {
+      var f = document.createElement('iframe');
+      f.src = caja.getAttribute('data-mapa');
+      f.title = 'Ubicación de CMC';
+      f.referrerPolicy = 'no-referrer-when-downgrade';
+      f.allowFullscreen = true;
+      caja.innerHTML = '';
+      caja.appendChild(f);
     });
   });
 

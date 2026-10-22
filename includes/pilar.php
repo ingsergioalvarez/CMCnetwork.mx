@@ -4,6 +4,7 @@ defined('CMC') || exit;
 require_once __DIR__ . '/datos.php';
 
 $pil = $PILARES[$pilar];
+$precargar = $pil['img'];
 $pagina = $pilar;
 $titulo = $pil['nombre'] . ' | CMC Service Network';
 $descripcion = $pil['texto'];
@@ -15,7 +16,7 @@ $lista = soluciones($pilar);
 
 <header class="hero hero-corto" style="--hero-img:url('<?= e($pil['img']) ?>')">
   <div class="container">
-    <span class="etiqueta" style="color:var(--cmc-cian-brillante)"><i class="bi <?= e($pil['icono']) ?> me-1"></i><?= e($pil['nombre']) ?></span>
+    <span class="etiqueta" style="color:var(--cmc-cian-brillante)"><?= icono($pil['icono'], 'me-1') ?><?= e($pil['nombre']) ?></span>
     <h1><?= e($pil['titulo'][0]) ?> <span class="grad"><?= e($pil['titulo'][1]) ?></span></h1>
     <p class="lead"><?= e($pil['texto']) ?></p>
     <div class="d-flex flex-wrap gap-3 mt-4">
@@ -46,7 +47,7 @@ $lista = soluciones($pilar);
       <?php foreach ($pasos as $i => $paso): ?>
         <div class="col-sm-6 col-lg-3 revelar">
           <div class="paso">
-            <div class="paso-num"><i class="bi <?= e($paso[0]) ?>"></i></div>
+            <div class="paso-num"><?= icono($paso[0]) ?></div>
             <h3><?= ($i + 1) . '. ' . e($paso[1]) ?></h3>
             <p><?= e($paso[2]) ?></p>
           </div>
@@ -66,11 +67,11 @@ $lista = soluciones($pilar);
       <div class="col-lg-6 revelar<?= $n % 2 ? '' : ' order-lg-2' ?>">
         <div class="destacado-img">
           <?php if ($noche): ?><span class="insignia-nuevo">NUEVO</span><?php endif; ?>
-          <img src="/img/soluciones/<?= e($slug) ?>.jpg" alt="<?= e($s['nombre'] . ': ' . $s['sub']) ?>" loading="lazy" width="960" height="720">
+          <?= img_solucion($slug, $s['nombre'] . ': ' . $s['sub'], '(max-width: 991px) 92vw, 560px') ?>
         </div>
       </div>
       <div class="col-lg-6 revelar">
-        <span class="etiqueta"><i class="bi <?= e($s['icono']) ?> me-1"></i><?= e($s['sub']) ?></span>
+        <span class="etiqueta"><?= icono($s['icono'], 'me-1') ?><?= e($s['sub']) ?></span>
         <h2><?= e($s['nombre']) ?></h2>
         <?php if ($noche): ?><div class="chips"><?php foreach ($s['destacado'] as $c): ?><span><?= e($c) ?></span><?php endforeach; ?></div><?php endif; ?>
         <div class="reto"><small>Reto del cliente</small><?= e($s['reto']) ?></div>

@@ -63,7 +63,7 @@ $interes_sel = isset($_GET['interes']) && is_string($_GET['interes']) ? $_GET['i
       <div class="col-lg-5 revelar">
         <div class="datos-contacto">
           <div class="dato">
-            <i class="bi bi-telephone"></i>
+            <?= icono('telephone') ?>
             <div>
               <h3>Teléfonos</h3>
               <?php foreach ($CONTACTO['telefonos'] as $t): ?>
@@ -72,7 +72,7 @@ $interes_sel = isset($_GET['interes']) && is_string($_GET['interes']) ? $_GET['i
             </div>
           </div>
           <div class="dato">
-            <i class="bi bi-clock"></i>
+            <?= icono('clock') ?>
             <div>
               <h3>Horario de atención</h3>
               <?php foreach ($CONTACTO['horario'] as $h): ?><?= e($h) ?><br><?php endforeach; ?>
@@ -80,12 +80,12 @@ $interes_sel = isset($_GET['interes']) && is_string($_GET['interes']) ? $_GET['i
           </div>
           <?php foreach ($CONTACTO['emails'] as $m): ?>
             <div class="dato">
-              <i class="bi bi-envelope"></i>
+              <?= icono('envelope') ?>
               <div><h3><?= e($m['titulo']) ?></h3><a href="mailto:<?= e($m['email']) ?>"><?= e($m['email']) ?></a></div>
             </div>
           <?php endforeach; ?>
           <div class="dato">
-            <i class="bi bi-geo-alt"></i>
+            <?= icono('geo-alt') ?>
             <div><h3>Oficinas</h3><a href="<?= e($CONTACTO['mapa_link']) ?>" target="_blank" rel="noopener"><?= e($CONTACTO['direccion']) ?></a></div>
           </div>
         </div>
