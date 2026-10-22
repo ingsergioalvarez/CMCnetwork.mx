@@ -8,7 +8,7 @@ $CONTACTO = [
         ['texto' => '(800) 341-4008', 'tel' => '+528003414008'],
     ],
     'whatsapp'   => '525525727241',
-    'whatsapp_msg' => 'Hola, estoy interesado en sus servicios. ¿Podrían proporcionarme más información?',
+    'whatsapp_msg' => 'Hola, estoy buscando información de CMC Service Network.',
     'horario'    => ['9:00 a 18:00 hrs'],
     'emails'     => [
         ['titulo' => 'Atención a clientes', 'email' => 'atc_clientes@cmcnetwork.mx'],
@@ -337,6 +337,10 @@ $CERTIFICACIONES = [
     ['archivo' => 'sato.png', 'nombre' => 'SATO Prestige Partner Program'],
     ['archivo' => 'opticon.png', 'nombre' => 'Opticon Official Partner'],
     ['archivo' => 'impinj.png', 'nombre' => 'Impinj Partner Network Silver'],
+    ['archivo' => 'hikvision.png', 'nombre' => 'Hikvision'],
+    ['archivo' => 'syscom.svg', 'nombre' => 'Syscom'],
+    ['archivo' => 'mikrotik.png', 'nombre' => 'MikroTik'],
+    ['archivo' => 'teltonika.png', 'nombre' => 'Teltonika'],
 ];
 
 // Opciones de "Me interesa": soluciones del portafolio + residencial

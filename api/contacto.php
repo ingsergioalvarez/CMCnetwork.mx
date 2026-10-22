@@ -88,29 +88,24 @@ $pdo->prepare(
     $vendedor ? $vendedor['id'] : null, $evento ? $evento['id'] : null,
     $ip, mb_substr(isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '', 0, 255),
 ]);
-$id = (int) $pdo->lastInsertId();
 
-// Responder ya al visitante; el correo se envia despues (PHP-FPM)
+// Responder ya al visitante; el correo se envia despues (si el servidor lo permite)
 header('Content-Type: application/json; charset=utf-8');
 echo json_encode(['ok' => true, 'mensaje' => '¡Gracias, ' . $d['nombre'] . '! Recibimos tus datos y te contactaremos muy pronto.'], JSON_UNESCAPED_UNICODE);
 if (function_exists('fastcgi_finish_request')) {
     fastcgi_finish_request();
 }
 
-$asunto = ($d['origen'] === 'tarjeta' ? 'Prospecto de evento' : 'Contacto web') . ': ' . $d['nombre']
-    . ($d['empresa'] !== '' ? ' (' . $d['empresa'] . ')' : '');
-$html = correo_prospecto([
-    'Nombre'   => $d['nombre'],
-    'Empresa'  => $d['empresa'],
-    'Teléfono' => $d['telefono'],
-    'Correo'   => $d['email'],
-    'Interés'  => $d['interes'] !== '' ? $INTERESES[$d['interes']] : '',
-    'Mensaje'  => $d['mensaje'],
-    'Origen'   => $d['origen'] === 'tarjeta' ? 'Tarjeta QR' : 'Sitio web (' . $d['pagina'] . ')',
-    'Vendedor' => $vendedor ? $vendedor['nombre'] : '',
-    'Evento'   => $evento ? $evento['nombre'] : '',
-]);
-$para = (array) config('notificar');
-if (enviar_correo($para, $asunto, $html, $d['email'] !== '' ? $d['email'] : null)) {
-    $pdo->prepare('UPDATE prospectos SET notificado = 1 WHERE id = ?')->execute([$id]);
+// Aviso por correo de este prospecto y reintento de los que no se pudieron avisar antes
+// (ultimos 7 dias): asi un fallo temporal del correo no deja leads sin notificar.
+$st = $pdo->query(
+    'SELECT p.*, v.nombre AS vendedor, e.nombre AS evento
+     FROM prospectos p LEFT JOIN vendedores v ON v.id = p.vendedor_id LEFT JOIN eventos e ON e.id = p.evento_id
+     WHERE p.notificado = 0 AND p.creado > NOW() - INTERVAL 7 DAY ORDER BY p.id DESC LIMIT 5'
+);
+$marcar = $pdo->prepare('UPDATE prospectos SET notificado = 1 WHERE id = ?');
+foreach ($st->fetchAll() as $p) {
+    if (avisar_prospecto($p)) {
+        $marcar->execute([$p['id']]);
+    }
 }

@@ -12,7 +12,7 @@ $logos = array_map(function ($c) {
     <div class="titulo-seccion text-center revelar">
       <span class="etiqueta">Certificaciones y alianzas</span>
       <h2>Respaldados por las marcas líderes</h2>
-      <p>Somos socios certificados de los principales fabricantes de identificación, impresión y captura de datos.</p>
+      <p>Trabajamos con los principales fabricantes de videovigilancia, redes, IoT, identificación y captura de datos.</p>
     </div>
     <?php carrusel($logos, ['por_vista' => 5, 'auto' => true, 'etiqueta' => 'Certificaciones y alianzas']); ?>
   </div>

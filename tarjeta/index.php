@@ -12,7 +12,7 @@ $evento = tarjeta_evento($eslug);
 
 $qs = http_build_query(array_filter(['v' => $v['slug']]));
 $vcard = '/tarjeta/vcard.php' . ($qs ? '?' . $qs : '');
-$wa = 'https://wa.me/' . wa_numero($v['whatsapp']) . '?text=' . rawurlencode('Hola ' . $v['nombre'] . ', te conocí' . ($evento ? ' en ' . $evento['nombre'] : '') . '. Me interesa información de CMC.');
+$wa = 'https://wa.me/' . wa_numero($v['whatsapp']) . '?text=' . rawurlencode('Hola ' . strtok($v['nombre'], ' ') . ', te conocí' . ($evento ? ' en ' . $evento['nombre'] : '') . '. Estoy buscando información de CMC Service Network.');
 $iniciales = mb_strtoupper(mb_substr($v['nombre'], 0, 1) . (strpos($v['nombre'], ' ') ? mb_substr(strrchr($v['nombre'], ' '), 1, 1) : ''));
 
 header('Cache-Control: no-store'); // el vendedor activo cambia desde el panel

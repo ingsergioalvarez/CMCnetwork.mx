@@ -27,7 +27,9 @@ function enviar_correo(array $para, $asunto, $html, $responder_a = null)
             $m->SMTPSecure = $c['smtp_secure'] === 'ssl' ? PHPMailer::ENCRYPTION_SMTPS : PHPMailer::ENCRYPTION_STARTTLS;
             $m->Timeout = 10;
         }
-        $m->setFrom($c['from'], $c['from_name']);
+        // Sender = remitente tambien en el sobre (-f de mail()); sin esto el servidor usa
+        // apache@host y muchos proveedores rechazan el correo o lo mandan a spam
+        $m->setFrom($c['from'], $c['from_name'], true);
         foreach ($para as $correo) {
             $m->addAddress($correo);
         }
@@ -43,6 +45,26 @@ function enviar_correo(array $para, $asunto, $html, $responder_a = null)
         error_log('Correo no enviado: ' . $m->ErrorInfo);
         return false;
     }
+}
+
+/** Envia el aviso de un prospecto (fila de la BD con vendedor y evento) a config('notificar'). */
+function avisar_prospecto(array $p)
+{
+    $asunto = 'Nuevo interesado' . ($p['origen'] === 'tarjeta' ? ' (tarjeta QR)' : ' (sitio web)') . ': ' . $p['nombre']
+        . ($p['empresa'] !== '' ? ' - ' . $p['empresa'] : '');
+    $html = correo_prospecto([
+        'Nombre'   => $p['nombre'],
+        'Empresa'  => $p['empresa'],
+        'Teléfono' => $p['telefono'],
+        'Correo'   => $p['email'],
+        'Interés'  => interes_texto($p['interes']),
+        'Mensaje'  => $p['mensaje'],
+        'Origen'   => $p['origen'] === 'tarjeta' ? 'Tarjeta QR' : 'Sitio web (' . $p['pagina'] . ')',
+        'Vendedor' => $p['vendedor'],
+        'Evento'   => $p['evento'],
+        'Fecha'    => $p['creado'],
+    ]);
+    return enviar_correo((array) config('notificar'), $asunto, $html, $p['email'] !== '' ? $p['email'] : null);
 }
 
 /** Tabla HTML simple con los datos del prospecto para el aviso. */
