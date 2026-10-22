@@ -11,8 +11,10 @@ $esc = function ($s) {
     return str_replace(["\\", "\n", ',', ';'], ["\\\\", '\n', '\,', '\;'], (string) $s);
 };
 
-$partes = explode(' ', trim($v['nombre']));
-$apellido = count($partes) > 1 ? array_pop($partes) : '';
+// Nombres mexicanos: con 3 o mas palabras, las dos ultimas son los apellidos
+$partes = preg_split('/\s+/', trim($v['nombre']));
+$n_apellidos = count($partes) >= 3 ? 2 : (count($partes) === 2 ? 1 : 0);
+$apellido = implode(' ', array_splice($partes, count($partes) - $n_apellidos));
 $nombre = implode(' ', $partes);
 
 $lineas = [
@@ -23,18 +25,22 @@ $lineas = [
     'ORG:CMC Service Network',
     'TITLE:' . $esc($v['puesto']),
 ];
-if ($v['telefono'] !== '') {
-    $lineas[] = 'TEL;TYPE=CELL,VOICE:' . $esc($v['telefono']);
-}
-foreach ($CONTACTO['telefonos'] as $t) {
-    $lineas[] = 'TEL;TYPE=WORK,VOICE:' . $esc($t['tel']);
+if ($vendedor) {
+    // Tarjeta de un vendedor: solo su celular (con lada internacional) y su correo.
+    // Sin telefonos ni direccion de oficina: en ferias fuera de la CDMX confunden al prospecto.
+    if ($v['telefono'] !== '') {
+        $lineas[] = 'TEL;TYPE=CELL,VOICE,PREF:+' . wa_numero($v['telefono']);
+    }
+} else {
+    foreach ($CONTACTO['telefonos'] as $t) {
+        $lineas[] = 'TEL;TYPE=WORK,VOICE:' . $esc($t['tel']);
+    }
 }
 if ($v['email'] !== '') {
     $lineas[] = 'EMAIL;TYPE=INTERNET,WORK:' . $esc($v['email']);
 }
 $lineas[] = 'URL:' . config('url');
-$lineas[] = 'ADR;TYPE=WORK:;;' . $esc('Convento de Churubusco #4, Col. Jardines de Santa Mónica') . ';Tlalnepantla;Estado de México;54050;México';
-$lineas[] = 'NOTE:' . $esc('CMC Service Network - Conectividad empresarial y residencial');
+$lineas[] = 'NOTE:' . $esc('CMC Service Network - Un solo socio tecnológico');
 
 if ($vendedor && !empty($vendedor['foto'])) {
     $tipo = strpos($vendedor['foto_tipo'], 'png') !== false ? 'PNG' : 'JPEG';
