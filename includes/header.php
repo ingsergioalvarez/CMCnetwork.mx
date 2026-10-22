@@ -1,5 +1,5 @@
 <?php
-// Variables esperadas: $titulo, $descripcion, $pagina (inicio|corporativo|residencial|tarifas)
+// Variables esperadas: $titulo, $descripcion, $pagina (inicio|corporativo|residencial)
 defined('CMC') || exit;
 require_once __DIR__ . '/datos.php';
 
@@ -10,9 +10,6 @@ $pagina = isset($pagina) ? $pagina : '';
 $menu = [
     'inicio'      => ['/', 'Inicio'],
     'corporativo' => ['/corporativo.php', 'Corporativo'],
-    'residencial' => ['/residencial.php', 'Residencial'],
-    'tarifas'     => ['/tarifas.php', 'Tarifas'],
-    'cobertura'   => ['/Red-CMC/mapadered.html', 'Cobertura'],
 ];
 $wa = 'https://wa.me/' . $CONTACTO['whatsapp'] . '?text=' . rawurlencode($CONTACTO['whatsapp_msg']);
 ?>

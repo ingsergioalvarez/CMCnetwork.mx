@@ -1,5 +1,5 @@
 <?php
-// Seccion de planes residenciales (usada en residencial.php y tarifas.php)
+// Seccion de planes residenciales (usada en residencial.php)
 defined('CMC') || exit;
 ?>
 <section id="planes" class="seccion seccion-clara">

@@ -16,8 +16,6 @@ require_once __DIR__ . '/datos.php';
           <li><a href="/corporativo.php#eventos">Internet para eventos</a></li>
           <li><a href="/corporativo.php">Internet corporativo</a></li>
           <li><a href="/residencial.php">Internet residencial</a></li>
-          <li><a href="/tarifas.php">Planes, paquetes y tarifas</a></li>
-          <li><a href="/Red-CMC/mapadered.html">Mapa de cobertura</a></li>
         </ul>
       </div>
       <?php foreach ($LEGALES as $grupo => $docs): ?>

@@ -26,12 +26,12 @@ $slides = [
         </div>
         <div class="d-flex flex-wrap gap-3 mt-4">
           <a href="#contacto" class="btn btn-cmc">Solicita una cotización</a>
-          <a href="/tarifas.php" class="btn btn-borde">Ver planes</a>
+          <a href="#servicios" class="btn btn-borde">Ver servicios</a>
         </div>
         <div class="hero-puntos"></div>
       </div>
       <div class="col-lg-5 text-center d-none d-lg-block">
-        <img src="/imagenes/marca/simbolo-cmc.png" alt="" class="hero-simbolo" width="440" height="440">
+        <img src="/imagenes/marca/simbolo-cmc.png?v=2" alt="" class="hero-simbolo" width="440" height="440">
       </div>
     </div>
   </div>
