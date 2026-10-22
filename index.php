@@ -132,6 +132,8 @@ foreach ($PILARES as $p) {
   </div>
 </section>
 
+<?php require ROOT . '/includes/certificaciones.php'; ?>
+
 <section id="nosotros" class="seccion seccion-clara">
   <div class="container">
     <div class="row align-items-center g-5">

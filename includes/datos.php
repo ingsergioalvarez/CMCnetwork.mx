@@ -328,6 +328,17 @@ $INDUSTRIAS = [
     ['icono' => 'bi-flower1', 'nombre' => 'Agro', 'texto' => 'Aplicaciones para documentar actividades agrícolas, personal y producción.'],
 ];
 
+// Certificaciones y alianzas (logos en img/certificaciones/)
+$CERTIFICACIONES = [
+    ['archivo' => 'zebra.png', 'nombre' => 'Zebra Premier Business Partner · Advanced Printer Repair Specialist'],
+    ['archivo' => 'honeywell.png', 'nombre' => 'Honeywell Platinum Performance Partner'],
+    ['archivo' => 'unitech.png', 'nombre' => 'Unitech VASP Certified Partner'],
+    ['archivo' => 'tsc.png', 'nombre' => 'TSC Power Partner Platinum'],
+    ['archivo' => 'sato.png', 'nombre' => 'SATO Prestige Partner Program'],
+    ['archivo' => 'opticon.png', 'nombre' => 'Opticon Official Partner'],
+    ['archivo' => 'impinj.png', 'nombre' => 'Impinj Partner Network Silver'],
+];
+
 // Opciones de "Me interesa": soluciones del portafolio + residencial
 $INTERESES = [];
 foreach ($SOLUCIONES as $slug => $s) {

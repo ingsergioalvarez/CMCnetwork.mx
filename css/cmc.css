@@ -156,6 +156,15 @@ img { max-width: 100%; }
 .tarjeta-ind h3 { color: #fff; font-size: 1.12rem; margin: 18px 0 8px; }
 .tarjeta-ind p { margin: 0; font-size: .92rem; }
 
+/* Logos de certificaciones */
+.seccion-certs { padding: 72px 0; }
+.seccion-certs .titulo-seccion { margin-bottom: 36px; }
+.logo-cert { height: 160px; display: grid; place-items: center; background: #fff; border-radius: var(--radio); padding: 18px; box-shadow: var(--sombra); }
+.logo-cert img { max-height: 124px; max-width: 100%; width: auto; object-fit: contain; }
+.seccion-certs .carrusel-pista { grid-auto-columns: calc((100% - 4 * var(--gap)) / 5); }
+@media (max-width: 991.98px) { .seccion-certs .carrusel-pista { grid-auto-columns: calc((100% - 2 * var(--gap)) / 3); } }
+@media (max-width: 575.98px) { .seccion-certs .carrusel-pista { grid-auto-columns: calc((100% - var(--gap)) / 2); } }
+
 /* Filtros por pilar */
 .filtros { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 34px; }
 .filtros button {

@@ -33,7 +33,7 @@ header('Cache-Control: no-store'); // el vendedor activo cambia desde el panel
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="/css/marca.css">
-  <link rel="stylesheet" href="/css/cmc.css?v=5">
+  <link rel="stylesheet" href="/css/cmc.css?v=6">
   <link rel="stylesheet" href="/css/tarjeta.css?v=1">
 </head>
 <body class="tarjeta-body seccion-noche">

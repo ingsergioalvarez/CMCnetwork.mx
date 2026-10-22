@@ -30,7 +30,7 @@ $wa = 'https://wa.me/' . $CONTACTO['whatsapp'] . '?text=' . rawurlencode($CONTAC
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="/css/marca.css">
-  <link rel="stylesheet" href="/css/cmc.css?v=5">
+  <link rel="stylesheet" href="/css/cmc.css?v=6">
 </head>
 <body class="pagina-<?= e($pagina) ?>">
 

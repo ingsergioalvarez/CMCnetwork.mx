@@ -96,5 +96,7 @@ $lista = soluciones($pilar);
 </section>
 <?php endif; ?>
 
+<?php if ($pilar === 'cadena') require __DIR__ . '/certificaciones.php'; ?>
+
 <?php require __DIR__ . '/form-contacto.php'; ?>
 <?php require __DIR__ . '/footer.php'; ?>
