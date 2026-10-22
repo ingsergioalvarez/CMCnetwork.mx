@@ -107,6 +107,10 @@ function admin_header($titulo, $activo = '')
         <?php endforeach; ?>
       </ul>
       <span class="navbar-text me-3 small"><i class="bi bi-person-circle me-1"></i><?= e($u['nombre'] ?: $u['usuario']) ?></span>
+      <form method="post" action="/admin/cache.php" class="me-2 my-2 my-lg-0" title="Después de publicar cambios">
+        <?= campo_csrf() ?>
+        <button class="btn btn-outline-light btn-sm"><i class="bi bi-arrow-clockwise me-1"></i>Limpiar caché</button>
+      </form>
       <a class="btn btn-outline-light btn-sm" href="/admin/logout.php">Salir</a>
     </div>
   </div>

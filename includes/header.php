@@ -51,7 +51,6 @@ $wa = 'https://wa.me/' . $CONTACTO['whatsapp'] . '?text=' . rawurlencode($CONTAC
             <?php endforeach; ?>
           </ul>
         </li>
-        <li class="nav-item"><a class="nav-link" href="/#nosotros">Nosotros</a></li>
         <li class="nav-item ms-lg-3"><a class="btn btn-cmc btn-sm" href="#contacto">Contáctanos</a></li>
       </ul>
     </div>

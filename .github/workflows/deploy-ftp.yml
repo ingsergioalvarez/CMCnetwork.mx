@@ -30,7 +30,7 @@ jobs:
             .github/**
             scripts/**
             sql/**
-            config/config.php
+            config/**
             Anterior/**
             _*
             *.md
