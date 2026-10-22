@@ -16,7 +16,6 @@ require_once __DIR__ . '/datos.php';
           <?php foreach ($PILARES as $p): ?>
             <li><a href="<?= e($p['url']) ?>"><?= e($p['nombre']) ?></a></li>
           <?php endforeach; ?>
-          <li><a href="/residencial.php">Internet residencial</a></li>
         </ul>
         <h4 class="mt-4">Empresa hermana</h4>
         <ul>
@@ -35,7 +34,7 @@ require_once __DIR__ . '/datos.php';
       <?php endforeach; ?>
     </div>
     <div class="pie-final">
-      <span>© <?= date('Y') ?> CMC Service Network, S.A. de C.V.</span>
+      <span>© <?= date('Y') ?> CMC Service Network, S.A. de C.V. · <a href="/residencial.php">Internet residencial</a></span>
       <span>Developed by SKS Developers</span>
     </div>
   </div>
