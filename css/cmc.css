@@ -285,7 +285,13 @@ img { max-width: 100%; }
 .datos-contacto .dato .bi { font-size: 22px; color: var(--cmc-cian-brillante); }
 .datos-contacto h3 { font-size: .95rem; margin-bottom: 4px; }
 
-.mapa iframe { width: 100%; height: 380px; border: 0; display: block; filter: grayscale(.3); }
+.mapa { position: relative; }
+.mapa-enlace { display: block; position: relative; height: 380px; overflow: hidden; }
+.mapa-enlace img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s; }
+.mapa-enlace:hover img { transform: scale(1.03); }
+.mapa-boton { position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%); white-space: nowrap; }
+.mapa-enlace:hover .mapa-boton { transform: translate(-50%, -2px); color: #fff; background-position: 100% 0; }
+.mapa-credito { position: absolute; right: 8px; bottom: 6px; font-size: .7rem; color: var(--cmc-noche); background: rgba(255, 255, 255, .75); padding: 1px 6px; border-radius: 4px; text-decoration: none; }
 
 /* ---------- Pie ---------- */
 .pie { background: #040C2B; color: rgba(255, 255, 255, .7); padding: 72px 0 28px; font-size: .92rem; }

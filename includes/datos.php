@@ -17,7 +17,6 @@ $CONTACTO = [
     ],
     'direccion'  => 'Convento de Churubusco #4, Col. Jardines de Santa Mónica, Tlalnepantla, C.P. 54050',
     'mapa_link'  => 'https://www.google.com.mx/maps/place/Convento+de+Churubusco+4,+Hab+Jardines+de+Santa+Monica,+54050+Tlalnepantla,+M%C3%A9x./@19.5288366,-99.2318276,17z/data=!3m1!4b1!4m6!3m5!1s0x85d21d2957b7b681:0x370859abc2c9e3b7!8m2!3d19.5288316!4d-99.2292527!16s%2Fg%2F11c19_g9lx?entry=ttu',
-    'mapa_embed' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.9627290272194!2d-99.22925269999999!3d19.528831599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d21d2957b7b681%3A0x370859abc2c9e3b7!2sConvento%20de%20Churubusco%204%2C%20Hab%20Jardines%20de%20Santa%20Monica%2C%2054050%20Tlalnepantla%2C%20M%C3%A9x.!5e0!3m2!1ses!2smx!4v1624471928130!5m2!1ses!2smx',
 ];
 
 $PLANES = [
