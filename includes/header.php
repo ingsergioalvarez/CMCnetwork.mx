@@ -42,7 +42,6 @@ $wa = 'https://wa.me/' . $CONTACTO['whatsapp'] . '?text=' . rawurlencode($CONTAC
     <div class="collapse navbar-collapse" id="menu">
       <ul class="navbar-nav ms-auto align-items-lg-center">
         <li class="nav-item"><a class="nav-link<?= $pagina === 'inicio' ? ' active' : '' ?>" href="/">Inicio</a></li>
-        <li class="nav-item"><a class="nav-link<?= $pagina === 'cobertura' ? ' active' : '' ?>" href="/cobertura.php">Cobertura</a></li>
         <?php foreach (['conectividad', 'iot'] as $clave): ?>
           <li class="nav-item"><a class="nav-link<?= $pagina === $clave ? ' active' : '' ?>" href="<?= e($PILARES[$clave]['url']) ?>"><?= e($PILARES[$clave]['nombre']) ?></a></li>
         <?php endforeach; ?>
