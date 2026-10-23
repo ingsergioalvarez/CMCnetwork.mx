@@ -60,32 +60,13 @@ $lista = soluciones($pilar);
 </section>
 <?php endif; ?>
 
-<?php $n = 0; foreach ($lista as $slug => $s): $n++;
-    $noche = !empty($s['destacado']);
-    $clase = $noche ? 'seccion-noche' : ($n % 2 ? '' : 'seccion-clara'); ?>
-<section id="<?= e($slug) ?>" class="seccion solucion <?= $clase ?>">
-  <div class="container">
-    <div class="row align-items-center g-5">
-      <div class="col-lg-6 revelar<?= $n % 2 ? '' : ' order-lg-2' ?>">
-        <div class="destacado-img">
-          <?php if ($noche): ?><span class="insignia-nuevo">NUEVO</span><?php endif; ?>
-          <?= img_solucion($slug, $s['nombre'] . ': ' . $s['sub'], '(max-width: 991px) 92vw, 560px') ?>
-        </div>
-      </div>
-      <div class="col-lg-6 revelar">
-        <span class="etiqueta"><?= icono($s['icono'], 'me-1') ?><?= e($s['sub']) ?></span>
-        <h2><?= e($s['nombre']) ?></h2>
-        <?php if ($noche): ?><div class="chips"><?php foreach ($s['destacado'] as $c): ?><span><?= e($c) ?></span><?php endforeach; ?></div><?php endif; ?>
-        <div class="reto"><small>Reto del cliente</small><?= e($s['reto']) ?></div>
-        <ul class="lista-check">
-          <?php foreach ($s['incluye'] as $item): ?><li><?= e($item) ?></li><?php endforeach; ?>
-        </ul>
-        <a href="?interes=<?= e(rawurlencode($slug)) ?>#contacto" class="btn btn-cmc mt-2">Solicitar información</a>
-      </div>
-    </div>
-  </div>
-</section>
-<?php endforeach; ?>
+<script>
+// Enlaces antiguos (pagina#solucion) llevan al detalle de la solucion
+(function () {
+  var s = location.hash.slice(1), lista = <?= json_encode(array_keys($lista)) ?>;
+  if (lista.indexOf(s) >= 0) location.replace('/solucion.php?s=' + s);
+})();
+</script>
 
 <?php if ($pilar === 'iot'): ?>
 <section class="seccion seccion-noche">

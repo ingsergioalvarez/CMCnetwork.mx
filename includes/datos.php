@@ -182,36 +182,38 @@ $SOLUCIONES = [
         'pilar' => 'iot', 'nombre' => 'VisionGuard', 'sub' => 'Videovigilancia con inteligencia artificial', 'icono' => 'bi-camera-video',
         'resumen' => 'Cámaras cognitivas que analizan, predicen y protegen tu perímetro de forma automática.',
         'reto' => 'Sustituir la supervisión humana pasiva por un ecosistema de cámaras cognitivas que analizan, predicen y blindan el perímetro de forma automatizada.',
-        'incluye' => [
-            'Seguridad de alta precisión: filtra falsas alarmas y enfoca la atención solo en amenazas reales de personas y vehículos.',
-            'Búsqueda forense instantánea por atributos: ropa, tipo de vehículo o accesorios.',
-            'Reconocimiento facial en tiempo real vinculado a listas VIP o de restricción.',
-            'Mapas de calor y conteo de personas para optimizar espacios y operación.',
-            'Monitoreo térmico que detecta sobrecalentamientos antes de que se genere un incendio.',
+        'alcance' => [
+            ['Diagnóstico de perímetro', 'Recorrido del sitio para definir ubicación y tipo de cámara, puntos ciegos y la analítica que realmente necesitas.'],
+            ['Cámaras cognitivas con IA', 'Detección de personas y vehículos que filtra falsas alarmas y enfoca la atención solo en amenazas reales.'],
+            ['Búsqueda forense por atributos', 'Encuentra un evento en segundos por ropa, tipo de vehículo o accesorios, sin revisar horas de video.'],
+            ['Reconocimiento facial', 'Alertas en tiempo real vinculadas a listas VIP o de restricción, donde el caso y la normativa lo permiten.'],
+            ['Mapas de calor y conteo', 'Flujo de personas y zonas de mayor actividad para optimizar espacios y operación.'],
+            ['Monitoreo térmico', 'Detección temprana de sobrecalentamientos en equipos o áreas críticas, antes de que se genere un incendio.'],
         ],
     ],
     'c2' => [
         'pilar' => 'iot', 'nombre' => 'Centros C2', 'sub' => 'Centros de comando y control', 'icono' => 'bi-display',
         'resumen' => 'Toda tu videovigilancia, sensores y alertas en un solo centro de monitoreo.',
         'reto' => 'Cámaras, sensores y alarmas operando por separado, sin una vista unificada para reaccionar a tiempo ante un incidente.',
-        'incluye' => [
-            'Diseño e implementación de centros de comando y control para empresas y municipios.',
-            'Videowall y estaciones de operador con vista unificada de cámaras y sensores.',
-            'Integración de videovigilancia, control de acceso, LPR y alertamiento en una sola plataforma.',
-            'Enlaces dedicados y respaldo para mantener el centro operando 7 x 24.',
-            'Protocolos de alerta y reportes para la toma de decisiones.',
+        'alcance' => [
+            ['Diseño del centro', 'Dimensionamiento de la sala, número de operadores, videowall y flujos de atención según tu operación.'],
+            ['Videowall y estaciones de operador', 'Vista unificada de cámaras, sensores y alarmas para reaccionar a tiempo.'],
+            ['Integración de plataformas', 'Videovigilancia, control de acceso, LPR y alertamiento en una sola plataforma de gestión.'],
+            ['Protocolos y reportes', 'Procedimientos de respuesta, bitácoras e indicadores para la toma de decisiones.'],
+            ['Conectividad con respaldo', 'Enlaces dedicados y rutas alternas para que el centro opere 7 x 24.'],
+            ['Capacitación de operadores', 'Entrenamiento del personal para operar el centro desde el primer día.'],
         ],
     ],
     'scardetection' => [
         'pilar' => 'iot', 'nombre' => 'Scardetection', 'sub' => 'Detección de daños estéticos en autos', 'icono' => 'bi-car-front',
         'resumen' => 'Arco con cámaras y aplicación que detecta y documenta daños estéticos en cada vehículo.',
         'reto' => 'Inspecciones manuales lentas y sin evidencia que generan disputas por daños al recibir o entregar un vehículo.',
-        'incluye' => [
-            'Arco de inspección con cámaras que captura el vehículo completo a su paso.',
-            'Aplicación que detecta y señala daños estéticos de forma automática.',
-            'Evidencia fotográfica con fecha y hora de cada entrada y salida.',
-            'Historial por vehículo para resolver reclamaciones con datos.',
-            'Ideal para distribuidores de autos y estacionamientos.',
+        'alcance' => [
+            ['Arco de inspección', 'Estructura con cámaras que captura el vehículo completo a su paso, sin detener la operación.'],
+            ['Detección automática de daños', 'Aplicación que identifica y señala daños estéticos en la carrocería.'],
+            ['Evidencia con fecha y hora', 'Registro fotográfico de cada entrada y salida que respalda al negocio y al cliente.'],
+            ['Historial por vehículo', 'Consulta de inspecciones anteriores para resolver reclamaciones con datos.'],
+            ['Integración con tus procesos', 'Conexión con recepción, taller o estacionamiento según cómo opera tu negocio.'],
         ],
         'destacado' => ['Distribuidores de autos', 'Estacionamientos'],
     ],
@@ -219,72 +221,73 @@ $SOLUCIONES = [
         'pilar' => 'iot', 'nombre' => 'Cámaras LPR', 'sub' => 'Lectura automática de placas', 'icono' => 'bi-123',
         'resumen' => 'Identifica vehículos por su placa para controlar accesos y generar alertas.',
         'reto' => 'Registro manual de vehículos en accesos, sin forma de saber quién entró, cuándo y si estaba autorizado.',
-        'incluye' => [
-            'Lectura automática de placas en accesos, estacionamientos y vialidades.',
-            'Listas de vehículos autorizados y restringidos con alertas en tiempo real.',
-            'Apertura automática de plumas y barreras.',
-            'Historial consultable de entradas y salidas.',
-            'Integración con centros C2 y control de acceso.',
+        'alcance' => [
+            ['Lectura de placas', 'Cámaras especializadas para accesos, estacionamientos y vialidades, de día y de noche.'],
+            ['Listas y alertas', 'Vehículos autorizados y restringidos con avisos en tiempo real.'],
+            ['Automatización de accesos', 'Apertura de plumas y barreras al reconocer un vehículo autorizado.'],
+            ['Historial consultable', 'Registro de entradas y salidas con imagen para auditoría.'],
+            ['Integración', 'Conexión con centros C2 y control de acceso.'],
         ],
     ],
     'analitica' => [
         'pilar' => 'iot', 'nombre' => 'Analítica de video', 'sub' => 'Conteo de personas, caídas y gestos', 'icono' => 'bi-people',
         'resumen' => 'Convierte tus cámaras en sensores que cuentan, detectan y alertan.',
         'reto' => 'Horas de video que nadie revisa y eventos críticos que se descubren demasiado tarde.',
-        'incluye' => [
-            'Contador de personas para tiendas, plazas y oficinas.',
-            'Detección de caídas con alerta inmediata.',
-            'Detección de gestos para solicitar ayuda o activar acciones.',
-            'Mapas de calor y tiempos de permanencia.',
-            'Reportes y tableros para la toma de decisiones.',
+        'alcance' => [
+            ['Conteo de personas', 'Afluencia en tiendas, plazas y oficinas por hora y por zona.'],
+            ['Detección de caídas', 'Alertas inmediatas para atender a tiempo a quien lo necesita.'],
+            ['Detección de gestos', 'Señales para pedir ayuda o activar acciones sin tocar un botón.'],
+            ['Mapas de calor y permanencia', 'Qué zonas se visitan y cuánto tiempo, para mejorar distribución y operación.'],
+            ['Tableros y reportes', 'Indicadores claros para la toma de decisiones.'],
+            ['Sobre tu infraestructura', 'Cuando las cámaras son compatibles, la analítica se integra sobre lo que ya tienes.'],
         ],
     ],
     'epp' => [
         'pilar' => 'iot', 'nombre' => 'Detección de EPP', 'sub' => 'Seguridad industrial con visión artificial', 'icono' => 'bi-cone-striped',
         'resumen' => 'Verifica que tu personal use casco, chaleco y equipo de protección en planta.',
         'reto' => 'Accidentes y sanciones por personal que no usa su equipo de protección en zonas de riesgo.',
-        'incluye' => [
-            'Detección automática de casco, chaleco y equipo de protección personal.',
-            'Alertas en tiempo real al supervisor de seguridad.',
-            'Zonas de riesgo configurables por área de la planta.',
-            'Evidencia y reportes para auditorías de seguridad.',
-            'Funciona con cámaras IP existentes o nuevas.',
+        'alcance' => [
+            ['Detección de equipo de protección', 'Casco, chaleco y los elementos que definan tus normas de seguridad.'],
+            ['Zonas de riesgo configurables', 'Reglas distintas por área de la planta.'],
+            ['Alertas al supervisor', 'Avisos en tiempo real para corregir antes de un accidente.'],
+            ['Evidencia para auditorías', 'Registros y reportes para seguridad e higiene.'],
+            ['Cámaras existentes o nuevas', 'Aprovecha cámaras IP compatibles o se complementa con equipo nuevo.'],
         ],
     ],
     'acceso' => [
         'pilar' => 'iot', 'nombre' => 'Control de acceso', 'sub' => 'Automatización de entradas', 'icono' => 'bi-door-open',
         'resumen' => 'Tarjetas, biometría y reconocimiento facial para saber quién entra y cuándo.',
         'reto' => 'Accesos controlados con libretas o llaves, sin registro confiable de personas y visitantes.',
-        'incluye' => [
-            'Lectores de tarjeta, huella y reconocimiento facial.',
-            'Torniquetes, plumas y cerraduras electromagnéticas.',
-            'Registro de visitantes y horarios por zona.',
-            'Reportes de asistencia y accesos.',
-            'Integración con videovigilancia y LPR.',
+        'alcance' => [
+            ['Identificación', 'Tarjeta, huella o reconocimiento facial según el nivel de seguridad que requiere cada zona.'],
+            ['Barreras físicas', 'Torniquetes, plumas y cerraduras electromagnéticas.'],
+            ['Visitantes y horarios', 'Registro de visitas y permisos por zona y horario.'],
+            ['Reportes de asistencia', 'Información de accesos para recursos humanos y seguridad.'],
+            ['Integración', 'Con videovigilancia, LPR y centros C2.'],
         ],
     ],
     'geoalert' => [
         'pilar' => 'iot', 'nombre' => 'GeoAlert', 'sub' => 'Protección y monitoreo sísmico', 'icono' => 'bi-activity',
         'resumen' => 'Alertamiento y monitoreo estructural para corporativos, industria y edificios públicos.',
         'reto' => 'Riesgo sísmico en corporativos y plantas, maquinaria vulnerable a vibraciones y sin diagnóstico después de un sismo.',
-        'incluye' => [
-            'Alertamiento sísmico y automatización de protocolos.',
-            'Automatización de corporativos, industria, minas, edificios públicos y transporte.',
-            'Monitoreo 7 x 24 con acelerómetros y sensores de última generación.',
-            'Diagnóstico post-sismo inmediato con modelos digitales para recuperarse en horas.',
-            'Internet satelital de respaldo ante cortes terrestres o desastres naturales.',
+        'alcance' => [
+            ['Alertamiento sísmico', 'Recepción de alertas y automatización de protocolos de evacuación y paro seguro.'],
+            ['Monitoreo estructural 7 x 24', 'Acelerómetros y sensores de última generación que vigilan el comportamiento del inmueble.'],
+            ['Diagnóstico post-sismo', 'Modelos digitales para evaluar el estado del inmueble y recuperar la operación en horas.'],
+            ['Para cada sector', 'Corporativos, industria, minas, edificios públicos y transporte.'],
+            ['Comunicación de respaldo', 'Internet satelital ante cortes terrestres o desastres naturales.'],
         ],
     ],
     'smarttag' => [
         'pilar' => 'iot', 'nombre' => 'SmartTag', 'sub' => 'Etiquetas electrónicas de anaquel (ESL)', 'icono' => 'bi-tags',
         'resumen' => 'Precios y promociones actualizados en tiempo real en todos tus anaqueles.',
         'reto' => 'Actualizar precios manualmente en cientos de anaqueles consume horas, genera errores y retrasa las promociones.',
-        'incluye' => [
-            'Pantallas de papel electrónico para precios y promociones en tiempo real.',
-            'Actualización centralizada sin intervención manual.',
-            'Integración con ERP/POS para sincronizar precios e inventario.',
-            'Etiquetas de bajo consumo con batería de hasta 5 años.',
-            'Control de miles de etiquetas desde una sola plataforma.',
+        'alcance' => [
+            ['Etiquetas de papel electrónico', 'Precios y promociones en tiempo real directamente en el anaquel.'],
+            ['Gestión centralizada', 'Miles de etiquetas actualizadas desde una sola plataforma, sin intervención manual.'],
+            ['Integración con ERP/POS', 'Precios e inventario sincronizados con tu sistema.'],
+            ['Bajo consumo', 'Etiquetas con batería de hasta 5 años.'],
+            ['Implementación por etapas', 'Piloto en una tienda y despliegue gradual al resto de la cadena.'],
         ],
     ],
 
@@ -293,60 +296,62 @@ $SOLUCIONES = [
         'pilar' => 'cadena', 'nombre' => 'OmniFlow', 'sub' => 'Almacenes inteligentes con RFID', 'icono' => 'bi-upc-scan',
         'resumen' => 'Inventarios en minutos con RFID, código de barras y WMS en la nube.',
         'reto' => 'Inventarios que toman días, activos perdidos en el CEDIS y etiquetado que falla en operación.',
-        'incluye' => [
-            'Conteo masivo e instantáneo por RFID: cientos de etiquetas sin línea de vista.',
-            'Tags RFID activos y pasivos para inventario, activos, acceso y transporte.',
-            'Beacons para localizar activos, personas y vehículos, con sensores ambientales.',
-            'WMS en la nube: visibilidad en tiempo real, alertas y tableros operativos.',
-            'Soluciones agro para documentar actividades, personal y producción.',
+        'alcance' => [
+            ['Inventario por RFID', 'Conteo masivo e instantáneo de cientos de etiquetas sin línea de vista.'],
+            ['Tags activos y pasivos', 'Para inventario, activos, acceso y transporte, elegidos según el material y el entorno.'],
+            ['Localización con beacons', 'Activos, personas y vehículos ubicados en tiempo real, con sensores ambientales.'],
+            ['WMS en la nube', 'Visibilidad en tiempo real, alertas y tableros operativos.'],
+            ['Código de barras', 'Como complemento donde el RFID no es la mejor opción.'],
+            ['Soluciones agro', 'Documentación de actividades, personal y producción en campo.'],
         ],
     ],
     'impresion' => [
         'pilar' => 'cadena', 'nombre' => 'Impresión y etiquetado', 'sub' => 'Códigos, RFID y tarjetas', 'icono' => 'bi-printer',
         'resumen' => 'Impresoras móviles, de escritorio e industriales con consumibles certificados.',
         'reto' => 'Etiquetas ilegibles o que se despegan, que frenan la operación y generan errores de envío.',
-        'incluye' => [
-            'Impresoras móviles para etiquetar en cualquier punto de la operación.',
-            'Impresoras de escritorio para volúmenes medios.',
-            'Impresoras industriales de alta resistencia para entornos exigentes.',
-            'Consumibles certificados: etiquetas térmicas, plastificadas, mangas y ribbons.',
-            'Impresión y codificación de etiquetas RFID.',
+        'alcance' => [
+            ['Impresoras móviles', 'Para etiquetar en cualquier punto de la operación.'],
+            ['Impresoras de escritorio', 'Para volúmenes medios en oficina, mostrador o almacén.'],
+            ['Impresoras industriales', 'De alta resistencia para entornos exigentes y alto volumen.'],
+            ['Consumibles certificados', 'Etiquetas térmicas, plastificadas, mangas y ribbons según la superficie y el ambiente.'],
+            ['Etiquetas RFID', 'Impresión y codificación de etiquetas RFID.'],
         ],
     ],
     'movilidad' => [
         'pilar' => 'cadena', 'nombre' => 'Movilidad y captura', 'sub' => 'Hardware de uso rudo', 'icono' => 'bi-phone',
         'resumen' => 'Computadoras móviles, escáneres y wearables para trabajar manos libres.',
         'reto' => 'Captura manual de datos, lenta y con errores, en almacenes y piso de venta.',
-        'incluye' => [
-            'Computadoras móviles y tabletas Android resistentes para entornos extremos.',
-            'Escáneres híbridos 1D/2D + RFID en un solo dispositivo.',
-            'Wearables para escaneo manos libres en picking.',
-            'Lectores RFID portátiles para inventario y rastreo de activos.',
-            'Marcas líderes: Zebra, Honeywell, Unitech y Datalogic.',
+        'alcance' => [
+            ['Computadoras móviles y tabletas', 'Equipos Android resistentes para entornos extremos.'],
+            ['Escáneres híbridos', 'Lectura 1D/2D + RFID en un solo dispositivo.'],
+            ['Wearables', 'Escaneo manos libres para picking.'],
+            ['Lectores RFID portátiles', 'Inventario y rastreo de activos.'],
+            ['Marcas líderes', 'Zebra, Honeywell, Unitech y Datalogic, seleccionadas según tu operación.'],
         ],
     ],
     'amr' => [
         'pilar' => 'cadena', 'nombre' => 'Robots AMR', 'sub' => 'Robots móviles autónomos', 'icono' => 'bi-robot',
         'resumen' => 'Robots que mueven, surten y clasifican mercancía de forma autónoma.',
         'reto' => 'Recorridos largos y tiempos muertos al mover y preparar pedidos dentro del almacén.',
-        'incluye' => [
-            'AMR de transporte que automatizan el movimiento de materiales.',
-            'AMR de picking (goods-to-person) que llevan el inventario al operario.',
-            'AMR de clasificación para preparar pedidos con alta velocidad y precisión.',
-            'Navegación autónoma con sensores, cámaras y mapas digitales.',
-            'Integración con tu WMS.',
+        'alcance' => [
+            ['Estudio de flujos', 'Análisis de recorridos y volúmenes para definir cuántos robots y de qué tipo.'],
+            ['AMR de transporte', 'Automatizan el movimiento de materiales dentro del almacén.'],
+            ['AMR de picking', 'Goods-to-person: llevan el inventario al operario.'],
+            ['AMR de clasificación', 'Preparación de pedidos con alta velocidad y precisión.'],
+            ['Navegación autónoma', 'Sensores, cámaras y mapas digitales para moverse con seguridad.'],
+            ['Integración con tu WMS', 'Los robots reciben y reportan tareas desde tu sistema.'],
         ],
     ],
     'servicio' => [
         'pilar' => 'cadena', 'nombre' => 'Centro de servicio', 'sub' => 'Soporte y mantenimiento certificado', 'icono' => 'bi-tools',
         'resumen' => 'Diagnóstico, mantenimiento y planes de protección para tus equipos.',
         'reto' => 'Equipos detenidos por fallas sin diagnóstico y sin un taller que responda rápido.',
-        'incluye' => [
-            'Centro certificado en impresoras de código de barras, lectores y cómputo móvil.',
-            'Diagnóstico técnico preciso de fallas y bajo rendimiento.',
-            'Mantenimiento preventivo y correctivo con personal certificado.',
-            'Planes de protección personalizados.',
-            'Cambio de piezas cuando es necesario.',
+        'alcance' => [
+            ['Centro certificado', 'Impresoras de código de barras, lectores y cómputo móvil.'],
+            ['Diagnóstico técnico', 'Identificación precisa de fallas y bajo rendimiento.'],
+            ['Mantenimiento preventivo y correctivo', 'Con personal certificado.'],
+            ['Planes de protección', 'Personalizados según tu parque de equipos.'],
+            ['Refacciones', 'Cambio de piezas cuando es necesario.'],
         ],
     ],
 
@@ -355,24 +360,25 @@ $SOLUCIONES = [
         'pilar' => 'conectividad', 'nombre' => 'CoreNet', 'sub' => 'Conectividad continua', 'icono' => 'bi-hdd-network',
         'resumen' => 'Internet dedicado simétrico 7 x 24 con SLA e interconexión entre sedes.',
         'reto' => 'Caídas de Internet que paran la operación, sin interconexión segura entre sedes y sin respaldo ante contingencias.',
-        'incluye' => [
-            'Internet dedicado simétrico 7 x 24 con SLA y concesión oficial.',
-            'Interconexión LAN to LAN por fibra óptica y microondas entre sedes y plantas.',
-            'VPN corporativas cifradas para home office y acceso remoto seguro.',
-            'WiFi 6 de alta densidad para convenciones y campus industriales.',
-            'Respaldo satelital y LTE/4G automático.',
+        'alcance' => [
+            ['Internet dedicado simétrico', 'Enlace 7 x 24 con SLA y concesión oficial, por fibra óptica o microondas.'],
+            ['Interconexión entre sedes', 'LAN to LAN por fibra óptica y microondas entre oficinas, sedes y plantas.'],
+            ['VPN corporativas', 'Acceso remoto cifrado para home office y sucursales.'],
+            ['WiFi 6 de alta densidad', 'Para convenciones, campus industriales y espacios con muchos usuarios.'],
+            ['Respaldo automático', 'Satelital y LTE/4G para que la operación no se detenga.'],
+            ['Monitoreo NOC 7 x 24', 'Supervisión continua de tus enlaces.'],
         ],
     ],
     'voice365' => [
         'pilar' => 'conectividad', 'nombre' => 'Voice365', 'sub' => 'Comunicación unificada', 'icono' => 'bi-headset',
         'resumen' => 'Telefonía IP en la nube: voz, datos y video con un solo proveedor.',
         'reto' => 'Telefonía obsoleta y costosa, empresa incomunicada ante contingencias y sedes desconectadas entre sí.',
-        'incluye' => [
-            'Telefonía IP en la nube: IVR, números nacionales e internacionales y extensiones ilimitadas.',
-            'VPN de voz cifrada entre sedes.',
-            'Internet satelital de respaldo ante cortes terrestres o desastres naturales.',
-            'LTE/4G como respaldo automático para operaciones críticas.',
-            'Voz, datos y video: un contrato, un proveedor, un soporte.',
+        'alcance' => [
+            ['Telefonía IP en la nube', 'IVR, números nacionales e internacionales y extensiones ilimitadas.'],
+            ['VPN de voz entre sedes', 'Comunicación cifrada entre oficinas.'],
+            ['Respaldo satelital', 'Ante cortes terrestres o desastres naturales.'],
+            ['Respaldo LTE/4G', 'Conmutación automática para operaciones críticas.'],
+            ['Un solo proveedor', 'Voz, datos y video: un contrato y un soporte.'],
         ],
     ],
 
@@ -381,24 +387,24 @@ $SOLUCIONES = [
         'pilar' => 'ti', 'nombre' => 'CyberGuard', 'sub' => 'Ciberseguridad 360°', 'icono' => 'bi-shield-check',
         'resumen' => 'Firewalls de nueva generación, VPN cifradas y cumplimiento normativo.',
         'reto' => 'Miedo al ransomware, personal en home office sin control perimetral y necesidad de cumplir normas corporativas.',
-        'incluye' => [
-            'Firewalls NGFW: inspección profunda y bloqueo proactivo de intrusiones 7 x 24.',
-            'VPN AES-256 para trabajo remoto seguro.',
-            'Auditorías alineadas a ISO 27001, COBIT 2019 e ITIL.',
-            'Planes de recuperación ante desastres (DRP) y pruebas de resiliencia.',
-            'Diseño de redes seguras con ingenieros certificados.',
+        'alcance' => [
+            ['Firewalls NGFW', 'Inspección profunda y bloqueo proactivo de intrusiones 7 x 24.'],
+            ['VPN AES-256', 'Trabajo remoto seguro para tu personal.'],
+            ['Auditorías y cumplimiento', 'Alineadas a ISO 27001, COBIT 2019 e ITIL.'],
+            ['Recuperación ante desastres', 'Planes DRP y pruebas de resiliencia.'],
+            ['Diseño de redes seguras', 'Arquitectura definida por ingenieros certificados.'],
         ],
     ],
     'devsoft' => [
         'pilar' => 'ti', 'nombre' => 'DevSoft', 'sub' => 'Software a la medida', 'icono' => 'bi-code-slash',
         'resumen' => 'Sistemas, apps e integraciones que se adaptan a tu operación.',
         'reto' => 'Software comercial que no encaja, operaciones manuales sin automatizar y falta de dirección tecnológica.',
-        'incluye' => [
-            'Desarrollo de sistemas, apps y plataformas de comercio electrónico a la medida.',
-            'Automatización de flujos e integración con ERP, CRM y terceros vía API.',
-            'Integración IoT + software: sensores y dispositivos en un sistema unificado.',
-            'Hosting y servidores de alta disponibilidad para sistemas críticos.',
-            'vCTO: dirección de tecnología externa bajo demanda.',
+        'alcance' => [
+            ['Desarrollo a la medida', 'Sistemas, apps y plataformas de comercio electrónico.'],
+            ['Automatización e integración', 'Flujos automatizados e integración con ERP, CRM y terceros vía API.'],
+            ['IoT + software', 'Sensores y dispositivos en un sistema unificado.'],
+            ['Hosting de alta disponibilidad', 'Servidores para sistemas críticos.'],
+            ['vCTO', 'Dirección de tecnología externa bajo demanda.'],
         ],
     ],
 ];
@@ -444,11 +450,10 @@ function soluciones($pilar)
     return array_filter($SOLUCIONES, function ($s) use ($pilar) { return $s['pilar'] === $pilar; });
 }
 
-/** URL del detalle de una solucion dentro de la pagina de su pilar. */
+/** URL de la pagina de detalle de una solucion. */
 function solucion_url($slug)
 {
-    global $SOLUCIONES, $PILARES;
-    return $PILARES[$SOLUCIONES[$slug]['pilar']]['url'] . '#' . $slug;
+    return '/solucion.php?s=' . rawurlencode($slug);
 }
 
 /** Texto de un interes guardado, incluidas opciones de la version anterior del sitio. */
