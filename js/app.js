@@ -177,57 +177,190 @@
     });
   });
 
-  // Cobertura: filtros por tipo de red, clic en el mapa y buscador por estado
-  var datosCob = document.getElementById('cobertura-datos');
-  if (datosCob) {
-    var cob = JSON.parse(datosCob.textContent);
-    var mapaMx = document.querySelector('.mapa-mx');
-    var selEstado = document.getElementById('cobertura-estado');
-    var panel = function (k) { return document.querySelector('[data-panel="' + k + '"]'); };
-    var listaInicial = panel('lista').innerHTML, estadoActual = '';
-    var mostrarEstado = function (cod) {
-      estadoActual = cod;
-      mapaMx.querySelectorAll('path').forEach(function (p) { p.classList.toggle('sel', p.getAttribute('data-estado') === cod); });
-      if (!cod) {
-        panel('insignia').textContent = '32 / 32 estados';
-        panel('titulo').textContent = 'Cobertura en todo México';
-        panel('lista').innerHTML = listaInicial;
-        panel('nota').textContent = 'Elige tu estado para ver con qué tecnología te conectamos.';
-        return;
-      }
-      var est = cob.estados[cod], cat = cob.categorias[est[1]];
-      panel('insignia').textContent = cat.nombre;
-      panel('titulo').textContent = est[0];
-      panel('lista').innerHTML = '';
-      cat.tecnologias.forEach(function (t) {
-        var li = document.createElement('li');
-        li.innerHTML = '<i class="punto"></i>';
-        li.firstChild.style.background = t === 'LTE' || t === 'Satelital' ? '#38BDF8' : cat.color;
-        li.appendChild(document.createTextNode(t));
-        panel('lista').appendChild(li);
+  // Coverflow: la tarjeta activa al centro y al frente; las demas detras, atenuadas e inertes
+  document.querySelectorAll('[data-coverflow]').forEach(function (cf) {
+    var tarjetas = Array.prototype.slice.call(cf.querySelectorAll('.tec'));
+    var puntosCf = cf.querySelector('.coverflow-puntos');
+    var n = tarjetas.length, actual = 0;
+    var pintar = function () {
+      tarjetas.forEach(function (t, i) {
+        var k = i - actual;
+        if (k > n / 2) k -= n;              // camino mas corto (circular)
+        if (k < -n / 2) k += n;
+        var abs = Math.abs(k);
+        t.style.setProperty('--k', k);
+        t.style.setProperty('--abs', Math.min(abs, 2));
+        t.style.setProperty('--lado', k < 0 ? '270deg' : '90deg');
+        t.style.zIndex = 10 - abs;
+        t.style.opacity = abs > 1 ? 0 : 1;
+        t.classList.toggle('activo', k === 0);
+        if ('inert' in t) t.inert = k !== 0; // solo la del frente recibe foco y clics internos
+        t.setAttribute('aria-hidden', k !== 0);
       });
-      panel('nota').textContent = 'Valida la factibilidad en tu domicilio con un asesor.';
+      Array.prototype.forEach.call(puntosCf.children, function (b, i) { b.classList.toggle('activo', i === actual); });
     };
-    mapaMx.addEventListener('click', function (ev) {
-      var p = ev.target.closest('path');
-      if (!p) return;
-      selEstado.value = p.getAttribute('data-estado');
-      mostrarEstado(selEstado.value);
-    });
-    selEstado.addEventListener('change', function () { mostrarEstado(selEstado.value); });
-    document.querySelectorAll('[data-cobertura]').forEach(function (b) {
-      b.addEventListener('click', function () {
-        document.querySelectorAll('[data-cobertura]').forEach(function (x) { x.classList.toggle('activo', x === b); x.setAttribute('aria-pressed', x === b); });
-        mapaMx.setAttribute('data-filtro', b.getAttribute('data-cobertura'));
+    var ir = function (i) { actual = (i + n) % n; pintar(); };
+    tarjetas.forEach(function (t, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-label', 'Ver ' + t.querySelector('h3').textContent);
+      b.addEventListener('click', function () { ir(i); });
+      puntosCf.appendChild(b);
+      // clic en una tarjeta lateral la trae al frente (inert bloquea sus enlaces, no el clic del contenedor)
+      t.parentNode.addEventListener('click', function (ev) {
+        if (ev.target.closest('.tec') === t && !t.classList.contains('activo')) ir(i);
       });
     });
-    // "Validar cobertura": prellena el formulario de contacto con el estado elegido
-    document.querySelectorAll('[data-validar-cobertura]').forEach(function (validar) { validar.addEventListener('click', function () {
+    cf.querySelectorAll('.coverflow-btn').forEach(function (b) {
+      b.addEventListener('click', function () { ir(actual + parseInt(b.getAttribute('data-dir'), 10)); });
+    });
+    cf.addEventListener('keydown', function (ev) {
+      if (ev.key === 'ArrowLeft') ir(actual - 1);
+      if (ev.key === 'ArrowRight') ir(actual + 1);
+    });
+    var x0 = null;
+    cf.addEventListener('touchstart', function (ev) { x0 = ev.touches[0].clientX; }, { passive: true });
+    cf.addEventListener('touchend', function (ev) {
+      if (x0 === null) return;
+      var dx = ev.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 40) ir(actual + (dx < 0 ? 1 : -1));
+      x0 = null;
+    });
+    // Enlaces externos (tarjetas de la portada) que abren una tecnologia
+    document.querySelectorAll('[data-ir-tecnologia]').forEach(function (a) {
+      a.addEventListener('click', function () {
+        var i = tarjetas.findIndex(function (t) { return t.getAttribute('data-clave') === a.getAttribute('data-ir-tecnologia'); });
+        if (i >= 0) ir(i);
+      });
+    });
+    pintar();
+  });
+
+  // "Cotizar" de una tecnologia: prellena el formulario de contacto
+  document.querySelectorAll('[data-cotizar]').forEach(function (b) {
+    b.addEventListener('click', function () {
       var interes = document.getElementById('c-interes');
       var msj = document.getElementById('c-mensaje');
       if (interes && interes.querySelector('option[value="corenet"]')) interes.value = 'corenet';
-      if (msj && !msj.value) msj.value = 'Quiero validar cobertura de enlace dedicado' + (estadoActual ? ' en ' + cob.estados[estadoActual][0] : '') + '.';
-    }); });
+      if (msj) msj.value = 'Quiero cotizar: ' + b.getAttribute('data-cotizar') + '.';
+    });
+  });
+
+  // Cobertura: mapa por capas con recorrido automatico, filtros, buscador y panel
+  var datosCob = document.getElementById('cobertura-datos');
+  var cobmap = document.querySelector('[data-cobmap]');
+  if (datosCob && cobmap) {
+    var cob = JSON.parse(datosCob.textContent);
+    var panelCob = cobmap.querySelector('[data-panel]');
+    var selEstado = cobmap.querySelector('[data-buscar-estado]');
+    var botonAuto = cobmap.querySelector('[data-recorrido]');
+    var recorrido = ['propia', 'extendida', 'interconexion', 'lte', 'todas'];
+    var vista = 'todas', estadoSel = null, auto = !sinMovimiento, relojCob;
+    var nodo = function (etiqueta, clase, texto) {
+      var n = document.createElement(etiqueta);
+      if (clase) n.className = clase;
+      if (texto !== undefined) n.textContent = texto;
+      return n;
+    };
+    var contar = function (v) {
+      return v === 'todas' || v === 'lte' ? cob.estados.length : cob.estados.filter(function (e) { return e[1] === v; }).length;
+    };
+    var insignia = function (texto, color) { var s = nodo('span', 'cobmap-insignia', texto); s.style.setProperty('--chip', color); return s; };
+    var botonVista = function (v, color, contenido) {
+      var b = nodo('button', 'cobmap-opcion'); b.type = 'button';
+      var p = nodo('i', 'punto'); p.style.background = color; b.appendChild(p);
+      b.appendChild(document.createTextNode(' ' + contenido));
+      b.addEventListener('click', function () { elegirVista(v); });
+      return b;
+    };
+    var pintarPanel = function () {
+      panelCob.innerHTML = '';
+      if (estadoSel !== null) {
+        var est = cob.estados[estadoSel], niv = cob.niveles[est[1]];
+        panelCob.appendChild(insignia(niv.nombre, niv.color));
+        panelCob.appendChild(nodo('h3', '', est[0]));
+        var dl = nodo('dl', 'cobmap-datos');
+        var dato = function (t, d) { var div = nodo('div'); div.appendChild(nodo('dt', '', t)); div.appendChild(nodo('dd', '', d)); dl.appendChild(div); };
+        dato('Tecnología', niv.tecnologia);
+        if (est[2]) dato('Cobertura en', est[2].join(', ') + '. Otras zonas del estado, por factibilidad.');
+        dato('También disponible', 'LTE y satelital (zonas offnet y respaldo)');
+        panelCob.appendChild(dl);
+        panelCob.appendChild(nodo('p', 'cobmap-texto', niv.texto));
+      } else if (vista === 'todas') {
+        panelCob.appendChild(insignia('32 / 32 estados', cob.lte.color));
+        panelCob.appendChild(nodo('h3', '', 'Cobertura en todo México'));
+        var ul = nodo('ul', 'cobmap-resumen');
+        Object.keys(cob.niveles).forEach(function (k) {
+          var li = nodo('li'); li.appendChild(botonVista(k, cob.niveles[k].color, contar(k) + ' · ' + cob.niveles[k].nombre)); ul.appendChild(li);
+        });
+        var li = nodo('li'); li.appendChild(botonVista('lte', cob.lte.color, '32 · ' + cob.lte.nombre)); ul.appendChild(li);
+        panelCob.appendChild(ul);
+        panelCob.appendChild(nodo('p', 'cobmap-texto', 'Elige tu estado para ver con qué tecnología te conectamos.'));
+      } else {
+        var info = vista === 'lte' ? cob.lte : cob.niveles[vista];
+        panelCob.appendChild(insignia(contar(vista) + ' estados', info.color));
+        panelCob.appendChild(nodo('h3', '', info.nombre));
+        panelCob.appendChild(nodo('p', 'cobmap-texto', info.texto));
+        if (vista !== 'lte') {
+          var lista = nodo('ul', 'cobmap-estados');
+          cob.estados.forEach(function (e, i) {
+            if (e[1] !== vista) return;
+            var b = nodo('button', '', e[0]); b.type = 'button';
+            b.addEventListener('click', function () { elegirEstado(i); });
+            var li2 = nodo('li'); li2.appendChild(b); lista.appendChild(li2);
+          });
+          panelCob.appendChild(lista);
+        }
+      }
+    };
+    var mostrar = function (v) {
+      vista = v;
+      cobmap.querySelectorAll('[data-vista]').forEach(function (c) { c.classList.toggle('activo', c.getAttribute('data-vista') === v); });
+      cobmap.querySelectorAll('[data-capa]').forEach(function (img) {
+        var c = img.getAttribute('data-capa');
+        img.classList.toggle('activo', v === 'todas' ? c !== 'lte' : c === v);
+      });
+      pintarPanel();
+    };
+    var iconoAuto = function (nombre, etiqueta) {
+      botonAuto.innerHTML = '<svg class="bi" aria-hidden="true"><use href="#bi-' + nombre + '"/></svg>';
+      botonAuto.setAttribute('aria-label', etiqueta);
+    };
+    var detener = function () { auto = false; clearInterval(relojCob); iconoAuto('play-fill', 'Reproducir recorrido'); };
+    var arrancar = function () {
+      auto = true; estadoSel = null; selEstado.value = '';
+      iconoAuto('pause-fill', 'Pausar recorrido');
+      clearInterval(relojCob);
+      relojCob = setInterval(function () { if (!document.hidden) mostrar(recorrido[(recorrido.indexOf(vista) + 1) % recorrido.length]); }, 3200);
+    };
+    var elegirVista = function (v) { detener(); estadoSel = null; selEstado.value = ''; mostrar(v); };
+    var elegirEstado = function (i) { detener(); estadoSel = i; selEstado.value = String(i); mostrar(cob.estados[i][1]); };
+    cobmap.querySelectorAll('[data-vista]').forEach(function (c) {
+      c.addEventListener('click', function () { elegirVista(c.getAttribute('data-vista')); });
+    });
+    selEstado.addEventListener('change', function () { if (selEstado.value !== '') elegirEstado(parseInt(selEstado.value, 10)); });
+    botonAuto.addEventListener('click', function () { if (auto) detener(); else arrancar(); });
+    mostrar('todas');
+    if (auto && 'IntersectionObserver' in window) {
+      // el recorrido empieza cuando el mapa entra en pantalla
+      var ioCob = new IntersectionObserver(function (en) {
+        if (en[0].isIntersecting) { ioCob.disconnect(); if (auto) arrancar(); }
+      });
+      ioCob.observe(cobmap);
+    } else if (auto) {
+      arrancar();
+    } else {
+      detener();
+    }
+    // "Validar cobertura" / "Cotizar enlace": prellena el formulario de contacto
+    document.querySelectorAll('[data-validar-cobertura]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var interes = document.getElementById('c-interes');
+        var msj = document.getElementById('c-mensaje');
+        if (interes && interes.querySelector('option[value="corenet"]')) interes.value = 'corenet';
+        if (msj && !msj.value) msj.value = 'Quiero validar cobertura de enlace dedicado' + (estadoSel !== null ? ' en ' + cob.estados[estadoSel][0] : '') + '.';
+      });
+    });
   }
 
   // Mapa: el iframe de Google (~500 KB) se carga solo al pedirlo

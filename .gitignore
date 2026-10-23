@@ -14,3 +14,4 @@ config/config.php
 build/
 *.pptx
 *.ppsx
+*.zip

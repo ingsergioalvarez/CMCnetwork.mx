@@ -53,8 +53,48 @@ $AVISO_PRIVACIDAD = 'DERECHOS ARCO CMC.pdf';
 
 $COMUNICALO = ['nombre' => 'Comunícalo', 'url' => 'https://comunicalo.mx'];
 
+// ---------- Tecnologias de conectividad (carrusel de la portada y de Conectividad) ----------
+$TECNOLOGIAS = [
+    'fibra' => [
+        'titulo' => 'Internet dedicado por fibra óptica', 'insignia' => 'Simétrico 1:1', 'icono' => 'bi-lightning-charge',
+        'texto' => 'La misma velocidad de subida y bajada, sin compartir el ancho de banda, sobre nuestra red propia.',
+        'puntos' => ['Velocidad simétrica garantizada por contrato', 'Direcciones IP fijas públicas', 'SLA de 99.95% y monitoreo NOC 7 x 24',
+                     'Red propia en 6 estados y cobertura extendida en 19', 'Escalable conforme crece tu operación'],
+        'ideal' => 'Corporativos, plantas, hospitales, call centers y escuelas.',
+    ],
+    'microondas' => [
+        'titulo' => 'Enlaces por microondas', 'insignia' => 'Despliegue rápido', 'icono' => 'bi-broadcast-pin',
+        'texto' => 'Enlaces punto a punto dedicados donde la fibra no llega, o como segunda ruta para que tu operación no se detenga.',
+        'puntos' => ['Instalación sin obra civil ni canalización', 'Ruta de respaldo con conmutación automática', 'Alta capacidad entre sitios',
+                     'Capacidad escalable', 'Monitoreo proactivo del enlace'],
+        'ideal' => 'Parques industriales, naves, obras y sitios sin fibra.',
+    ],
+    'interconexion' => [
+        'titulo' => 'Redes privadas entre sedes', 'insignia' => 'Acceso seguro', 'icono' => 'bi-diagram-3',
+        'texto' => 'Une sucursales, plantas y oficinas en una sola red privada, cifrada y administrada por nosotros.',
+        'puntos' => ['Interconexión LAN to LAN por fibra y microondas', 'VPN cifradas para home office y acceso remoto', 'Priorización del tráfico crítico',
+                     'Configuración y administración incluidas', 'Integración con tu firewall'],
+        'ideal' => 'Empresas con sucursales, cadenas comerciales y plantas.',
+    ],
+    'lte' => [
+        'titulo' => 'Internet LTE empresarial', 'insignia' => '32 estados', 'icono' => 'bi-reception-4',
+        'texto' => 'Conectividad en todo el país para zonas sin red terrestre (offnet), sitios temporales o como respaldo automático de tu enlace principal.',
+        'puntos' => ['Respaldo automático (failover) sin intervención', 'Instalación en días, sin obra civil', 'Gestión y monitoreo remoto desde la nube',
+                     'Agregación de enlaces para más capacidad', 'Ideal para kioscos, sucursales y obras'],
+        'ideal' => 'Retail, sucursales, sitios temporales y respaldo de enlaces.',
+    ],
+    'satelital' => [
+        'titulo' => 'Internet satelital', 'insignia' => 'Donde nada más llega', 'icono' => 'bi-globe-americas',
+        'texto' => 'Conectividad para sitios remotos y respaldo ante cortes terrestres o desastres naturales, en cualquier punto del país.',
+        'puntos' => ['Cobertura en los 32 estados', 'Respaldo ante contingencias y desastres naturales', 'Operación en campo, minas, ranchos y obras',
+                     'Integración con tu red corporativa', 'Soporte 7 x 24'],
+        'ideal' => 'Minería, agro, energía, construcción y protección civil.',
+    ],
+];
+
 // ---------- Cobertura de red ----------
-// Categoria de cada estado (claves ISO 3166-2 sin "MX-"). LTE y satelital llegan a los 32.
+// Nivel de cada estado. Las capas del mapa (img/cobertura) ya vienen pintadas: si un estado
+// cambia de nivel tambien hay que rehacer la imagen de esa capa.
 $COBERTURA = [
     'cifras' => [
         ['32 / 32', 'Estados con cobertura nacional activa'],
@@ -62,24 +102,40 @@ $COBERTURA = [
         ['6 estados', 'Red propia directa (CDMX, Edomex, Hgo, Pue, Mor, Tlax)'],
         ['99.95%', 'SLA de disponibilidad garantizado, NOC 7 x 24'],
     ],
-    'categorias' => [
-        'propia'    => ['nombre' => 'Red propia', 'color' => '#10B981', 'tecnologias' => ['Fibra óptica', 'Microondas', 'LTE', 'Satelital']],
-        'extendida' => ['nombre' => 'Cobertura extendida', 'color' => '#F59E0B', 'tecnologias' => ['Microondas', 'LTE', 'Satelital']],
-        'alianzas'  => ['nombre' => 'Alianzas de conectividad', 'color' => '#E5E7EB', 'tecnologias' => ['Enlace dedicado con aliados', 'LTE', 'Satelital']],
+    'niveles' => [
+        'propia' => [
+            'nombre' => 'Red propia', 'color' => '#00F0FF', 'img' => 'propia',
+            'tecnologia' => 'Fibra óptica + microondas',
+            'texto' => 'Infraestructura operada directamente por CMC.',
+        ],
+        'extendida' => [
+            'nombre' => 'Cobertura extendida', 'color' => '#3D6BFF', 'img' => 'extendida',
+            'tecnologia' => 'Fibra óptica / microondas',
+            'texto' => 'Enlaces de fibra y microondas a través de nuestra cobertura extendida.',
+        ],
+        'interconexion' => [
+            'nombre' => 'Alianzas de conectividad', 'color' => '#FFFFFF', 'img' => 'interconexion',
+            'tecnologia' => 'Según el aliado disponible en la zona',
+            'texto' => 'Validamos tu enlace mediante nuestras alianzas de conectividad.',
+        ],
+    ],
+    // Capa nacional: no es un nivel de estado, cubre los 32
+    'lte' => [
+        'nombre' => 'LTE y satelital', 'color' => '#0A7CFC', 'img' => 'lte-satelital',
+        'tecnologia' => 'LTE y enlace satelital',
+        'texto' => 'Cobertura en los 32 estados mediante LTE y satelital: para zonas sin red terrestre (offnet) y como respaldo automático.',
     ],
     'estados' => [
-        'DIF' => ['Ciudad de México', 'propia'], 'MEX' => ['Estado de México', 'propia'], 'HID' => ['Hidalgo', 'propia'],
-        'PUE' => ['Puebla', 'propia'], 'MOR' => ['Morelos', 'propia'], 'TLA' => ['Tlaxcala', 'propia'],
-        'BCN' => ['Baja California', 'extendida'], 'SON' => ['Sonora', 'extendida'], 'CHH' => ['Chihuahua', 'extendida'],
-        'COA' => ['Coahuila', 'extendida'], 'NLE' => ['Nuevo León', 'extendida'], 'TAM' => ['Tamaulipas', 'extendida'],
-        'SIN' => ['Sinaloa', 'extendida'], 'DUR' => ['Durango', 'extendida'], 'ZAC' => ['Zacatecas', 'extendida'],
-        'SLP' => ['San Luis Potosí', 'extendida'], 'AGU' => ['Aguascalientes', 'extendida'], 'NAY' => ['Nayarit', 'extendida'],
-        'GUA' => ['Guanajuato', 'extendida'], 'QUE' => ['Querétaro', 'extendida'], 'VER' => ['Veracruz', 'extendida'],
-        'CHP' => ['Chiapas', 'extendida'], 'CAM' => ['Campeche', 'extendida'], 'YUC' => ['Yucatán', 'extendida'],
-        'ROO' => ['Quintana Roo', 'extendida'],
-        'BCS' => ['Baja California Sur', 'alianzas'], 'JAL' => ['Jalisco', 'alianzas'], 'COL' => ['Colima', 'alianzas'],
-        'MIC' => ['Michoacán', 'alianzas'], 'GRO' => ['Guerrero', 'alianzas'], 'OAX' => ['Oaxaca', 'alianzas'],
-        'TAB' => ['Tabasco', 'alianzas'],
+        ['Aguascalientes', 'extendida'], ['Baja California', 'extendida'], ['Baja California Sur', 'interconexion'],
+        ['Campeche', 'extendida'], ['Chiapas', 'extendida'], ['Chihuahua', 'extendida'], ['Ciudad de México', 'propia'],
+        ['Coahuila', 'extendida', ['Torreón', 'Saltillo', 'Piedras Negras']], ['Colima', 'interconexion'],
+        ['Durango', 'extendida'], ['Estado de México', 'propia'], ['Guanajuato', 'extendida'], ['Guerrero', 'interconexion'],
+        ['Hidalgo', 'propia'], ['Jalisco', 'extendida', ['Guadalajara']], ['Michoacán', 'interconexion'], ['Morelos', 'propia'],
+        ['Nayarit', 'interconexion'], ['Nuevo León', 'extendida'], ['Oaxaca', 'interconexion'], ['Puebla', 'propia'],
+        ['Querétaro', 'extendida'], ['Quintana Roo', 'extendida'], ['San Luis Potosí', 'extendida'], ['Sinaloa', 'extendida'],
+        ['Sonora', 'extendida', ['San Luis Río Colorado', 'Hermosillo', 'Nogales']], ['Tabasco', 'interconexion'],
+        ['Tamaulipas', 'extendida'], ['Tlaxcala', 'propia'], ['Veracruz', 'extendida'], ['Yucatán', 'extendida', ['Mérida']],
+        ['Zacatecas', 'extendida'],
     ],
 ];
 

@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/includes/bootstrap.php';
 $pagina = 'inicio';
-$titulo = 'CMC Service Network | Enlaces dedicados por fibra óptica y microondas';
+$titulo = 'CMC Service Network | Conectividad empresarial: fibra, microondas, LTE y satelital';
 $precargar = '/img/web/hero-cdmx.webp';
 require ROOT . '/includes/header.php';
 require ROOT . '/includes/carrusel.php';
@@ -11,9 +11,9 @@ require ROOT . '/includes/carrusel.php';
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-lg-7">
-        <span class="etiqueta" style="color:var(--cmc-cian-brillante)">Red propia · Cobertura en los 32 estados</span>
-        <h1>Enlaces dedicados por fibra óptica y microondas<br><span class="grad">para operaciones que no se detienen</span></h1>
-        <p class="lead">Conectamos tu empresa con nuestra propia red y, sobre ella, integramos la tecnología que la hace crecer: IoT, seguridad, cadena de suministro y TI. Un solo socio, un solo soporte.</p>
+        <span class="etiqueta" style="color:var(--cmc-cian-brillante)">4 tecnologías · Red propia · 32 estados</span>
+        <h1>Conectividad empresarial en todo México<br><span class="grad">que nunca se detiene</span></h1>
+        <p class="lead">Fibra óptica y microondas en red propia, y LTE y satelital en los 32 estados para llegar a zonas sin red terrestre y respaldar tu enlace en automático. Sobre esa red integramos IoT, seguridad, cadena de suministro y TI.</p>
         <div class="d-flex flex-wrap gap-3 mt-4">
           <a href="#contacto" class="btn btn-cmc" data-validar-cobertura>Cotizar enlace</a>
           <a href="#cobertura" class="btn btn-borde">Ver cobertura</a>
@@ -21,20 +21,26 @@ require ROOT . '/includes/carrusel.php';
       </div>
       <div class="col-lg-5">
         <div class="enlaces-hero">
-          <a href="/conectividad.php#corenet" class="enlace-hero">
+          <a href="#tecnologias" class="enlace-hero" data-ir-tecnologia="fibra">
             <span class="enlace-hero-icono"><?= icono('diagram-3') ?></span>
-            <span><strong>Fibra óptica</strong>Red propia en CDMX, Edomex, Hidalgo, Puebla, Morelos y Tlaxcala. Internet dedicado simétrico e interconexión entre sedes.</span>
+            <span><strong>Fibra óptica</strong>Red propia en CDMX, Edomex, Hidalgo, Puebla, Morelos y Tlaxcala, y cobertura extendida en 19 estados.</span>
           </a>
-          <a href="/conectividad.php#corenet" class="enlace-hero">
+          <a href="#tecnologias" class="enlace-hero" data-ir-tecnologia="microondas">
             <span class="enlace-hero-icono"><?= icono('broadcast-pin') ?></span>
-            <span><strong>Enlaces de microondas</strong>Enlaces inalámbricos dedicados de alta capacidad donde la fibra no llega, o como ruta de respaldo.</span>
+            <span><strong>Enlaces de microondas</strong>Enlaces dedicados de alta capacidad donde la fibra no llega o como segunda ruta.</span>
           </a>
-          <div class="enlace-hero-pie"><?= icono('shield-check') ?> SLA 99.95% · NOC 7 x 24 · respaldo LTE y satelital</div>
+          <a href="#tecnologias" class="enlace-hero" data-ir-tecnologia="lte">
+            <span class="enlace-hero-icono"><?= icono('globe-americas') ?></span>
+            <span><strong>LTE y satelital</strong>Cobertura en los 32 estados para zonas offnet y como respaldo automático.</span>
+          </a>
+          <div class="enlace-hero-pie"><?= icono('shield-check') ?> SLA 99.95% · NOC 7 x 24</div>
         </div>
       </div>
     </div>
   </div>
 </header>
+
+<?php require ROOT . '/includes/tecnologias.php'; ?>
 
 <?php require ROOT . '/includes/cobertura.php'; ?>
 
@@ -133,7 +139,7 @@ require ROOT . '/includes/carrusel.php';
         </ul>
       </div>
       <div class="col-lg-6 revelar">
-        <?= img_solucion('c2', 'Centro de monitoreo', '(max-width: 991px) 92vw, 560px', 'class="bloque-img" loading="lazy"') ?>
+        <?= img_solucion('nosotros', 'Equipo de ingenieros de CMC en el centro de monitoreo', '(max-width: 991px) 92vw, 560px', 'class="bloque-img" loading="lazy"') ?>
       </div>
     </div>
   </div>
