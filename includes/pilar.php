@@ -26,6 +26,8 @@ $lista = soluciones($pilar);
   </div>
 </header>
 
+<?php if ($pilar === 'conectividad') require __DIR__ . '/cobertura.php'; ?>
+
 <section id="soluciones" class="seccion seccion-clara">
   <div class="container">
     <div class="titulo-seccion text-center revelar">

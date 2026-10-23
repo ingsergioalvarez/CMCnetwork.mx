@@ -53,6 +53,36 @@ $AVISO_PRIVACIDAD = 'DERECHOS ARCO CMC.pdf';
 
 $COMUNICALO = ['nombre' => 'Comunícalo', 'url' => 'https://comunicalo.mx'];
 
+// ---------- Cobertura de red ----------
+// Categoria de cada estado (claves ISO 3166-2 sin "MX-"). LTE y satelital llegan a los 32.
+$COBERTURA = [
+    'cifras' => [
+        ['32 / 32', 'Estados con cobertura nacional activa'],
+        ['4 tecnologías', 'Fibra óptica · Microondas · Satelital · LTE'],
+        ['6 estados', 'Red propia directa (CDMX, Edomex, Hgo, Pue, Mor, Tlax)'],
+        ['99.95%', 'SLA de disponibilidad garantizado, NOC 7 x 24'],
+    ],
+    'categorias' => [
+        'propia'    => ['nombre' => 'Red propia', 'color' => '#10B981', 'tecnologias' => ['Fibra óptica', 'Microondas', 'LTE', 'Satelital']],
+        'extendida' => ['nombre' => 'Cobertura extendida', 'color' => '#F59E0B', 'tecnologias' => ['Microondas', 'LTE', 'Satelital']],
+        'alianzas'  => ['nombre' => 'Alianzas de conectividad', 'color' => '#E5E7EB', 'tecnologias' => ['Enlace dedicado con aliados', 'LTE', 'Satelital']],
+    ],
+    'estados' => [
+        'DIF' => ['Ciudad de México', 'propia'], 'MEX' => ['Estado de México', 'propia'], 'HID' => ['Hidalgo', 'propia'],
+        'PUE' => ['Puebla', 'propia'], 'MOR' => ['Morelos', 'propia'], 'TLA' => ['Tlaxcala', 'propia'],
+        'BCN' => ['Baja California', 'extendida'], 'SON' => ['Sonora', 'extendida'], 'CHH' => ['Chihuahua', 'extendida'],
+        'COA' => ['Coahuila', 'extendida'], 'NLE' => ['Nuevo León', 'extendida'], 'TAM' => ['Tamaulipas', 'extendida'],
+        'SIN' => ['Sinaloa', 'extendida'], 'DUR' => ['Durango', 'extendida'], 'ZAC' => ['Zacatecas', 'extendida'],
+        'SLP' => ['San Luis Potosí', 'extendida'], 'AGU' => ['Aguascalientes', 'extendida'], 'NAY' => ['Nayarit', 'extendida'],
+        'GUA' => ['Guanajuato', 'extendida'], 'QUE' => ['Querétaro', 'extendida'], 'VER' => ['Veracruz', 'extendida'],
+        'CHP' => ['Chiapas', 'extendida'], 'CAM' => ['Campeche', 'extendida'], 'YUC' => ['Yucatán', 'extendida'],
+        'ROO' => ['Quintana Roo', 'extendida'],
+        'BCS' => ['Baja California Sur', 'alianzas'], 'JAL' => ['Jalisco', 'alianzas'], 'COL' => ['Colima', 'alianzas'],
+        'MIC' => ['Michoacán', 'alianzas'], 'GRO' => ['Guerrero', 'alianzas'], 'OAX' => ['Oaxaca', 'alianzas'],
+        'TAB' => ['Tabasco', 'alianzas'],
+    ],
+];
+
 // ---------- Portafolio de soluciones ----------
 // Pilares = paginas del sitio. Cada solucion pertenece a un pilar y aparece en sus carruseles.
 $PILARES = [
@@ -77,8 +107,8 @@ $PILARES = [
         'url'    => '/conectividad.php',
         'icono'  => 'bi-broadcast',
         'img'    => '/img/soluciones/corenet.webp',
-        'titulo' => ['Conectividad', 'de misión crítica'],
-        'texto'  => 'Internet dedicado simétrico con SLA, interconexión entre sedes, respaldo satelital y LTE, y telefonía IP en la nube.',
+        'titulo' => ['Enlaces dedicados', 'por fibra óptica y microondas'],
+        'texto'  => 'Red propia en el centro del país, cobertura en los 32 estados con aliados, LTE y satelital, SLA de 99.95% y telefonía IP en la nube.',
     ],
     'ti' => [
         'nombre' => 'TI y Software',

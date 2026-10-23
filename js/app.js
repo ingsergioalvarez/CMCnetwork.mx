@@ -177,6 +177,59 @@
     });
   });
 
+  // Cobertura: filtros por tipo de red, clic en el mapa y buscador por estado
+  var datosCob = document.getElementById('cobertura-datos');
+  if (datosCob) {
+    var cob = JSON.parse(datosCob.textContent);
+    var mapaMx = document.querySelector('.mapa-mx');
+    var selEstado = document.getElementById('cobertura-estado');
+    var panel = function (k) { return document.querySelector('[data-panel="' + k + '"]'); };
+    var listaInicial = panel('lista').innerHTML, estadoActual = '';
+    var mostrarEstado = function (cod) {
+      estadoActual = cod;
+      mapaMx.querySelectorAll('path').forEach(function (p) { p.classList.toggle('sel', p.getAttribute('data-estado') === cod); });
+      if (!cod) {
+        panel('insignia').textContent = '32 / 32 estados';
+        panel('titulo').textContent = 'Cobertura en todo México';
+        panel('lista').innerHTML = listaInicial;
+        panel('nota').textContent = 'Elige tu estado para ver con qué tecnología te conectamos.';
+        return;
+      }
+      var est = cob.estados[cod], cat = cob.categorias[est[1]];
+      panel('insignia').textContent = cat.nombre;
+      panel('titulo').textContent = est[0];
+      panel('lista').innerHTML = '';
+      cat.tecnologias.forEach(function (t) {
+        var li = document.createElement('li');
+        li.innerHTML = '<i class="punto"></i>';
+        li.firstChild.style.background = t === 'LTE' || t === 'Satelital' ? '#38BDF8' : cat.color;
+        li.appendChild(document.createTextNode(t));
+        panel('lista').appendChild(li);
+      });
+      panel('nota').textContent = 'Valida la factibilidad en tu domicilio con un asesor.';
+    };
+    mapaMx.addEventListener('click', function (ev) {
+      var p = ev.target.closest('path');
+      if (!p) return;
+      selEstado.value = p.getAttribute('data-estado');
+      mostrarEstado(selEstado.value);
+    });
+    selEstado.addEventListener('change', function () { mostrarEstado(selEstado.value); });
+    document.querySelectorAll('[data-cobertura]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        document.querySelectorAll('[data-cobertura]').forEach(function (x) { x.classList.toggle('activo', x === b); x.setAttribute('aria-pressed', x === b); });
+        mapaMx.setAttribute('data-filtro', b.getAttribute('data-cobertura'));
+      });
+    });
+    // "Validar cobertura": prellena el formulario de contacto con el estado elegido
+    document.querySelectorAll('[data-validar-cobertura]').forEach(function (validar) { validar.addEventListener('click', function () {
+      var interes = document.getElementById('c-interes');
+      var msj = document.getElementById('c-mensaje');
+      if (interes && interes.querySelector('option[value="corenet"]')) interes.value = 'corenet';
+      if (msj && !msj.value) msj.value = 'Quiero validar cobertura de enlace dedicado' + (estadoActual ? ' en ' + cob.estados[estadoActual][0] : '') + '.';
+    }); });
+  }
+
   // Mapa: el iframe de Google (~500 KB) se carga solo al pedirlo
   document.querySelectorAll('[data-mapa]').forEach(function (caja) {
     var b = caja.querySelector('button');

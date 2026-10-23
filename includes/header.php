@@ -9,8 +9,8 @@ $titulo = isset($titulo) ? $titulo : 'CMC Service Network';
 $descripcion = isset($descripcion) ? $descripcion : 'Un solo socio tecnológico: IoT y automatización, videovigilancia con IA, RFID y cadena de suministro, conectividad de misión crítica, ciberseguridad y software.';
 $pagina = isset($pagina) ? $pagina : '';
 
-// El pilar destacado va directo en el menu; los demas en el desplegable "Soluciones"
-$menu_soluciones = array_diff_key($PILARES, ['iot' => 1]);
+// Conectividad e IoT van directo en el menu; los demas pilares en el desplegable "Soluciones"
+$menu_soluciones = array_diff_key($PILARES, ['iot' => 1, 'conectividad' => 1]);
 $wa = 'https://wa.me/' . $CONTACTO['whatsapp'] . '?text=' . rawurlencode($CONTACTO['whatsapp_msg']);
 ?>
 <!doctype html>
@@ -42,7 +42,9 @@ $wa = 'https://wa.me/' . $CONTACTO['whatsapp'] . '?text=' . rawurlencode($CONTAC
     <div class="collapse navbar-collapse" id="menu">
       <ul class="navbar-nav ms-auto align-items-lg-center">
         <li class="nav-item"><a class="nav-link<?= $pagina === 'inicio' ? ' active' : '' ?>" href="/">Inicio</a></li>
-        <li class="nav-item"><a class="nav-link<?= $pagina === 'iot' ? ' active' : '' ?>" href="<?= e($PILARES['iot']['url']) ?>"><?= e($PILARES['iot']['nombre']) ?></a></li>
+        <?php foreach (['conectividad', 'iot'] as $clave): ?>
+          <li class="nav-item"><a class="nav-link<?= $pagina === $clave ? ' active' : '' ?>" href="<?= e($PILARES[$clave]['url']) ?>"><?= e($PILARES[$clave]['nombre']) ?></a></li>
+        <?php endforeach; ?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle<?= isset($menu_soluciones[$pagina]) ? ' active' : '' ?>" href="#" role="button" aria-expanded="false">Soluciones</a>
           <ul class="dropdown-menu dropdown-menu-dark">

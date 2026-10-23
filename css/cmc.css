@@ -309,3 +309,46 @@ img { max-width: 100%; }
 
 /* Telefonos del pie con area tactil suficiente */
 .pie a[href^="tel:"] { display: inline-block; padding: 4px 0; }
+
+/* ---------- Cobertura ---------- */
+.cifra { height: 100%; border-radius: var(--radio); padding: 22px 24px; background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .12); }
+.cifra strong { display: block; color: #fff; font-size: clamp(1.2rem, 2.4vw + .4rem, 2.3rem); line-height: 1.1; margin-bottom: 6px; }
+.cifra span { font-size: .88rem; color: rgba(255, 255, 255, .75); }
+.filtros-cobertura button { background: rgba(255, 255, 255, .06); color: #fff; border-color: rgba(255, 255, 255, .15); display: inline-flex; align-items: center; gap: 8px; }
+.filtros-cobertura button b { background: rgba(255, 255, 255, .14); border-radius: 10px; padding: 0 8px; font-size: .78rem; }
+.filtros-cobertura button.activo { background: rgba(0, 204, 252, .16); border-color: var(--cmc-cian); }
+.punto { display: inline-block; width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.mapa-mx { position: relative; height: 100%; border-radius: var(--radio); padding: 18px; background: rgba(255, 255, 255, .04); border: 1px solid rgba(255, 255, 255, .1); }
+.mapa-mx svg { width: 100%; height: auto; display: block; }
+.mapa-mx path { fill: var(--c); stroke: #06123D; stroke-width: 1.2; cursor: pointer; transition: fill .3s, opacity .3s, filter .3s; }
+.mapa-mx path:hover, .mapa-mx path.sel { filter: brightness(1.15) drop-shadow(0 0 8px var(--c)); stroke: #fff; stroke-width: 1.6; }
+.mapa-mx[data-filtro="propia"] path:not([data-cat="propia"]),
+.mapa-mx[data-filtro="extendida"] path:not([data-cat="extendida"]),
+.mapa-mx[data-filtro="alianzas"] path:not([data-cat="alianzas"]) { opacity: .18; }
+.mapa-mx[data-filtro="lte"] path { fill: #38BDF8; }
+.mapa-leyenda { position: absolute; left: 22px; bottom: 18px; list-style: none; margin: 0; padding: 10px 14px; border-radius: 12px; background: rgba(6, 18, 61, .85); font-size: .8rem; }
+.mapa-leyenda li { display: flex; align-items: center; gap: 8px; padding: 2px 0; color: rgba(255, 255, 255, .85); }
+.panel-cobertura { height: 100%; display: flex; flex-direction: column; border-radius: var(--radio); padding: 24px; background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .12); }
+.panel-cobertura-cuerpo { padding: 18px 0; }
+.insignia-cobertura { display: inline-block; border: 1px solid var(--cmc-cian); color: var(--cmc-cian-brillante); border-radius: 20px; padding: 3px 12px; font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.panel-cobertura h3 { font-size: 1.4rem; margin: 12px 0 14px; }
+.lista-cobertura { list-style: none; padding: 0; margin: 0 0 14px; }
+.lista-cobertura li { display: flex; align-items: center; gap: 10px; padding: 7px 0; color: rgba(255, 255, 255, .9); }
+@media (max-width: 575.98px) { .mapa-leyenda { position: static; margin-top: 10px; } }
+
+/* Portada centrada en la red */
+.hero-red h1 { font-size: clamp(30px, 4.2vw, 50px); }
+.enlaces-hero { display: grid; gap: 14px; }
+.enlace-hero { display: flex; gap: 16px; align-items: flex-start; padding: 20px 22px; border-radius: var(--radio); text-decoration: none;
+  background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .14); color: rgba(255, 255, 255, .8); font-size: .92rem;
+  backdrop-filter: blur(6px); transition: transform .25s, border-color .25s; }
+.enlace-hero:hover { transform: translateY(-4px); border-color: var(--cmc-cian); color: rgba(255, 255, 255, .9); }
+.enlace-hero strong { display: block; color: #fff; font-size: 1.15rem; margin-bottom: 4px; }
+.enlace-hero-icono { width: 52px; height: 52px; border-radius: 14px; flex-shrink: 0; display: grid; place-items: center; font-size: 24px; color: #fff; background: var(--cmc-degradado); }
+.enlace-hero-pie { font-size: .85rem; color: rgba(255, 255, 255, .75); padding-left: 4px; }
+.enlace-hero-pie .bi { color: var(--cmc-cian-brillante); margin-right: 4px; }
+@media (max-width: 575.98px) {
+  .cifra { padding: 16px; }
+  .filtros-cobertura { gap: 8px; }
+  .filtros-cobertura button { padding: 6px 12px; font-size: .82rem; }
+}

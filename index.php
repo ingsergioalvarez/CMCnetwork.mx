@@ -1,42 +1,42 @@
 <?php
 require __DIR__ . '/includes/bootstrap.php';
 $pagina = 'inicio';
-$titulo = 'CMC Service Network | Un solo socio tecnológico';
+$titulo = 'CMC Service Network | Enlaces dedicados por fibra óptica y microondas';
 $precargar = '/img/web/hero-cdmx.webp';
 require ROOT . '/includes/header.php';
 require ROOT . '/includes/carrusel.php';
-
-// Un mensaje general y uno por pilar (IoT primero)
-$slides = [['Un solo', 'socio tecnológico', 'Conectamos tu operación con la tecnología que la hace crecer, protegerse y no detenerse nunca.']];
-foreach ($PILARES as $p) {
-    $slides[] = [$p['titulo'][0], $p['titulo'][1], $p['texto']];
-}
 ?>
 
-<header class="hero" style="--hero-img:url('/img/web/hero-cdmx.webp')">
+<header class="hero hero-red" style="--hero-img:url('/img/web/hero-cdmx.webp')">
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-lg-7">
-        <div class="hero-slides">
-          <?php foreach ($slides as $i => $s): ?>
-            <div class="hero-slide<?= $i === 0 ? ' activo' : '' ?>">
-              <<?= $i === 0 ? 'h1' : 'p class="h1"' ?>><?= e($s[0]) ?><br><span class="grad"><?= e($s[1]) ?></span></<?= $i === 0 ? 'h1' : 'p' ?>>
-              <p class="lead"><?= e($s[2]) ?></p>
-            </div>
-          <?php endforeach; ?>
-        </div>
+        <span class="etiqueta" style="color:var(--cmc-cian-brillante)">Red propia · Cobertura en los 32 estados</span>
+        <h1>Enlaces dedicados por fibra óptica y microondas<br><span class="grad">para operaciones que no se detienen</span></h1>
+        <p class="lead">Conectamos tu empresa con nuestra propia red y, sobre ella, integramos la tecnología que la hace crecer: IoT, seguridad, cadena de suministro y TI. Un solo socio, un solo soporte.</p>
         <div class="d-flex flex-wrap gap-3 mt-4">
-          <a href="#contacto" class="btn btn-cmc">Solicita una cotización</a>
-          <a href="#portafolio" class="btn btn-borde">Ver portafolio</a>
+          <a href="#contacto" class="btn btn-cmc" data-validar-cobertura>Cotizar enlace</a>
+          <a href="#cobertura" class="btn btn-borde">Ver cobertura</a>
         </div>
-        <div class="hero-puntos"></div>
       </div>
-      <div class="col-lg-5 text-center d-none d-lg-block">
-        <img src="/imagenes/marca/simbolo-cmc.webp" alt="" class="hero-simbolo" width="440" height="440" fetchpriority="low">
+      <div class="col-lg-5">
+        <div class="enlaces-hero">
+          <a href="/conectividad.php#corenet" class="enlace-hero">
+            <span class="enlace-hero-icono"><?= icono('diagram-3') ?></span>
+            <span><strong>Fibra óptica</strong>Red propia en CDMX, Edomex, Hidalgo, Puebla, Morelos y Tlaxcala. Internet dedicado simétrico e interconexión entre sedes.</span>
+          </a>
+          <a href="/conectividad.php#corenet" class="enlace-hero">
+            <span class="enlace-hero-icono"><?= icono('broadcast-pin') ?></span>
+            <span><strong>Enlaces de microondas</strong>Enlaces inalámbricos dedicados de alta capacidad donde la fibra no llega, o como ruta de respaldo.</span>
+          </a>
+          <div class="enlace-hero-pie"><?= icono('shield-check') ?> SLA 99.95% · NOC 7 x 24 · respaldo LTE y satelital</div>
+        </div>
       </div>
     </div>
   </div>
 </header>
+
+<?php require ROOT . '/includes/cobertura.php'; ?>
 
 <section id="portafolio" class="seccion seccion-clara">
   <div class="container">
