@@ -410,14 +410,14 @@ $SOLUCIONES = [
 ];
 
 $INDUSTRIAS = [
-    ['icono' => 'bi-shop', 'nombre' => 'Retail y autoservicio', 'texto' => 'Etiquetas electrónicas, conteo de personas, prevención de pérdidas e inventario RFID.'],
-    ['icono' => 'bi-truck', 'nombre' => 'Logística y CEDIS', 'texto' => 'Trazabilidad RFID, WMS, robots AMR y gestión de andenes con video.'],
+    ['icono' => 'bi-shop', 'img' => 'retail', 'nombre' => 'Retail y autoservicio', 'texto' => 'Etiquetas electrónicas, conteo de personas, prevención de pérdidas e inventario RFID.'],
+    ['icono' => 'bi-truck', 'img' => 'logistica', 'nombre' => 'Logística y CEDIS', 'texto' => 'Trazabilidad RFID, WMS, robots AMR y gestión de andenes con video.'],
     ['icono' => 'bi-gear-wide-connected', 'nombre' => 'Manufactura', 'texto' => 'Detección de EPP, control de calidad con RFID y monitoreo de maquinaria.'],
-    ['icono' => 'bi-car-front', 'nombre' => 'Automotriz y estacionamientos', 'texto' => 'Scardetection, cámaras LPR y control de accesos vehiculares.'],
-    ['icono' => 'bi-bank', 'nombre' => 'Gobierno y municipios', 'texto' => 'Centros C2, videovigilancia urbana y monitoreo sísmico.'],
-    ['icono' => 'bi-cart-check', 'nombre' => 'Comercio electrónico', 'texto' => 'Almacenes inteligentes, etiquetado y conectividad de misión crítica.'],
-    ['icono' => 'bi-buildings', 'nombre' => 'Corporativos', 'texto' => 'Internet dedicado, ciberseguridad, telefonía IP y control de acceso.'],
-    ['icono' => 'bi-flower1', 'nombre' => 'Agro', 'texto' => 'Aplicaciones para documentar actividades agrícolas, personal y producción.'],
+    ['icono' => 'bi-car-front', 'img' => 'automotriz', 'nombre' => 'Automotriz y estacionamientos', 'texto' => 'Scardetection, cámaras LPR y control de accesos vehiculares.'],
+    ['icono' => 'bi-bank', 'img' => 'gobierno', 'nombre' => 'Gobierno y municipios', 'texto' => 'Centros C2, videovigilancia urbana y monitoreo sísmico.'],
+    ['icono' => 'bi-cart-check', 'img' => 'ecommerce', 'nombre' => 'Comercio electrónico', 'texto' => 'Almacenes inteligentes, etiquetado y conectividad de misión crítica.'],
+    ['icono' => 'bi-buildings', 'img' => 'corporativos', 'nombre' => 'Corporativos', 'texto' => 'Internet dedicado, ciberseguridad, telefonía IP y control de acceso.'],
+    ['icono' => 'bi-flower1', 'img' => 'agro', 'nombre' => 'Agro', 'texto' => 'Aplicaciones para documentar actividades agrícolas, personal y producción.'],
 ];
 
 // Certificaciones y alianzas (logos en img/certificaciones/)

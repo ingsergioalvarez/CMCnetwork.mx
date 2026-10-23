@@ -63,6 +63,10 @@ function tarjeta_industria(array $i)
 {
     ob_start(); ?>
     <div class="tarjeta-ind">
+      <?php if (!empty($i['img'])): $base = '/img/industrias/' . e($i['img']); ?>
+        <img class="tarjeta-ind-img" src="<?= $base ?>-400.webp" srcset="<?= $base ?>-400.webp 400w, <?= $base ?>.webp 800w"
+          sizes="(max-width: 575px) 86vw, (max-width: 991px) 46vw, 300px" alt="" width="800" height="600" loading="lazy">
+      <?php endif; ?>
       <div class="icono"><?= icono($i['icono']) ?></div>
       <h3><?= e($i['nombre']) ?></h3>
       <p><?= e($i['texto']) ?></p>
