@@ -3,11 +3,11 @@ require __DIR__ . '/includes/bootstrap.php';
 $pagina = 'residencial';
 $titulo = 'Internet residencial | CMC Service Network';
 $descripcion = 'Planes de Internet y telefonía para tu hogar desde $600 al mes.';
-$precargar = '/img/web/residencial.webp';
+$precargar = con_version('/img/web/residencial.webp');
 require ROOT . '/includes/header.php';
 ?>
 
-<header class="hero hero-corto" style="--hero-img:url('/img/web/residencial.webp')">
+<header class="hero hero-corto" style="--hero-img:url('<?= e($precargar) ?>')">
   <div class="container">
     <span class="etiqueta" style="color:var(--cmc-cian-brillante)">Hogar</span>
     <h1>Internet <span class="grad">residencial</span></h1>

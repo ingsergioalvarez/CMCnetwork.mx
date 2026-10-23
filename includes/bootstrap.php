@@ -8,6 +8,13 @@ require __DIR__ . '/iconos.php';
 mb_internal_encoding('UTF-8');
 date_default_timezone_set('America/Mexico_City');
 
+/** Ruta de un archivo con ?v=fecha de modificacion: al reemplazar una imagen el navegador no muestra la anterior. */
+function con_version($ruta)
+{
+    $t = @filemtime(ROOT . $ruta);
+    return $t ? $ruta . '?v=' . $t : $ruta;
+}
+
 function config($clave = null)
 {
     static $cfg = null;

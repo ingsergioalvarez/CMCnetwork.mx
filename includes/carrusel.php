@@ -34,8 +34,9 @@ function carrusel(array $items, array $opciones = [])
  */
 function img_solucion($slug, $alt, $tamanos, $atributos = 'loading="lazy"')
 {
-    $base = '/img/soluciones/' . e($slug);
-    return '<img src="' . $base . '-480.webp" srcset="' . $base . '-480.webp 480w, ' . $base . '.webp 960w" sizes="' . e($tamanos) . '"'
+    $chica = e(con_version('/img/soluciones/' . $slug . '-480.webp'));
+    $grande = e(con_version('/img/soluciones/' . $slug . '.webp'));
+    return '<img src="' . $chica . '" srcset="' . $chica . ' 480w, ' . $grande . ' 960w" sizes="' . e($tamanos) . '"'
         . ' alt="' . e($alt) . '" width="960" height="720" ' . $atributos . '>';
 }
 
@@ -63,8 +64,8 @@ function tarjeta_industria(array $i)
 {
     ob_start(); ?>
     <div class="tarjeta-ind">
-      <?php if (!empty($i['img'])): $base = '/img/industrias/' . e($i['img']); ?>
-        <img class="tarjeta-ind-img" src="<?= $base ?>-400.webp" srcset="<?= $base ?>-400.webp 400w, <?= $base ?>.webp 800w"
+      <?php if (!empty($i['img'])): $chica = e(con_version('/img/industrias/' . $i['img'] . '-400.webp')); ?>
+        <img class="tarjeta-ind-img" src="<?= $chica ?>" srcset="<?= $chica ?> 400w, <?= e(con_version('/img/industrias/' . $i['img'] . '.webp')) ?> 800w"
           sizes="(max-width: 575px) 86vw, (max-width: 991px) 46vw, 300px" alt="" width="800" height="600" loading="lazy">
       <?php endif; ?>
       <div class="icono"><?= icono($i['icono']) ?></div>

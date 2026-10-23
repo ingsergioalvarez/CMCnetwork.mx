@@ -2,12 +2,12 @@
 require __DIR__ . '/includes/bootstrap.php';
 $pagina = 'inicio';
 $titulo = 'CMC Service Network | Conectividad empresarial: fibra, microondas, LTE y satelital';
-$precargar = '/img/web/hero-cdmx.webp';
+$precargar = con_version('/img/web/hero-cdmx.webp');
 require ROOT . '/includes/header.php';
 require ROOT . '/includes/carrusel.php';
 ?>
 
-<header class="hero hero-red" style="--hero-img:url('/img/web/hero-cdmx.webp')">
+<header class="hero hero-red" style="--hero-img:url('<?= e($precargar) ?>')">
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-lg-7">

@@ -4,7 +4,7 @@ defined('CMC') || exit;
 require_once __DIR__ . '/datos.php';
 
 $pil = $PILARES[$pilar];
-$precargar = $pil['img'];
+$precargar = con_version($pil['img']);
 $pagina = $pilar;
 $titulo = $pil['nombre'] . ' | CMC Service Network';
 $descripcion = $pil['texto'];
@@ -14,7 +14,7 @@ require __DIR__ . '/carrusel.php';
 $lista = soluciones($pilar);
 ?>
 
-<header class="hero hero-corto" style="--hero-img:url('<?= e($pil['img']) ?>')">
+<header class="hero hero-corto" style="--hero-img:url('<?= e($precargar) ?>')">
   <div class="container">
     <span class="etiqueta" style="color:var(--cmc-cian-brillante)"><?= icono($pil['icono'], 'me-1') ?><?= e($pil['nombre']) ?></span>
     <h1><?= e($pil['titulo'][0]) ?> <span class="grad"><?= e($pil['titulo'][1]) ?></span></h1>
