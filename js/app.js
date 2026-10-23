@@ -98,22 +98,70 @@
 
   // Carruseles: la pista se desliza con scroll-snap; flechas, puntos y avance automatico
   var sinMovimiento = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Avance automatico: se pausa al pasar el mouse, al tocar o con el foco dentro
+  var autoAvance = function (el, avanzar, ms) {
+    if (!ms || sinMovimiento) return;
+    var pausa = false;
+    setInterval(function () { if (!pausa && !document.hidden) avanzar(); }, ms);
+    ['mouseenter', 'focusin', 'touchstart'].forEach(function (ev) { el.addEventListener(ev, function () { pausa = true; }, { passive: true }); });
+    ['mouseleave', 'focusout', 'touchend'].forEach(function (ev) { el.addEventListener(ev, function () { pausa = false; }); });
+  };
   document.querySelectorAll('[data-carrusel]').forEach(function (car) {
     var pista = car.querySelector('.carrusel-pista');
     var puntosCar = car.querySelector('.carrusel-puntos');
-    var visibles = function () {
-      return Array.prototype.filter.call(pista.children, function (it) { return !it.hidden; });
+    // Tarjetas reales visibles (sin las copias ni las ocultas por un filtro)
+    var reales = function () {
+      return Array.prototype.filter.call(pista.children, function (it) { return !it.hidden && !it.classList.contains('carrusel-clon'); });
     };
+    var hueco = function () { return parseFloat(getComputedStyle(pista).columnGap || 0); };
     var paso = function () {
-      var it = visibles()[0];
-      return it ? it.getBoundingClientRect().width + parseFloat(getComputedStyle(pista).columnGap || 0) : pista.clientWidth;
+      var it = reales()[0];
+      return it ? it.getBoundingClientRect().width + hueco() : pista.clientWidth;
     };
-    var paginas = function () { return Math.max(1, Math.ceil((pista.scrollWidth - pista.clientWidth) / paso() - 0.01) + 1); };
-    var pagina = function () { return Math.round(pista.scrollLeft / paso()); };
+    var saltar = function (left) { // sin animacion, aunque la pista tenga scroll-behavior: smooth
+      pista.style.scrollBehavior = 'auto';
+      pista.scrollLeft = left;
+      pista.style.scrollBehavior = '';
+    };
+    // Copias de las tarjetas al final: del ultimo se pasa al primero sin regresar todo el carrusel
+    var ciclico = false;
+    var clonar = function () {
+      Array.prototype.slice.call(pista.querySelectorAll('.carrusel-clon')).forEach(function (c) { pista.removeChild(c); });
+      var lista = reales();
+      ciclico = lista.length > Math.round((pista.clientWidth + hueco()) / paso());
+      if (!ciclico) return;
+      lista.forEach(function (it) {
+        var c = it.cloneNode(true);
+        c.classList.add('carrusel-clon');
+        c.setAttribute('aria-hidden', 'true');
+        if ('inert' in c) c.inert = true;
+        c.querySelectorAll('a, button, [tabindex]').forEach(function (el) { el.setAttribute('tabindex', '-1'); });
+        pista.appendChild(c);
+      });
+    };
+    var paginas = function () {
+      return ciclico ? reales().length : Math.max(1, Math.ceil((pista.scrollWidth - pista.clientWidth) / paso() - 0.01) + 1);
+    };
+    var pagina = function () {
+      var p = Math.round(pista.scrollLeft / paso());
+      return ciclico ? p % reales().length : p;
+    };
+    // Al quedar sobre una copia, salta en silencio a la tarjeta real equivalente
+    var normalizar = function () {
+      if (!ciclico) return;
+      var n = reales().length, p = Math.round(pista.scrollLeft / paso());
+      if (p >= n) saltar((p - n) * paso());
+    };
     var ir = function (i) {
       var total = paginas();
-      if (i >= total) i = 0;
-      if (i < 0) i = total - 1;
+      if (ciclico) {
+        normalizar(); // si quedo sobre una copia, primero vuelve a la real para no recorrer todo hacia atras
+        // Hacia atras desde la primera: se para en su copia y retrocede desde ahi
+        if (i < 0) { saltar(total * paso()); i += total; }
+      } else {
+        if (i >= total) i = 0;
+        if (i < 0) i = total - 1;
+      }
       pista.scrollTo({ left: i * paso(), behavior: sinMovimiento ? 'auto' : 'smooth' });
     };
     var pintarPuntos = function () {
@@ -146,18 +194,12 @@
       b.addEventListener('click', function () { ir(pagina() + parseInt(b.getAttribute('data-dir'), 10)); });
     });
     var espera;
-    pista.addEventListener('scroll', function () { clearTimeout(espera); espera = setTimeout(marcar, 80); }, { passive: true });
-    window.addEventListener('resize', function () { clearTimeout(espera); espera = setTimeout(pintarPuntos, 150); });
-    car.refrescar = function () { pista.scrollLeft = 0; pintarPuntos(); };
+    pista.addEventListener('scroll', function () { clearTimeout(espera); espera = setTimeout(function () { normalizar(); marcar(); }, 120); }, { passive: true });
+    window.addEventListener('resize', function () { clearTimeout(espera); espera = setTimeout(function () { clonar(); normalizar(); pintarPuntos(); }, 150); });
+    car.refrescar = function () { saltar(0); clonar(); pintarPuntos(); };
+    clonar();
     pintarPuntos();
-
-    // Avance automatico: se pausa al pasar el mouse, al tocar o con el foco dentro
-    var ms = parseInt(car.getAttribute('data-auto'), 10);
-    if (ms && !sinMovimiento) {
-      var pausa = false, reloj = setInterval(function () { if (!pausa && !document.hidden) ir(pagina() + 1); }, ms);
-      ['mouseenter', 'focusin', 'touchstart'].forEach(function (ev) { car.addEventListener(ev, function () { pausa = true; }, { passive: true }); });
-      ['mouseleave', 'focusout'].forEach(function (ev) { car.addEventListener(ev, function () { pausa = false; }); });
-    }
+    autoAvance(car, function () { ir(pagina() + 1); }, parseInt(car.getAttribute('data-auto'), 10));
   });
 
   // Filtros por pilar sobre un carrusel (botones con data-filtro y data-objetivo)
@@ -234,6 +276,7 @@
       });
     });
     pintar();
+    autoAvance(cf, function () { ir(actual + 1); }, 6000);
   });
 
   // "Cotizar" de una tecnologia: prellena el formulario de contacto

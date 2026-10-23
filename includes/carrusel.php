@@ -5,12 +5,12 @@ defined('CMC') || exit;
 /**
  * Imprime un carrusel.
  * $items: lista de strings HTML (una tarjeta cada uno).
- * $opciones: 'por_vista' => 3|4 (escritorio), 'auto' => bool (avance automatico), 'etiqueta' => texto para lectores de pantalla.
+ * $opciones: 'por_vista' => 3|4 (escritorio), 'auto' => bool (avance automatico, activo por defecto), 'etiqueta' => texto para lectores de pantalla.
  */
 function carrusel(array $items, array $opciones = [])
 {
     $por_vista = isset($opciones['por_vista']) ? (int) $opciones['por_vista'] : 3;
-    $auto = !empty($opciones['auto']);
+    $auto = !isset($opciones['auto']) || $opciones['auto'];
     $etiqueta = isset($opciones['etiqueta']) ? $opciones['etiqueta'] : 'Carrusel';
     ?>
     <div class="carrusel" data-carrusel<?= $auto ? ' data-auto="6000"' : '' ?> style="--por-vista:<?= $por_vista ?>" role="region" aria-roledescription="carrusel" aria-label="<?= e($etiqueta) ?>">
