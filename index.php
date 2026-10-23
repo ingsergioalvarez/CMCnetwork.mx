@@ -15,8 +15,8 @@ require ROOT . '/includes/carrusel.php';
         <h1>Conectividad empresarial en todo México<br><span class="grad">que nunca se detiene</span></h1>
         <p class="lead">Fibra óptica y microondas en red propia, y LTE y satelital en los 32 estados para llegar a zonas sin red terrestre y respaldar tu enlace en automático. Sobre esa red integramos IoT, seguridad, cadena de suministro y TI.</p>
         <div class="d-flex flex-wrap gap-3 mt-4">
-          <a href="#contacto" class="btn btn-cmc" data-validar-cobertura>Cotizar enlace</a>
-          <a href="#cobertura" class="btn btn-borde">Ver cobertura</a>
+          <a href="<?= e(contacto_url('corenet', 'Quiero validar cobertura de enlace dedicado.')) ?>" class="btn btn-cmc" data-validar-cobertura>Cotizar enlace</a>
+          <a href="/cobertura.php" class="btn btn-borde">Ver cobertura</a>
         </div>
       </div>
       <div class="col-lg-5">
@@ -42,7 +42,7 @@ require ROOT . '/includes/carrusel.php';
 
 <?php require ROOT . '/includes/tecnologias.php'; ?>
 
-<?php require ROOT . '/includes/cobertura.php'; ?>
+<?php require ROOT . '/includes/cobertura-banner.php'; ?>
 
 <section id="portafolio" class="seccion seccion-clara">
   <div class="container">
@@ -63,7 +63,7 @@ require ROOT . '/includes/carrusel.php';
   </div>
 </section>
 
-<?php $iot = $PILARES['iot']; $sd = $SOLUCIONES['scardetection']; ?>
+<?php $iot = $PILARES['iot']; ?>
 <section class="seccion seccion-noche">
   <div class="container">
     <div class="row align-items-center g-5">
@@ -79,13 +79,14 @@ require ROOT . '/includes/carrusel.php';
         <a href="<?= e($iot['url']) ?>" class="btn btn-cmc mt-2">Conoce IoT y Automatización</a>
       </div>
       <div class="col-lg-6 revelar">
-        <a href="<?= e(solucion_url('scardetection')) ?>" class="destacado-img d-block">
-          <span class="insignia-nuevo">NUEVO</span>
-          <?= img_solucion('scardetection', $sd['nombre'], '(max-width: 991px) 92vw, 560px') ?>
+        <?php // Imagen general de IoT; mientras no exista img/web/iot-plataforma.webp se usa la portada de IoT
+        $img_iot = is_file(ROOT . '/img/web/iot-plataforma.webp') ? '/img/web/iot-plataforma.webp' : '/img/web/iot-hero.webp'; ?>
+        <a href="<?= e($iot['url']) ?>" class="destacado-img d-block">
+          <img src="<?= e($img_iot) ?>" alt="Plataforma IoT que conecta cámaras, sensores y dispositivos" width="1600" height="1200" loading="lazy">
         </a>
-        <h3 class="h4 mt-4 mb-1"><?= e($sd['nombre']) ?>: <?= e(mb_strtolower($sd['sub'])) ?></h3>
-        <p class="mb-0"><?= e($sd['resumen']) ?></p>
-        <div class="chips"><?php foreach ($sd['destacado'] as $c): ?><span><?= e($c) ?></span><?php endforeach; ?></div>
+        <h3 class="h4 mt-4 mb-1">Una sola plataforma para todos tus dispositivos</h3>
+        <p class="mb-0">Cámaras, sensores, lectores y etiquetas conectados a nuestra red, con una plataforma que analiza cada evento y te avisa en tiempo real.</p>
+        <div class="chips"><span>Dispositivos conectados</span><span>Analítica con IA</span><span>Alertas en tiempo real</span><span>Monitoreo 7 x 24</span></div>
       </div>
     </div>
   </div>
@@ -145,17 +146,6 @@ require ROOT . '/includes/carrusel.php';
   </div>
 </section>
 
-<?php require ROOT . '/includes/form-contacto.php'; ?>
-
-<div class="mapa mapa-fachada" data-mapa="<?= e($CONTACTO['mapa_embed']) ?>">
-  <div>
-    <?= icono('geo-alt-fill') ?>
-    <p><?= e($CONTACTO['direccion']) ?></p>
-    <div class="d-flex flex-wrap justify-content-center gap-3">
-      <button type="button" class="btn btn-cmc">Ver mapa</button>
-      <a href="<?= e($CONTACTO['mapa_link']) ?>" class="btn btn-borde" target="_blank" rel="noopener">Abrir en Google Maps</a>
-    </div>
-  </div>
-</div>
+<?php require ROOT . '/includes/cta-contacto.php'; ?>
 
 <?php require ROOT . '/includes/footer.php'; ?>

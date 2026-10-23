@@ -21,12 +21,23 @@ if (!function_exists('capa_mapa')) { function capa_mapa($archivo, $clase, $atrib
         . ' alt="" class="' . $clase . '" width="1600" height="1195" ' . $atributos . '>';
 } }
 ?>
-<section id="cobertura" class="seccion seccion-noche cobertura">
+<section id="cobertura" class="seccion seccion-noche cobertura cobertura-pagina">
   <div class="container">
-    <div class="titulo-seccion text-center revelar">
+    <div class="titulo-seccion text-center">
       <span class="etiqueta"><?= icono('activity') ?> Topología nacional multi-tecnología · 32 estados</span>
-      <h2>Red propia, cobertura extendida y cobertura nacional</h2>
+      <h1>Cobertura de <span class="grad-texto">conectividad</span></h1>
       <p>Fibra óptica y microondas en red propia en 6 estados del centro y en cobertura extendida en 19; alianzas donde no llegamos directo, y <strong>LTE y satelital en los 32 estados</strong> para zonas sin red terrestre y como respaldo automático.</p>
+    </div>
+
+    <div class="cob-aviso" role="note">
+      <div class="cob-aviso-item">
+        <?= icono('broadcast') ?>
+        <div><strong>Conectividad: según este mapa</strong>Internet dedicado, enlaces de fibra óptica y microondas, LTE y satelital, sujetos a factibilidad técnica.</div>
+      </div>
+      <div class="cob-aviso-item cob-aviso-nacional">
+        <?= icono('globe-americas') ?>
+        <div><strong>IoT y demás proyectos: en todo México</strong>IoT y automatización, seguridad, cadena de suministro y TI no dependen de esta cobertura: los implementamos a nivel nacional.</div>
+      </div>
     </div>
 
     <div class="row g-3 mb-4">
@@ -67,7 +78,7 @@ if (!function_exists('capa_mapa')) { function capa_mapa($archivo, $clase, $atrib
             </select>
           </label>
           <div class="cobmap-info" data-panel aria-live="polite"></div>
-          <a href="#contacto" class="btn btn-cmc w-100" data-validar-cobertura>Validar cobertura <?= icono('arrow-right') ?></a>
+          <a href="<?= e(contacto_url('corenet', 'Quiero validar cobertura de enlace dedicado.')) ?>" class="btn btn-cmc w-100" data-validar-cobertura>Validar cobertura <?= icono('arrow-right') ?></a>
           <small class="d-block text-center texto-suave">*Todos nuestros servicios están sujetos a factibilidad técnica.</small>
         </aside>
       </div>

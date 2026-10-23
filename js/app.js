@@ -96,19 +96,16 @@
     timer = setTimeout(function () { ir(1); iniciar(); }, 10000);
   }
 
-  // Carruseles: la pista se desliza con scroll-snap; flechas, puntos y avance automatico
+  // Carruseles: flechas, puntos y avance continuo
   var sinMovimiento = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // Avance automatico: se pausa al pasar el mouse, al tocar o con el foco dentro
-  var autoAvance = function (el, avanzar, ms) {
-    if (!ms || sinMovimiento) return;
-    var pausa = false;
-    setInterval(function () { if (!pausa && !document.hidden) avanzar(); }, ms);
-    ['mouseenter', 'focusin', 'touchstart'].forEach(function (ev) { el.addEventListener(ev, function () { pausa = true; }, { passive: true }); });
-    ['mouseleave', 'focusout', 'touchend'].forEach(function (ev) { el.addEventListener(ev, function () { pausa = false; }); });
-  };
+  // Rotacion continua y lenta (tipo marquesina) con copias al final para dar la vuelta sin saltos.
+  // Se pausa con el mouse, el dedo o el foco; las flechas y los puntos siguen funcionando.
+  var VELOCIDAD = 26; // px por segundo
   document.querySelectorAll('[data-carrusel]').forEach(function (car) {
     var pista = car.querySelector('.carrusel-pista');
     var puntosCar = car.querySelector('.carrusel-puntos');
+    var mover = !!parseInt(car.getAttribute('data-auto'), 10) && !sinMovimiento;
+    var pos = 0, ciclico = false, pausa = false, enPantalla = false, animando = false, ultimo = 0;
     // Tarjetas reales visibles (sin las copias ni las ocultas por un filtro)
     var reales = function () {
       return Array.prototype.filter.call(pista.children, function (it) { return !it.hidden && !it.classList.contains('carrusel-clon'); });
@@ -118,17 +115,16 @@
       var it = reales()[0];
       return it ? it.getBoundingClientRect().width + hueco() : pista.clientWidth;
     };
-    var saltar = function (left) { // sin animacion, aunque la pista tenga scroll-behavior: smooth
-      pista.style.scrollBehavior = 'auto';
-      pista.scrollLeft = left;
-      pista.style.scrollBehavior = '';
-    };
-    // Copias de las tarjetas al final: del ultimo se pasa al primero sin regresar todo el carrusel
-    var ciclico = false;
+    var caben = function () { return Math.max(1, Math.round((pista.clientWidth + hueco()) / paso())); };
+    var vuelta = function () { return reales().length * paso(); }; // ancho de un ciclo completo
+    var poner = function (x) { pos = x; pista.scrollLeft = x; };
+    // Copias de las tarjetas reales al final, solo si hay mas tarjetas de las que caben
     var clonar = function () {
       Array.prototype.slice.call(pista.querySelectorAll('.carrusel-clon')).forEach(function (c) { pista.removeChild(c); });
       var lista = reales();
-      ciclico = lista.length > Math.round((pista.clientWidth + hueco()) / paso());
+      ciclico = lista.length > caben();
+      car.classList.toggle('sin-controles', !ciclico);
+      car.classList.toggle('en-marcha', ciclico && mover);
       if (!ciclico) return;
       lista.forEach(function (it) {
         var c = it.cloneNode(true);
@@ -139,78 +135,101 @@
         pista.appendChild(c);
       });
     };
-    var paginas = function () {
-      return ciclico ? reales().length : Math.max(1, Math.ceil((pista.scrollWidth - pista.clientWidth) / paso() - 0.01) + 1);
+    var pagina = function () { return ciclico ? Math.round(pos / paso()) % reales().length : 0; };
+    var marcar = function () {
+      var p = pagina();
+      if (puntosCar.total) { puntosCar.firstChild.textContent = (p + 1) + ' / ' + puntosCar.total; return; }
+      Array.prototype.forEach.call(puntosCar.children, function (b, i) { b.classList.toggle('activo', i === p); });
     };
-    var pagina = function () {
-      var p = Math.round(pista.scrollLeft / paso());
-      return ciclico ? p % reales().length : p;
+    // Desplazamiento animado hasta una posicion (flechas y puntos); pasa por las copias y regresa sin salto
+    var animarA = function (destino) {
+      var desde = pos, t0 = null, dur = sinMovimiento ? 0 : 550;
+      animando = true;
+      var f = function (t) {
+        if (!t0) t0 = t;
+        var k = dur ? Math.min((t - t0) / dur, 1) : 1, v = vuelta();
+        var x = desde + (destino - desde) * (1 - Math.pow(1 - k, 3));
+        poner(x >= v ? x - v : x);
+        marcar();
+        if (k < 1) requestAnimationFrame(f); else { animando = false; ultimo = 0; }
+      };
+      requestAnimationFrame(f);
     };
-    // Al quedar sobre una copia, salta en silencio a la tarjeta real equivalente
-    var normalizar = function () {
+    var ir = function (i) { if (ciclico) animarA(i * paso()); };
+    var irRelativo = function (dir) {
       if (!ciclico) return;
-      var n = reales().length, p = Math.round(pista.scrollLeft / paso());
-      if (p >= n) saltar((p - n) * paso());
-    };
-    var ir = function (i) {
-      var total = paginas();
-      if (ciclico) {
-        normalizar(); // si quedo sobre una copia, primero vuelve a la real para no recorrer todo hacia atras
-        // Hacia atras desde la primera: se para en su copia y retrocede desde ahi
-        if (i < 0) { saltar(total * paso()); i += total; }
-      } else {
-        if (i >= total) i = 0;
-        if (i < 0) i = total - 1;
-      }
-      pista.scrollTo({ left: i * paso(), behavior: sinMovimiento ? 'auto' : 'smooth' });
+      var idx = Math.round(pos / paso());
+      if (dir < 0 && idx === 0) { poner(pos + vuelta()); idx = reales().length; } // desde la primera: parte de su copia
+      animarA((idx + dir) * paso());
     };
     var pintarPuntos = function () {
       puntosCar.innerHTML = '';
-      var total = paginas();
-      car.classList.toggle('sin-controles', total < 2);
-      // Con muchas paginas, un contador "3 / 19" en lugar de puntos
-      if (total > 10) {
-        puntosCar.appendChild(document.createElement('span')).className = 'carrusel-contador';
-        puntosCar.total = total;
-        marcar();
-        return;
-      }
       puntosCar.total = 0;
-      for (var i = 0; i < total; i++) {
-        var b = document.createElement('button');
-        b.type = 'button';
-        b.setAttribute('aria-label', 'Ir a ' + (i + 1));
-        b.addEventListener('click', ir.bind(null, i));
-        puntosCar.appendChild(b);
+      var n = ciclico ? reales().length : 1;
+      if (n < 2) return;
+      if (n > 10) { // con muchas tarjetas, un contador "3 / 18"
+        puntosCar.appendChild(document.createElement('span')).className = 'carrusel-contador';
+        puntosCar.total = n;
+      } else {
+        for (var i = 0; i < n; i++) {
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.setAttribute('aria-label', 'Ir a ' + (i + 1));
+          b.addEventListener('click', ir.bind(null, i));
+          puntosCar.appendChild(b);
+        }
       }
       marcar();
     };
-    var marcar = function () {
-      var p = pagina();
-      if (puntosCar.total) { puntosCar.firstChild.textContent = Math.min(p + 1, puntosCar.total) + ' / ' + puntosCar.total; return; }
-      Array.prototype.forEach.call(puntosCar.children, function (b, i) { b.classList.toggle('activo', i === p); });
-    };
     car.querySelectorAll('.carrusel-btn').forEach(function (b) {
-      b.addEventListener('click', function () { ir(pagina() + parseInt(b.getAttribute('data-dir'), 10)); });
+      b.addEventListener('click', function () { irRelativo(parseInt(b.getAttribute('data-dir'), 10)); });
     });
+    // Avance continuo cuadro por cuadro (solo con el carrusel en pantalla y la pestana visible)
+    var cuadro = function (t) {
+      if (mover && ciclico && enPantalla && !pausa && !animando && !document.hidden) {
+        var dt = ultimo ? Math.min(t - ultimo, 64) / 1000 : 0;
+        var x = pos + VELOCIDAD * dt, v = vuelta();
+        poner(x >= v ? x - v : x);
+        marcar();
+      }
+      ultimo = t;
+      requestAnimationFrame(cuadro);
+    };
+    // Pausa al interactuar; al soltar retoma desde donde el usuario dejo la pista
+    var detener = function () { pausa = true; };
+    var reanudar = function () { pausa = false; pos = pista.scrollLeft; ultimo = 0; };
+    ['mouseenter', 'focusin', 'touchstart'].forEach(function (ev) { car.addEventListener(ev, detener, { passive: true }); });
+    ['mouseleave', 'focusout'].forEach(function (ev) { car.addEventListener(ev, reanudar); });
+    car.addEventListener('touchend', function () { setTimeout(reanudar, 1500); });
+    pista.addEventListener('scroll', function () {
+      if (!pausa || animando) return; // el usuario la mueve a mano
+      pos = pista.scrollLeft;
+      if (ciclico && pos >= vuelta()) poner(pos - vuelta());
+      marcar();
+    }, { passive: true });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (en) { enPantalla = en[0].isIntersecting; }).observe(car);
+    } else {
+      enPantalla = true;
+    }
     var espera;
-    pista.addEventListener('scroll', function () { clearTimeout(espera); espera = setTimeout(function () { normalizar(); marcar(); }, 120); }, { passive: true });
-    window.addEventListener('resize', function () { clearTimeout(espera); espera = setTimeout(function () { clonar(); normalizar(); pintarPuntos(); }, 150); });
-    car.refrescar = function () { saltar(0); clonar(); pintarPuntos(); };
-    clonar();
-    pintarPuntos();
-    autoAvance(car, function () { ir(pagina() + 1); }, parseInt(car.getAttribute('data-auto'), 10));
+    window.addEventListener('resize', function () { clearTimeout(espera); espera = setTimeout(car.refrescar, 150); });
+    car.refrescar = function () { clonar(); poner(0); pintarPuntos(); };
+    car.refrescar();
+    requestAnimationFrame(cuadro);
   });
 
   // Filtros por pilar sobre un carrusel (botones con data-filtro y data-objetivo)
   document.querySelectorAll('[data-filtros]').forEach(function (grupo) {
+    // data-filtros apunta al contenedor; el carrusel (con refrescar) puede estar dentro
     var car = document.querySelector(grupo.getAttribute('data-filtros'));
+    if (car && !car.matches('[data-carrusel]')) car = car.querySelector('[data-carrusel]');
     if (!car) return;
     grupo.querySelectorAll('[data-filtro]').forEach(function (b) {
       b.addEventListener('click', function () {
         var f = b.getAttribute('data-filtro');
         grupo.querySelectorAll('[data-filtro]').forEach(function (x) { x.classList.toggle('activo', x === b); x.setAttribute('aria-pressed', x === b); });
-        car.querySelectorAll('.carrusel-item').forEach(function (it) {
+        car.querySelectorAll('.carrusel-item:not(.carrusel-clon)').forEach(function (it) {
           var el = it.querySelector('[data-pilar]');
           it.hidden = f !== 'todos' && (!el || el.getAttribute('data-pilar') !== f);
         });
@@ -219,29 +238,50 @@
     });
   });
 
-  // Coverflow: la tarjeta activa al centro y al frente; las demas detras, atenuadas e inertes
+  // Coverflow: las tarjetas giran de forma continua y lenta; la del frente queda nitida y las demas detras,
+  // atenuadas e inertes. Se pausa con el mouse, el dedo o el foco; flechas, puntos y clics la llevan a una tarjeta.
   document.querySelectorAll('[data-coverflow]').forEach(function (cf) {
     var tarjetas = Array.prototype.slice.call(cf.querySelectorAll('.tec'));
     var puntosCf = cf.querySelector('.coverflow-puntos');
-    var n = tarjetas.length, actual = 0;
+    var movil = window.matchMedia('(max-width: 767.98px)');
+    var n = tarjetas.length, pos = 0, actual = -1, pausa = false, enPantalla = false, animando = false, ultimo = 0;
+    var mover = !sinMovimiento;
+    cf.classList.toggle('en-marcha', mover);
     var pintar = function () {
       tarjetas.forEach(function (t, i) {
-        var k = i - actual;
-        if (k > n / 2) k -= n;              // camino mas corto (circular)
-        if (k < -n / 2) k += n;
+        var k = i - pos;
+        k -= Math.round(k / n) * n;         // camino mas corto (circular)
         var abs = Math.abs(k);
-        t.style.setProperty('--k', k);
-        t.style.setProperty('--abs', Math.min(abs, 2));
-        t.style.setProperty('--lado', k < 0 ? '270deg' : '90deg');
-        t.style.zIndex = 10 - abs;
-        t.style.opacity = abs > 1 ? 0 : 1;
-        t.classList.toggle('activo', k === 0);
-        if ('inert' in t) t.inert = k !== 0; // solo la del frente recibe foco y clics internos
-        t.setAttribute('aria-hidden', k !== 0);
+        t.style.setProperty('--k', k.toFixed(4));
+        t.style.setProperty('--abs', Math.min(abs, 2).toFixed(4));
+        t.style.zIndex = Math.round(100 - abs * 10);
+        t.style.opacity = abs <= 1.5 ? 1 : Math.max(0, 1 - (abs - 1.5) * 2); // se desvanece ya fuera de la orilla
+      });
+      var frente = ((Math.round(pos) % n) + n) % n;
+      if (frente === actual) return;
+      actual = frente;
+      tarjetas.forEach(function (t, i) {
+        t.classList.toggle('activo', i === actual);
+        if ('inert' in t) t.inert = i !== actual; // solo la del frente recibe foco y clics internos
+        t.setAttribute('aria-hidden', i !== actual);
       });
       Array.prototype.forEach.call(puntosCf.children, function (b, i) { b.classList.toggle('activo', i === actual); });
     };
-    var ir = function (i) { actual = (i + n) % n; pintar(); };
+    // Lleva una tarjeta al frente por el camino mas corto, con animacion
+    var ir = function (i) {
+      var d = i - pos;
+      d -= Math.round(d / n) * n;
+      var desde = pos, t0 = null, dur = sinMovimiento ? 0 : 650;
+      animando = true;
+      var f = function (t) {
+        if (!t0) t0 = t;
+        var k = dur ? Math.min((t - t0) / dur, 1) : 1;
+        pos = desde + d * (1 - Math.pow(1 - k, 3));
+        pintar();
+        if (k < 1) requestAnimationFrame(f); else { pos = ((Math.round(pos) % n) + n) % n; animando = false; ultimo = 0; }
+      };
+      requestAnimationFrame(f);
+    };
     tarjetas.forEach(function (t, i) {
       var b = document.createElement('button');
       b.type = 'button';
@@ -254,18 +294,18 @@
       });
     });
     cf.querySelectorAll('.coverflow-btn').forEach(function (b) {
-      b.addEventListener('click', function () { ir(actual + parseInt(b.getAttribute('data-dir'), 10)); });
+      b.addEventListener('click', function () { ir(Math.round(pos) + parseInt(b.getAttribute('data-dir'), 10)); });
     });
     cf.addEventListener('keydown', function (ev) {
-      if (ev.key === 'ArrowLeft') ir(actual - 1);
-      if (ev.key === 'ArrowRight') ir(actual + 1);
+      if (ev.key === 'ArrowLeft') ir(Math.round(pos) - 1);
+      if (ev.key === 'ArrowRight') ir(Math.round(pos) + 1);
     });
     var x0 = null;
     cf.addEventListener('touchstart', function (ev) { x0 = ev.touches[0].clientX; }, { passive: true });
     cf.addEventListener('touchend', function (ev) {
       if (x0 === null) return;
       var dx = ev.changedTouches[0].clientX - x0;
-      if (Math.abs(dx) > 40) ir(actual + (dx < 0 ? 1 : -1));
+      if (Math.abs(dx) > 40) ir(Math.round(pos) + (dx < 0 ? 1 : -1));
       x0 = null;
     });
     // Enlaces externos (tarjetas de la portada) que abren una tecnologia
@@ -275,18 +315,27 @@
         if (i >= 0) ir(i);
       });
     });
+    // Giro continuo a la misma velocidad que los carruseles (px/s del desplazamiento entre tarjetas)
+    var cuadro = function (t) {
+      if (mover && enPantalla && !pausa && !animando && !document.hidden) {
+        var dt = ultimo ? Math.min(t - ultimo, 64) / 1000 : 0;
+        var tramo = movil.matches ? tarjetas[0].offsetWidth * 1.06 : tarjetas[0].offsetWidth * 0.93 + 56; // igual que translateX en .tec
+        pos = (pos + VELOCIDAD * dt / tramo) % n;
+        pintar();
+      }
+      ultimo = t;
+      requestAnimationFrame(cuadro);
+    };
+    ['mouseenter', 'focusin', 'touchstart'].forEach(function (ev) { cf.addEventListener(ev, function () { pausa = true; }, { passive: true }); });
+    ['mouseleave', 'focusout'].forEach(function (ev) { cf.addEventListener(ev, function () { pausa = false; ultimo = 0; }); });
+    cf.addEventListener('touchend', function () { setTimeout(function () { pausa = false; ultimo = 0; }, 1500); });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (en) { enPantalla = en[0].isIntersecting; }).observe(cf);
+    } else {
+      enPantalla = true;
+    }
     pintar();
-    autoAvance(cf, function () { ir(actual + 1); }, 6000);
-  });
-
-  // "Cotizar" de una tecnologia: prellena el formulario de contacto
-  document.querySelectorAll('[data-cotizar]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      var interes = document.getElementById('c-interes');
-      var msj = document.getElementById('c-mensaje');
-      if (interes && interes.querySelector('option[value="corenet"]')) interes.value = 'corenet';
-      if (msj) msj.value = 'Quiero cotizar: ' + b.getAttribute('data-cotizar') + '.';
-    });
+    requestAnimationFrame(cuadro);
   });
 
   // Cobertura: mapa por capas con recorrido automatico, filtros, buscador y panel
@@ -384,6 +433,9 @@
     selEstado.addEventListener('change', function () { if (selEstado.value !== '') elegirEstado(parseInt(selEstado.value, 10)); });
     botonAuto.addEventListener('click', function () { if (auto) detener(); else arrancar(); });
     mostrar('todas');
+    // ?estado=N (desde el recuadro de cobertura): abre ese estado
+    var estadoUrl = parseInt(new URLSearchParams(location.search).get('estado'), 10);
+    if (estadoUrl >= 0 && estadoUrl < cob.estados.length) { elegirEstado(estadoUrl); cobmap.scrollIntoView(); }
     if (auto && 'IntersectionObserver' in window) {
       // el recorrido empieza cuando el mapa entra en pantalla
       var ioCob = new IntersectionObserver(function (en) {
@@ -395,31 +447,16 @@
     } else {
       detener();
     }
-    // "Validar cobertura" / "Cotizar enlace": prellena el formulario de contacto
+    // "Validar cobertura" / "Cotizar enlace": lleva a contacto con el estado elegido en el mensaje
     document.querySelectorAll('[data-validar-cobertura]').forEach(function (b) {
       b.addEventListener('click', function () {
-        var interes = document.getElementById('c-interes');
-        var msj = document.getElementById('c-mensaje');
-        if (interes && interes.querySelector('option[value="corenet"]')) interes.value = 'corenet';
-        if (msj && !msj.value) msj.value = 'Quiero validar cobertura de enlace dedicado' + (estadoSel !== null ? ' en ' + cob.estados[estadoSel][0] : '') + '.';
+        if (estadoSel === null) return;
+        var u = new URL(b.href);
+        u.searchParams.set('mensaje', 'Quiero validar cobertura de enlace dedicado en ' + cob.estados[estadoSel][0] + '.');
+        b.href = u.toString();
       });
     });
   }
-
-  // Mapa: el iframe de Google (~500 KB) se carga solo al pedirlo
-  document.querySelectorAll('[data-mapa]').forEach(function (caja) {
-    var b = caja.querySelector('button');
-    if (!b) return;
-    b.addEventListener('click', function () {
-      var f = document.createElement('iframe');
-      f.src = caja.getAttribute('data-mapa');
-      f.title = 'Ubicación de CMC';
-      f.referrerPolicy = 'no-referrer-when-downgrade';
-      f.allowFullscreen = true;
-      caja.innerHTML = '';
-      caja.appendChild(f);
-    });
-  });
 
   // Formularios de prospecto (web y tarjeta)
   document.querySelectorAll('.js-form-prospecto').forEach(function (form) {

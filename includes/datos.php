@@ -456,6 +456,14 @@ function solucion_url($slug)
     return '/solucion.php?s=' . rawurlencode($slug);
 }
 
+/** URL de la pagina de contacto; guarda la pagina de origen y, si se indica, el interes y un mensaje. */
+function contacto_url($interes = '', $mensaje = '')
+{
+    global $pagina;
+    $q = array_filter(['interes' => $interes, 'mensaje' => $mensaje, 'de' => isset($pagina) ? $pagina : '']);
+    return '/contacto.php' . ($q ? '?' . http_build_query($q, '', '&', PHP_QUERY_RFC3986) : '');
+}
+
 /** Texto de un interes guardado, incluidas opciones de la version anterior del sitio. */
 function interes_texto($clave)
 {

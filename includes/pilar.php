@@ -20,13 +20,13 @@ $lista = soluciones($pilar);
     <h1><?= e($pil['titulo'][0]) ?> <span class="grad"><?= e($pil['titulo'][1]) ?></span></h1>
     <p class="lead"><?= e($pil['texto']) ?></p>
     <div class="d-flex flex-wrap gap-3 mt-4">
-      <a href="#contacto" class="btn btn-cmc">Solicita una cotización</a>
+      <a href="<?= e(contacto_url()) ?>" class="btn btn-cmc">Solicita una cotización</a>
       <a href="#soluciones" class="btn btn-borde">Ver soluciones</a>
     </div>
   </div>
 </header>
 
-<?php if ($pilar === 'conectividad') { require __DIR__ . '/tecnologias.php'; require __DIR__ . '/cobertura.php'; } ?>
+<?php if ($pilar === 'conectividad') { require __DIR__ . '/tecnologias.php'; require __DIR__ . '/cobertura-banner.php'; } ?>
 
 <section id="soluciones" class="seccion seccion-clara">
   <div class="container">
@@ -82,5 +82,5 @@ $lista = soluciones($pilar);
 
 <?php require __DIR__ . '/certificaciones.php'; ?>
 
-<?php require __DIR__ . '/form-contacto.php'; ?>
+<?php require __DIR__ . '/cta-contacto.php'; ?>
 <?php require __DIR__ . '/footer.php'; ?>

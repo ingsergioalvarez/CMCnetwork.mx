@@ -35,7 +35,7 @@ $total = count($TECNOLOGIAS);
                 <?php foreach (preg_split('/,\s*|\s+y\s+/u', rtrim($t['ideal'], '.')) as $sector): ?><em><?= e($sector) ?></em><?php endforeach; ?>
               </div>
               <div class="tec-botones">
-                <a href="#contacto" class="btn btn-cmc btn-sm" data-cotizar="<?= e($t['titulo']) ?>">Cotizar <?= icono('arrow-right') ?></a>
+                <a href="<?= e(contacto_url('corenet', 'Quiero cotizar: ' . $t['titulo'] . '.')) ?>" class="btn btn-cmc btn-sm">Cotizar <?= icono('arrow-right') ?></a>
                 <a href="<?= e($wa_base . rawurlencode('Hola, estoy buscando información de CMC Service Network sobre ' . mb_strtolower($t['titulo']) . '.')) ?>" class="btn btn-borde btn-sm" target="_blank" rel="noopener"><?= icono('whatsapp') ?> Preguntar</a>
               </div>
             </div>

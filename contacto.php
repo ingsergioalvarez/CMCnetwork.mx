@@ -1,24 +1,35 @@
 <?php
-// Seccion de contacto con formulario. Variables opcionales: $pagina (se guarda como origen) y $interes (opcion preseleccionada).
-defined('CMC') || exit;
-require_once __DIR__ . '/datos.php';
-// ?interes=slug en la URL (botones "Solicitar informacion") tiene prioridad
-$interes_sel = isset($_GET['interes']) && is_string($_GET['interes']) ? $_GET['interes'] : (isset($interes) ? $interes : '');
+// Pagina de contacto: formulario, datos, direccion y mapa.
+// Parametros opcionales: ?interes=slug (opcion preseleccionada), ?mensaje= (texto inicial), ?de= (pagina de origen).
+require __DIR__ . '/includes/bootstrap.php';
+require_once ROOT . '/includes/datos.php';
+
+$param = function ($nombre) { return isset($_GET[$nombre]) && is_string($_GET[$nombre]) ? $_GET[$nombre] : ''; };
+$interes_sel = $param('interes');
+$mensaje = mb_substr($param('mensaje'), 0, 300);
+$origen = preg_match('/^[a-z0-9-]{1,40}$/', $param('de')) ? $param('de') : 'contacto';
+
+$pagina = 'contacto';
+$titulo = 'Contacto | CMC Service Network';
+$descripcion = 'Escríbenos o llámanos: un asesor de CMC Service Network te ayudará a definir tu proyecto. ' . $CONTACTO['direccion'];
+require ROOT . '/includes/header.php';
+$wa = 'https://wa.me/' . $CONTACTO['whatsapp'] . '?text=' . rawurlencode($CONTACTO['whatsapp_msg']);
 ?>
-<section id="contacto" class="seccion seccion-noche">
+
+<section id="contacto" class="seccion seccion-noche contacto-pagina">
   <div class="container">
-    <div class="titulo-seccion text-center revelar">
-      <span class="etiqueta">Contacto</span>
-      <h2>Hablemos de tu proyecto</h2>
-      <p>Déjanos tus datos y uno de nuestros asesores te contactará con una solución a tu medida.</p>
+    <div class="titulo-seccion text-center">
+      <span class="etiqueta" style="color:var(--cmc-cian-brillante)">Contacto</span>
+      <h1>Hablemos de tu <span class="grad-texto">proyecto</span></h1>
+      <p>Déjanos tus datos y uno de nuestros asesores te contactará para entender tu operación y proponerte una solución a tu medida.</p>
     </div>
 
     <div class="row g-4 align-items-start">
-      <div class="col-lg-7 revelar">
+      <div class="col-lg-7">
         <form class="form-cmc tarjeta-vidrio js-form-prospecto" action="/api/contacto.php" method="post" novalidate>
           <input type="hidden" name="token" value="<?= e(form_token()) ?>">
           <input type="hidden" name="origen" value="web">
-          <input type="hidden" name="pagina" value="<?= e(isset($pagina) ? $pagina : '') ?>">
+          <input type="hidden" name="pagina" value="<?= e($origen) ?>">
           <div class="campo-trampa" aria-hidden="true"><label>Sitio web <input type="text" name="sitio_web" tabindex="-1" autocomplete="off"></label></div>
 
           <div class="row g-3">
@@ -49,7 +60,7 @@ $interes_sel = isset($_GET['interes']) && is_string($_GET['interes']) ? $_GET['i
             </div>
             <div class="col-12">
               <label class="form-label" for="c-mensaje">Mensaje</label>
-              <textarea class="form-control" id="c-mensaje" name="mensaje" rows="4" maxlength="2000"></textarea>
+              <textarea class="form-control" id="c-mensaje" name="mensaje" rows="4" maxlength="2000"><?= e($mensaje) ?></textarea>
             </div>
             <div class="col-12 d-flex flex-wrap align-items-center justify-content-between gap-3">
               <small class="texto-suave">Al enviar aceptas nuestro <a href="<?= e('/' . legal_url($AVISO_PRIVACIDAD)) ?>" target="_blank">aviso de privacidad</a>.</small>
@@ -60,7 +71,7 @@ $interes_sel = isset($_GET['interes']) && is_string($_GET['interes']) ? $_GET['i
         </form>
       </div>
 
-      <div class="col-lg-5 revelar">
+      <div class="col-lg-5">
         <div class="datos-contacto">
           <div class="dato">
             <?= icono('telephone') ?>
@@ -70,6 +81,10 @@ $interes_sel = isset($_GET['interes']) && is_string($_GET['interes']) ? $_GET['i
                 <a href="tel:<?= e($t['tel']) ?>"><?= e($t['texto']) ?></a><br>
               <?php endforeach; ?>
             </div>
+          </div>
+          <div class="dato">
+            <?= icono('whatsapp') ?>
+            <div><h3>WhatsApp</h3><a href="<?= e($wa) ?>" target="_blank" rel="noopener">Escríbenos</a></div>
           </div>
           <div class="dato">
             <?= icono('clock') ?>
@@ -86,10 +101,16 @@ $interes_sel = isset($_GET['interes']) && is_string($_GET['interes']) ? $_GET['i
           <?php endforeach; ?>
           <div class="dato">
             <?= icono('geo-alt') ?>
-            <div><h3>Oficinas</h3><a href="<?= e($CONTACTO['mapa_link']) ?>" target="_blank" rel="noopener"><?= e($CONTACTO['direccion']) ?></a></div>
+            <div><h3>Oficinas</h3><?= e($CONTACTO['direccion']) ?><br><a href="<?= e($CONTACTO['mapa_link']) ?>" target="_blank" rel="noopener">Cómo llegar <?= icono('box-arrow-up-right') ?></a></div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<div class="mapa">
+  <iframe src="<?= e($CONTACTO['mapa_embed']) ?>" title="Ubicación de las oficinas de CMC" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+</div>
+
+<?php require ROOT . '/includes/footer.php'; ?>

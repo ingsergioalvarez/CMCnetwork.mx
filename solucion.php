@@ -36,7 +36,7 @@ $pasos = [
     <h1><?= e($s['nombre']) ?> <span class="grad"><?= e($s['sub']) ?></span></h1>
     <p class="lead"><?= e($s['resumen']) ?></p>
     <div class="d-flex flex-wrap gap-3 mt-4">
-      <a href="#contacto" class="btn btn-cmc">Solicitar información</a>
+      <a href="<?= e(contacto_url($slug)) ?>" class="btn btn-cmc">Solicitar información</a>
       <a href="#alcance" class="btn btn-borde">Ver alcance</a>
     </div>
   </div>
@@ -100,7 +100,7 @@ $pasos = [
       <?php endforeach; ?>
     </div>
     <div class="text-center mt-5 revelar">
-      <a href="#contacto" class="btn btn-cmc">Agenda una consultoría</a>
+      <a href="<?= e(contacto_url($slug, 'Quiero agendar una consultoría de ' . $s['nombre'] . '.')) ?>" class="btn btn-cmc">Agenda una consultoría</a>
     </div>
     <?php if ($otras): ?>
       <nav class="otras-sol revelar" aria-label="Otras soluciones de <?= e($pil['nombre']) ?>">
@@ -113,5 +113,5 @@ $pasos = [
   </div>
 </section>
 
-<?php require ROOT . '/includes/form-contacto.php'; ?>
+<?php require ROOT . '/includes/cta-contacto.php'; ?>
 <?php require ROOT . '/includes/footer.php'; ?>

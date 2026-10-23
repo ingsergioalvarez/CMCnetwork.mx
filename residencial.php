@@ -17,5 +17,5 @@ require ROOT . '/includes/header.php';
 </header>
 
 <?php require ROOT . '/includes/planes.php'; ?>
-<?php require ROOT . '/includes/form-contacto.php'; ?>
+<?php $interes = 'residencial'; require ROOT . '/includes/cta-contacto.php'; ?>
 <?php require ROOT . '/includes/footer.php'; ?>
