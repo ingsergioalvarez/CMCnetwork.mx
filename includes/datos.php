@@ -57,7 +57,7 @@ $TECNOLOGIAS = [
     'fibra' => [
         'titulo' => 'Internet dedicado por fibra óptica', 'insignia' => 'Simétrico 1:1', 'icono' => 'bi-lightning-charge',
         'texto' => 'La misma velocidad de subida y bajada, sin compartir el ancho de banda, sobre nuestra red propia.',
-        'puntos' => ['Velocidad simétrica garantizada por contrato', 'Direcciones IP fijas públicas', 'SLA de 99.95% y monitoreo NOC 7 x 24',
+        'puntos' => ['Velocidad simétrica garantizada por contrato', 'Direcciones IP fijas públicas', 'SLA de 99.40% y monitoreo NOC 7 x 24',
                      'Red propia en 6 estados y cobertura extendida en 19', 'Escalable conforme crece tu operación'],
         'ideal' => 'Corporativos, plantas, hospitales, call centers y escuelas.',
     ],
@@ -99,7 +99,7 @@ $COBERTURA = [
         ['32 / 32', 'Estados con cobertura nacional activa'],
         ['4 tecnologías', 'Fibra óptica · Microondas · Satelital · LTE'],
         ['6 estados', 'Red propia directa (CDMX, Edomex, Hgo, Pue, Mor, Tlax)'],
-        ['99.95%', 'SLA de disponibilidad garantizado, NOC 7 x 24'],
+        ['99.40%', 'SLA de disponibilidad garantizado, NOC 7 x 24'],
     ],
     'niveles' => [
         'propia' => [
@@ -163,7 +163,7 @@ $PILARES = [
         'icono'  => 'bi-broadcast',
         'img'    => '/img/soluciones/corenet.webp',
         'titulo' => ['Enlaces dedicados', 'por fibra óptica y microondas'],
-        'texto'  => 'Red propia en el centro del país, cobertura en los 32 estados con aliados, LTE y satelital, SLA de 99.95% y telefonía IP en la nube.',
+        'texto'  => 'Red propia en el centro del país, cobertura en los 32 estados con aliados, LTE y satelital, SLA de 99.40% y telefonía IP en la nube.',
     ],
     'ti' => [
         'nombre' => 'TI y Software',

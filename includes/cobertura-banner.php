@@ -31,7 +31,7 @@ $ultimo = array_pop($propios);
         <ul class="cob-banner-cifras">
           <li><b><?= count($propios) + 1 ?> estados</b> con red propia</li>
           <li><b>32 / 32</b> estados con cobertura nacional</li>
-          <li><b>99.95%</b> de disponibilidad</li>
+          <li><b>99.40%</b> de disponibilidad</li>
         </ul>
         <p class="cob-banner-nota"><?= icono('cpu') ?><span><strong>Esta cobertura aplica a enlaces de conectividad.</strong> Los proyectos de IoT, seguridad, cadena de suministro y TI los implementamos en cualquier parte de México.</span></p>
       </div>

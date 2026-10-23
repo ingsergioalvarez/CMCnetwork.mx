@@ -33,7 +33,7 @@ require ROOT . '/includes/carrusel.php';
             <span class="enlace-hero-icono"><?= icono('globe-americas') ?></span>
             <span><strong>LTE y satelital</strong>Cobertura en los 32 estados para zonas offnet y como respaldo automático.</span>
           </a>
-          <div class="enlace-hero-pie"><?= icono('shield-check') ?> SLA 99.95% · NOC 7 x 24</div>
+          <div class="enlace-hero-pie"><?= icono('shield-check') ?> SLA 99.40% · NOC 7 x 24</div>
         </div>
       </div>
     </div>
