@@ -19,10 +19,6 @@ require_once __DIR__ . '/datos.php';
             <li><a href="<?= e($p['url']) ?>"><?= e($p['nombre']) ?></a></li>
           <?php endforeach; ?>
         </ul>
-        <h4 class="mt-4">Empresa hermana</h4>
-        <ul>
-          <li><a href="<?= e($COMUNICALO['url']) ?>" target="_blank" rel="noopener"><?= e($COMUNICALO['nombre']) ?> · Internet para eventos <?= icono('box-arrow-up-right') ?></a></li>
-        </ul>
       </div>
       <?php foreach ($LEGALES as $grupo => $docs): ?>
         <div class="col-sm-6 col-lg-3">
