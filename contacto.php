@@ -112,7 +112,7 @@ $wa = 'https://wa.me/' . $CONTACTO['whatsapp'] . '?text=' . rawurlencode($CONTAC
 <!-- Mapa como imagen (OpenStreetMap con colores de la marca): no carga Google hasta que se da clic -->
 <div class="mapa">
   <a class="mapa-enlace" href="<?= e($CONTACTO['mapa_link']) ?>" target="_blank" rel="noopener">
-    <img src="/img/contacto/oficinas-960.webp" srcset="/img/contacto/oficinas-960.webp 960w, /img/contacto/oficinas.webp 1920w" sizes="100vw"
+    <img src="<?= e(con_version('/img/contacto/oficinas-960.webp')) ?>" srcset="<?= e(con_version('/img/contacto/oficinas-960.webp')) ?> 960w, <?= e(con_version('/img/contacto/oficinas.webp')) ?> 1920w" sizes="100vw"
          alt="Mapa con la ubicación de las oficinas de CMC en Tlalnepantla" width="1920" height="560" loading="lazy">
     <span class="btn btn-cmc mapa-boton"><?= icono('geo-alt-fill') ?> Abrir en Google Maps</span>
   </a>

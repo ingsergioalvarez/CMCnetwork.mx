@@ -10,10 +10,9 @@ $ultimo = array_pop($propios);
   <div class="container">
     <div class="cob-banner revelar">
       <div class="cob-banner-mapa" aria-hidden="true">
-        <img src="/img/cobertura/base-800.webp" alt="" width="1600" height="1195" loading="lazy">
-        <?php foreach ($COBERTURA['niveles'] as $n): // mismas capas que la vista "Todo el pais" del mapa ?>
-          <img src="/img/cobertura/<?= e($n['img']) ?>-800.webp" alt="" width="1600" height="1195" loading="lazy">
-        <?php endforeach; ?>
+        <?php // vista "Todo el pais" ya combinada en una sola imagen (base + red propia + extendida + alianzas) ?>
+        <img src="<?= e(con_version('/img/cobertura/todas-800.webp')) ?>" srcset="<?= e(con_version('/img/cobertura/todas-800.webp')) ?> 800w, <?= e(con_version('/img/cobertura/todas-1200.webp')) ?> 1200w"
+             sizes="(max-width: 767px) 92vw, 760px" alt="" width="1200" height="896" loading="lazy">
       </div>
       <div class="cob-banner-cuerpo">
         <span class="cob-banner-etiqueta"><?= icono('geo-alt') ?> Cobertura de conectividad</span>
