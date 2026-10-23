@@ -173,6 +173,9 @@ img { max-width: 100%; }
 .seccion-certs .titulo-seccion { margin-bottom: 36px; }
 .logo-cert { height: 160px; display: grid; place-items: center; background: #fff; border-radius: var(--radio); padding: 18px; box-shadow: var(--sombra); }
 .logo-cert img { max-height: 124px; max-width: 100%; width: auto; object-fit: contain; }
+/* Logos en grises para un bloque sobrio y uniforme; recuperan su color al pasar el mouse */
+.logo-cert img { filter: grayscale(1) contrast(1.05); opacity: .7; transition: filter .35s, opacity .35s; }
+.logo-cert:hover img { filter: none; opacity: 1; }
 .seccion-certs .carrusel-pista { grid-auto-columns: calc((100% - 4 * var(--gap)) / 5); }
 @media (max-width: 991.98px) { .seccion-certs .carrusel-pista { grid-auto-columns: calc((100% - 2 * var(--gap)) / 3); } }
 @media (max-width: 575.98px) { .seccion-certs .carrusel-pista { grid-auto-columns: calc((100% - var(--gap)) / 2); } }
@@ -455,13 +458,25 @@ img { max-width: 100%; }
 #tecnologias::after { right: 0; background: linear-gradient(270deg, var(--cmc-fondo-claro) 8%, transparent); }
 
 /* ---------- Detalle de solucion ---------- */
-.componente { height: 100%; background: #fff; border-radius: 18px; padding: 24px 26px; border-top: 3px solid var(--cmc-cian); box-shadow: 0 10px 30px rgba(6, 18, 61, .06); }
-.componente h3 { font-size: 1.05rem; color: var(--cmc-noche); margin-bottom: 8px; }
-.componente p { font-size: .92rem; margin: 0; }
-.otras-sol { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 14px; margin-top: 56px; padding-top: 28px; border-top: 1px solid rgba(6, 18, 61, .1); font-size: .92rem; }
-.otras-sol span { color: var(--cmc-gris-claro); }
-.otras-sol a { font-weight: 600; color: var(--cmc-azul); text-decoration: none; }
-.otras-sol a:hover { color: var(--cmc-azul-medio); }
+.componente { position: relative; height: 100%; padding: 30px 28px 28px; border-radius: 20px; overflow: hidden;
+  background: linear-gradient(160deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .02)); border: 1px solid rgba(255, 255, 255, .12);
+  transition: transform .3s, border-color .3s, box-shadow .3s; }
+.componente::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--cmc-degradado); opacity: 0; transition: opacity .3s; }
+.componente:hover { transform: translateY(-4px); border-color: rgba(0, 204, 252, .5); box-shadow: 0 18px 40px rgba(0, 0, 0, .3), 0 0 30px rgba(0, 204, 252, .12); }
+.componente:hover::before { opacity: 1; }
+.componente-num { display: block; font-size: 2.4rem; font-weight: 700; line-height: 1; margin-bottom: 18px;
+  background: linear-gradient(90deg, var(--cmc-azul-medio), var(--cmc-cian-brillante)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.componente h3 { font-size: 1.1rem; color: #fff; margin-bottom: 8px; }
+.componente p { font-size: .92rem; margin: 0; color: rgba(255, 255, 255, .72); }
+/* Otras soluciones del pilar: mosaico con foto y titulo en blanco */
+.otras-sol { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 260px)); justify-content: center; gap: 20px; }
+.sol-mini { position: relative; display: block; aspect-ratio: 4 / 3; border-radius: 18px; overflow: hidden; background: var(--cmc-noche); box-shadow: 0 12px 30px rgba(6, 18, 61, .14); }
+.sol-mini img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s; }
+.sol-mini::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6, 18, 61, 0) 35%, rgba(6, 18, 61, .92) 100%); }
+.sol-mini-texto { position: absolute; z-index: 1; left: 18px; right: 18px; bottom: 16px; color: #fff; }
+.sol-mini-texto strong { display: block; font-size: 1.15rem; line-height: 1.2; color: #fff; }
+.sol-mini-texto small { display: block; font-size: .82rem; color: rgba(255, 255, 255, .78); margin-top: 2px; }
+.sol-mini:hover img { transform: scale(1.07); }
 
 /* ---------- Contacto ---------- */
 .contacto-pagina { padding-top: 140px; }

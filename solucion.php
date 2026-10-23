@@ -62,7 +62,7 @@ $pasos = [
   </div>
 </section>
 
-<section id="alcance" class="seccion seccion-clara solucion">
+<section id="alcance" class="seccion seccion-noche solucion">
   <div class="container">
     <div class="titulo-seccion text-center revelar">
       <span class="etiqueta">Alcance</span>
@@ -70,9 +70,10 @@ $pasos = [
       <p>Estos son los componentes con los que trabajamos. El alcance final depende de tu operación y se define en conjunto.</p>
     </div>
     <div class="row g-4">
-      <?php foreach ($s['alcance'] as $c): ?>
+      <?php foreach ($s['alcance'] as $n => $c): ?>
         <div class="col-md-6 col-lg-4 revelar">
           <div class="componente">
+            <span class="componente-num"><?= sprintf('%02d', $n + 1) ?></span>
             <h3><?= e($c[0]) ?></h3>
             <p><?= e($c[1]) ?></p>
           </div>
@@ -102,16 +103,27 @@ $pasos = [
     <div class="text-center mt-5 revelar">
       <a href="<?= e(contacto_url($slug, 'Quiero agendar una consultoría de ' . $s['nombre'] . '.')) ?>" class="btn btn-cmc">Agenda una consultoría</a>
     </div>
-    <?php if ($otras): ?>
-      <nav class="otras-sol revelar" aria-label="Otras soluciones de <?= e($pil['nombre']) ?>">
-        <span>Más en <?= e($pil['nombre']) ?>:</span>
-        <?php foreach ($otras as $os => $o): ?>
-          <a href="<?= e(solucion_url($os)) ?>"><?= e($o['nombre']) ?> <?= icono('arrow-right') ?></a>
-        <?php endforeach; ?>
-      </nav>
-    <?php endif; ?>
   </div>
 </section>
+
+<?php if ($otras): ?>
+<section class="seccion seccion-clara">
+  <div class="container">
+    <div class="titulo-seccion text-center revelar">
+      <span class="etiqueta"><?= icono($pil['icono'], 'me-1') ?><?= e($pil['nombre']) ?></span>
+      <h2>Más soluciones</h2>
+    </div>
+    <nav class="otras-sol" aria-label="Otras soluciones de <?= e($pil['nombre']) ?>">
+      <?php foreach ($otras as $os => $o): ?>
+        <a class="sol-mini revelar" href="<?= e(solucion_url($os)) ?>">
+          <?= img_solucion($os, '', '(max-width: 575px) 92vw, 280px') ?>
+          <span class="sol-mini-texto"><strong><?= e($o['nombre']) ?></strong><small><?= e($o['sub']) ?></small></span>
+        </a>
+      <?php endforeach; ?>
+    </nav>
+  </div>
+</section>
+<?php endif; ?>
 
 <?php require ROOT . '/includes/cta-contacto.php'; ?>
 <?php require ROOT . '/includes/footer.php'; ?>
