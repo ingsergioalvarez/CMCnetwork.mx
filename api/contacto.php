@@ -48,6 +48,30 @@ if ($d['origen'] === 'web' && $d['email'] === '') {
 if (!isset($INTERESES[$d['interes']])) {
     $d['interes'] = '';
 }
+
+// Pasaporte Networking: las respuestas (solo opciones validas) se guardan como texto en "mensaje"
+if ($d['origen'] === 'tarjeta' && $d['pagina'] === 'pasaporte') {
+    $lineas = [];
+    if (($puesto = $campo('puesto', 120)) !== '') {
+        $lineas[] = 'Puesto: ' . $puesto;
+    }
+    foreach ($PASAPORTE as $clave => $q) {
+        $elegidas = isset($_POST[$clave]) ? (array) $_POST[$clave] : [];
+        $elegidas = array_values(array_intersect($q['opciones'], array_map('strval', $elegidas)));
+        if ($q['max'] && count($elegidas) > $q['max']) {
+            $errores[$clave . '[]'] = 'Elige máximo ' . $q['max'] . '.';
+        }
+        $respuesta = implode(', ', $elegidas);
+        if ($clave === 'tamano' && ($sucursales = (int) $campo('sucursales', 6)) > 0) {
+            $respuesta .= ($respuesta !== '' ? ' · ' : '') . $sucursales . ' sucursales';
+        }
+        $lineas[] = $q['pregunta'] . ' ' . ($respuesta !== '' ? $respuesta : '—');
+    }
+    if ($d['mensaje'] !== '') {
+        $lineas[] = 'Comentarios: ' . $d['mensaje'];
+    }
+    $d['mensaje'] = mb_substr(implode("\n", $lineas), 0, 2000);
+}
 if ($errores) {
     json_respuesta(['ok' => false, 'error' => 'Revisa los campos marcados.', 'campos' => $errores], 422);
 }
@@ -55,10 +79,11 @@ if ($errores) {
 $pdo = db();
 $ip = ip_cliente();
 
-// Limite: 5 envios por IP cada 10 minutos
+// Limite por IP cada 10 minutos. En la tarjeta es mas alto: en un stand muchos prospectos
+// comparten el wifi del evento o llenan el pasaporte en la misma tableta.
 $st = $pdo->prepare('SELECT COUNT(*) FROM prospectos WHERE ip = ? AND creado > NOW() - INTERVAL 10 MINUTE');
 $st->execute([$ip]);
-if ((int) $st->fetchColumn() >= 5) {
+if ((int) $st->fetchColumn() >= ($d['origen'] === 'tarjeta' ? 60 : 5)) {
     json_respuesta(['ok' => false, 'error' => 'Recibimos varios mensajes desde tu conexión. Intenta en unos minutos.'], 429);
 }
 

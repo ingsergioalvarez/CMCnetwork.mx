@@ -442,6 +442,31 @@ foreach ($SOLUCIONES as $slug => $s) {
 $INTERESES['residencial'] = 'Internet residencial';
 $INTERESES['otro'] = 'Otro';
 
+// Preguntas del Pasaporte Networking (/tarjeta/pasaporte.php). Las respuestas se validan contra estas listas.
+$PASAPORTE = [
+    'reto' => [
+        'pregunta' => '¿Qué quieres resolver primero?', 'nota' => 'máx. 2', 'multiple' => true, 'max' => 2,
+        'opciones' => ['Inventario exacto por modelo y talla', 'Menos defectos y devoluciones', 'Pedidos en línea sin errores',
+            'Asistencia y turnos sin papel', 'Seguridad de planta y almacén', 'Operar aunque falle el internet', 'Mismo precio en tienda y web'],
+    ],
+    'operacion' => [
+        'pregunta' => '¿Qué operación tiene tu empresa?', 'nota' => 'marca todas', 'multiple' => true, 'max' => 0,
+        'opciones' => ['Fábrica', 'Almacén/CEDIS', 'Tiendas propias', 'Venta en línea', 'Mayoreo/distribución'],
+    ],
+    'tamano' => [
+        'pregunta' => '¿De qué tamaño es?', 'nota' => '', 'multiple' => false, 'max' => 1,
+        'opciones' => ['Menos de 50 empleados', '50 a 200 empleados', 'Más de 200 empleados'],
+    ],
+    'urgencia' => [
+        'pregunta' => '¿Qué tanto te urge?', 'nota' => '', 'multiple' => false, 'max' => 1,
+        'opciones' => ['Este trimestre', 'En los próximos 6 meses', 'Solo estoy explorando'],
+    ],
+    'diagnostico' => [
+        'pregunta' => '¿Quieres un diagnóstico sin costo para afiliados CICEG?', 'nota' => '', 'multiple' => false, 'max' => 1,
+        'opciones' => ['Sí, contáctenme', 'Por ahora no'],
+    ],
+];
+
 /** Soluciones de un pilar. */
 function soluciones($pilar)
 {

@@ -59,7 +59,7 @@ function avisar_prospecto(array $p)
         'Correo'   => $p['email'],
         'Interés'  => interes_texto($p['interes']),
         'Mensaje'  => $p['mensaje'],
-        'Origen'   => $p['origen'] === 'tarjeta' ? 'Tarjeta QR' : 'Sitio web (' . $p['pagina'] . ')',
+        'Origen'   => $p['origen'] === 'tarjeta' ? ($p['pagina'] === 'pasaporte' ? 'Pasaporte Networking (QR)' : 'Tarjeta QR') : 'Sitio web (' . $p['pagina'] . ')',
         'Vendedor' => $p['vendedor'],
         'Evento'   => $p['evento'],
         'Fecha'    => $p['creado'],

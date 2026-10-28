@@ -43,7 +43,7 @@ $tel = solo_digitos($p['telefono']);
         <dt class="col-sm-3">Correo</dt><dd class="col-sm-9"><?php if ($p['email']): ?><a href="mailto:<?= e($p['email']) ?>"><?= e($p['email']) ?></a><?php endif; ?></dd>
         <dt class="col-sm-3">Interés</dt><dd class="col-sm-9"><?= e(interes_texto($p['interes']) ?: '—') ?></dd>
         <dt class="col-sm-3">Mensaje</dt><dd class="col-sm-9"><?= nl2br(e($p['mensaje'])) ?: '—' ?></dd>
-        <dt class="col-sm-3">Origen</dt><dd class="col-sm-9"><?= $p['origen'] === 'tarjeta' ? 'Tarjeta QR' : 'Sitio web · ' . e($p['pagina']) ?></dd>
+        <dt class="col-sm-3">Origen</dt><dd class="col-sm-9"><?= $p['origen'] === 'tarjeta' ? ($p['pagina'] === 'pasaporte' ? 'Pasaporte Networking (QR)' : 'Tarjeta QR') :'Sitio web · ' . e($p['pagina']) ?></dd>
         <?php if ($p['vendedor'] || $p['evento']): ?>
           <dt class="col-sm-3">Vendedor</dt><dd class="col-sm-9"><?= e($p['vendedor'] ?: '—') ?></dd>
           <dt class="col-sm-3">Evento</dt><dd class="col-sm-9"><?= e($p['evento'] ?: '—') ?></dd>

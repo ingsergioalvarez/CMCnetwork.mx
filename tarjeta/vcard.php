@@ -25,22 +25,12 @@ $lineas = [
     'ORG:CMC Service Network',
     'TITLE:' . $esc($v['puesto']),
 ];
-if ($vendedor) {
-    // Tarjeta de un vendedor: solo su celular (con lada internacional) y su correo.
-    // Sin telefonos ni direccion de oficina: en ferias fuera de la CDMX confunden al prospecto.
-    if ($v['telefono'] !== '') {
-        $lineas[] = 'TEL;TYPE=CELL,VOICE,PREF:+' . wa_numero($v['telefono']);
-    }
-} else {
-    foreach ($CONTACTO['telefonos'] as $t) {
-        $lineas[] = 'TEL;TYPE=WORK,VOICE:' . $esc($t['tel']);
-    }
+// Solo el celular (con lada internacional): sin correo, telefonos de oficina ni sitio web.
+// Sin vendedor se usa el celular de WhatsApp de ventas.
+$celular = $vendedor ? ($v['telefono'] !== '' ? $v['telefono'] : $v['whatsapp']) : $v['whatsapp'];
+if ($celular !== '') {
+    $lineas[] = 'TEL;TYPE=CELL,VOICE,PREF:+' . wa_numero($celular);
 }
-if ($v['email'] !== '') {
-    $lineas[] = 'EMAIL;TYPE=INTERNET,WORK:' . $esc($v['email']);
-}
-$lineas[] = 'URL:' . config('url');
-$lineas[] = 'NOTE:' . $esc('CMC Service Network - Un solo socio tecnológico');
 
 if ($vendedor && !empty($vendedor['foto'])) {
     $tipo = strpos($vendedor['foto_tipo'], 'png') !== false ? 'PNG' : 'JPEG';

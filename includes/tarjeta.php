@@ -48,7 +48,7 @@ function tarjeta_datos($vendedor, array $CONTACTO)
             'id'       => (int) $vendedor['id'],
             'slug'     => $vendedor['slug'],
             'nombre'   => $vendedor['nombre'],
-            'puesto'   => $vendedor['puesto'] !== '' ? $vendedor['puesto'] : 'Asesor comercial',
+            'puesto'   => 'Ventas Bajío', // fijo para la tarjeta, aunque el vendedor tenga otro puesto en el panel
             'telefono' => $vendedor['telefono'],
             'whatsapp' => $vendedor['whatsapp'] !== '' ? $vendedor['whatsapp'] : $vendedor['telefono'],
             'email'    => $vendedor['email'],
@@ -59,7 +59,7 @@ function tarjeta_datos($vendedor, array $CONTACTO)
         'id'       => 0,
         'slug'     => '',
         'nombre'   => 'Ventas CMC',
-        'puesto'   => 'CMC Service Network',
+        'puesto'   => 'Ventas Bajío',
         'telefono' => $CONTACTO['telefonos'][0]['tel'],
         'whatsapp' => $CONTACTO['whatsapp'],
         'email'    => 'ventas@cmcnetwork.mx',

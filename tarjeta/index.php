@@ -12,6 +12,7 @@ $evento = tarjeta_evento($eslug);
 
 $qs = http_build_query(array_filter(['v' => $v['slug']]));
 $vcard = '/tarjeta/vcard.php' . ($qs ? '?' . $qs : '');
+$pasaporte = '/tarjeta/pasaporte.php' . (($pqs = http_build_query(array_filter(['v' => $vslug, 'e' => $eslug]))) ? '?' . $pqs : '');
 $wa = 'https://wa.me/' . wa_numero($v['whatsapp']) . '?text=' . rawurlencode('Hola ' . strtok($v['nombre'], ' ') . ', te conocí' . ($evento ? ' en ' . $evento['nombre'] : '') . '. Estoy buscando información de CMC Service Network.');
 $iniciales = mb_strtoupper(mb_substr($v['nombre'], 0, 1) . (strpos($v['nombre'], ' ') ? mb_substr(strrchr($v['nombre'], ' '), 1, 1) : ''));
 
@@ -52,6 +53,7 @@ header('Cache-Control: no-store'); // el vendedor activo cambia desde el panel
     <p class="tarjeta-puesto"><?= e($v['puesto']) ?></p>
 
     <a href="<?= e($vcard) ?>" class="btn btn-cmc w-100 tarjeta-guardar"><?= icono('person-plus-fill', 'me-2') ?>Guardar contacto</a>
+    <a href="<?= e($pasaporte) ?>" class="btn tarjeta-secundario w-100 mt-3"><?= icono('check2', 'me-2') ?>Llenar Pasaporte Networking</a>
 
     <div class="tarjeta-acciones">
       <?php if ($v['telefono']): ?><a href="tel:<?= e(solo_digitos($v['telefono'])) ?>"><?= icono('telephone-fill') ?><span>Llamar</span></a><?php endif; ?>
