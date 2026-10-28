@@ -113,10 +113,15 @@ $pdo->prepare(
     $vendedor ? $vendedor['id'] : null, $evento ? $evento['id'] : null,
     $ip, mb_substr(isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '', 0, 255),
 ]);
+$respuesta = ['ok' => true, 'mensaje' => '¡Gracias, ' . $d['nombre'] . '! Recibimos tus datos y te contactaremos muy pronto.'];
+if ($d['pagina'] === 'pasaporte') {
+    // Folio para que el ejecutivo del stand lo verifique en el panel y ponga el sello fisico
+    $respuesta['folio'] = folio_pasaporte($pdo->lastInsertId());
+}
 
 // Responder ya al visitante; el correo se envia despues (si el servidor lo permite)
 header('Content-Type: application/json; charset=utf-8');
-echo json_encode(['ok' => true, 'mensaje' => '¡Gracias, ' . $d['nombre'] . '! Recibimos tus datos y te contactaremos muy pronto.'], JSON_UNESCAPED_UNICODE);
+echo json_encode($respuesta, JSON_UNESCAPED_UNICODE);
 if (function_exists('fastcgi_finish_request')) {
     fastcgi_finish_request();
 }

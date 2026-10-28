@@ -442,6 +442,12 @@ foreach ($SOLUCIONES as $slug => $s) {
 $INTERESES['residencial'] = 'Internet residencial';
 $INTERESES['otro'] = 'Otro';
 
+/** Folio del Pasaporte Networking a partir del id del prospecto: PN-0012. */
+function folio_pasaporte($id)
+{
+    return 'PN-' . str_pad((string) (int) $id, 4, '0', STR_PAD_LEFT);
+}
+
 // Preguntas del Pasaporte Networking (/tarjeta/pasaporte.php). Las respuestas se validan contra estas listas.
 $PASAPORTE = [
     'reto' => [

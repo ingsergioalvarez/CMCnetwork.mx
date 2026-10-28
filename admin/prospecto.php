@@ -34,6 +34,7 @@ $tel = solo_digitos($p['telefono']);
 <div class="row g-4 mt-1">
   <div class="col-lg-7">
     <div class="card"><div class="card-body p-4">
+      <?php if ($p['pagina'] === 'pasaporte'): ?><span class="badge text-bg-dark mb-2">Folio <?= folio_pasaporte($p['id']) ?></span><?php endif; ?>
       <h1 class="h4 mb-1"><?= e($p['nombre']) ?></h1>
       <p class="text-muted"><?= e($p['empresa']) ?></p>
       <dl class="row mb-0">

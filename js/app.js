@@ -506,6 +506,7 @@
           } else {
             if (res.campos) Object.keys(res.campos).forEach(function (k) { marcar(k, res.campos[k]); });
             mostrar('error', res.error || 'No pudimos enviar tu mensaje. Intenta de nuevo.');
+            form.dispatchEvent(new CustomEvent('prospecto:error', { detail: res }));
           }
         })
         .catch(function () { mostrar('error', 'Sin conexión. Revisa tu internet e inténtalo de nuevo.'); })

@@ -87,7 +87,7 @@ admin_header('Prospectos', 'prospectos');
           <td class="small"><?= e(interes_texto($r['interes'])) ?></td>
           <td class="small">
             <?php if ($r['origen'] === 'tarjeta'): ?>
-              <span class="badge text-bg-dark"><i class="bi bi-qr-code"></i> <?= $r['pagina'] === 'pasaporte' ? 'Pasaporte' : 'QR' ?></span>
+              <span class="badge text-bg-dark"><i class="bi bi-qr-code"></i> <?= $r['pagina'] === 'pasaporte' ? 'Pasaporte ' . folio_pasaporte($r['id']) : 'QR' ?></span>
               <div class="text-muted"><?= e($r['vendedor']) ?><?= $r['evento'] ? ' · ' . e($r['evento']) : '' ?></div>
             <?php else: ?>
               <span class="badge text-bg-light">Web</span> <span class="text-muted"><?= e($r['pagina']) ?></span>

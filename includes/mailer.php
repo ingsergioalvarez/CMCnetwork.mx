@@ -53,6 +53,7 @@ function avisar_prospecto(array $p)
     $asunto = 'Nuevo interesado' . ($p['origen'] === 'tarjeta' ? ' (tarjeta QR)' : ' (sitio web)') . ': ' . $p['nombre']
         . ($p['empresa'] !== '' ? ' - ' . $p['empresa'] : '');
     $html = correo_prospecto([
+        'Folio'    => $p['pagina'] === 'pasaporte' ? folio_pasaporte($p['id']) : '',
         'Nombre'   => $p['nombre'],
         'Empresa'  => $p['empresa'],
         'Teléfono' => $p['telefono'],
