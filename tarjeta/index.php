@@ -13,8 +13,7 @@ $evento = tarjeta_evento($eslug);
 $qs = http_build_query(array_filter(['v' => $v['slug']]));
 $vcard = '/tarjeta/vcard.php' . ($qs ? '?' . $qs : '');
 $pasaporte = '/tarjeta/pasaporte.php' . (($pqs = http_build_query(array_filter(['v' => $vslug, 'e' => $eslug]))) ? '?' . $pqs : '');
-$wa = 'https://wa.me/' . wa_numero($v['whatsapp']) . '?text=' . rawurlencode('Hola ' . strtok($v['nombre'], ' ') . ', te conocí' . ($evento ? ' en ' . $evento['nombre'] : '') . '. Estoy buscando información de CMC Service Network.');
-$iniciales = mb_strtoupper(mb_substr($v['nombre'], 0, 1) . (strpos($v['nombre'], ' ') ? mb_substr(strrchr($v['nombre'], ' '), 1, 1) : ''));
+$wa = 'https://wa.me/' . wa_numero($v['whatsapp']) . '?text=' . rawurlencode('Hola, los conocí' . ($evento ? ' en ' . $evento['nombre'] : '') . '. Estoy buscando información de CMC Service Network.');
 
 header('Cache-Control: no-store'); // el vendedor activo cambia desde el panel
 ?>
@@ -23,8 +22,8 @@ header('Cache-Control: no-store'); // el vendedor activo cambia desde el panel
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title><?= e($v['nombre']) ?> | CMC Service Network</title>
-  <meta name="description" content="Guarda el contacto de <?= e($v['nombre']) ?> y déjanos tus datos.">
+  <title><?= e($v['nombre']) ?></title>
+  <meta name="description" content="Guarda nuestro contacto y déjanos tus datos.">
   <meta name="robots" content="noindex">
   <meta name="theme-color" content="#06123D">
   <link rel="icon" href="/imagenes/marca/favicon.ico">
@@ -46,7 +45,7 @@ header('Cache-Control: no-store'); // el vendedor activo cambia desde el panel
       <?php if ($v['foto']): ?>
         <img src="/tarjeta/foto.php?id=<?= $v['id'] ?>" alt="<?= e($v['nombre']) ?>" width="120" height="120">
       <?php else: ?>
-        <span><?= e($iniciales) ?></span>
+        <img src="/imagenes/marca/simbolo-cmc.png" alt="" width="120" height="120" class="tarjeta-simbolo">
       <?php endif; ?>
     </div>
     <h1><?= e($v['nombre']) ?></h1>
@@ -65,7 +64,7 @@ header('Cache-Control: no-store'); // el vendedor activo cambia desde el panel
 
   <section class="tarjeta-form">
     <h2>¿Te contactamos?</h2>
-    <p>Déjanos tus datos y <?= e($v['id'] ? strtok($v['nombre'], ' ') : 'un asesor') ?> te enviará información a tu medida.</p>
+    <p>Déjanos tus datos y un asesor te enviará información a tu medida.</p>
 
     <form class="form-cmc js-form-prospecto" action="/api/contacto.php" method="post" novalidate>
       <input type="hidden" name="token" value="<?= e(form_token()) ?>">

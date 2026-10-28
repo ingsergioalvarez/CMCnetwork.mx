@@ -9,7 +9,6 @@ $vslug = isset($_GET['v']) ? slugify($_GET['v']) : '';
 $eslug = isset($_GET['e']) ? slugify($_GET['e']) : '';
 $v = tarjeta_datos(tarjeta_vendedor($vslug), $CONTACTO);
 $evento = tarjeta_evento($eslug);
-$iniciales = mb_strtoupper(mb_substr($v['nombre'], 0, 1) . (strpos($v['nombre'], ' ') ? mb_substr(strrchr($v['nombre'], ' '), 1, 1) : ''));
 
 // Celular a 10 digitos con espacios: 477 171 7277
 $cel = substr(solo_digitos($v['telefono'] !== '' ? $v['telefono'] : $v['whatsapp']), -10);
@@ -22,7 +21,7 @@ header('Cache-Control: no-store');
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title><?= e($v['nombre']) ?> | CMC Service Network</title>
+  <title><?= e($v['nombre']) ?></title>
   <meta name="robots" content="noindex">
   <meta name="theme-color" content="#06123D">
   <link rel="icon" href="/imagenes/marca/favicon.ico">
@@ -43,7 +42,7 @@ header('Cache-Control: no-store');
         <?php if ($v['foto']): ?>
           <img src="/tarjeta/foto.php?id=<?= $v['id'] ?>" alt="<?= e($v['nombre']) ?>" width="120" height="120">
         <?php else: ?>
-          <span><?= e($iniciales) ?></span>
+          <img src="/imagenes/marca/simbolo-cmc.png" alt="" width="120" height="120" class="tarjeta-simbolo">
         <?php endif; ?>
       </div>
       <div>
@@ -55,7 +54,7 @@ header('Cache-Control: no-store');
     <ul class="stand-datos">
       <?php if ($cel_texto !== ''): ?><li><?= icono('whatsapp') ?> <?= e($cel_texto) ?></li><?php endif; ?>
       <?php if ($v['email'] !== ''): ?><li><?= icono('envelope-fill') ?> <?= e($v['email']) ?></li><?php endif; ?>
-      <li><?= icono('globe2') ?> cmcnetwork.mx</li>
+      <li><?= icono('globe2') ?> www.cmcnetwork.mx</li>
     </ul>
   </section>
 

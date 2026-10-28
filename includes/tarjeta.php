@@ -47,18 +47,18 @@ function tarjeta_datos($vendedor, array $CONTACTO)
         return [
             'id'       => (int) $vendedor['id'],
             'slug'     => $vendedor['slug'],
-            'nombre'   => $vendedor['nombre'],
+            'nombre'   => 'CMC Service Network Bajío', // nombre de marca, no el del vendedor
             'puesto'   => 'Ventas Bajío', // fijo para la tarjeta, aunque el vendedor tenga otro puesto en el panel
             'telefono' => $vendedor['telefono'],
             'whatsapp' => $vendedor['whatsapp'] !== '' ? $vendedor['whatsapp'] : $vendedor['telefono'],
             'email'    => $vendedor['email'],
-            'foto'     => !empty($vendedor['foto_tipo']),
+            'foto'     => false, // en lugar de la foto del vendedor se muestra el simbolo de CMC
         ];
     }
     return [
         'id'       => 0,
         'slug'     => '',
-        'nombre'   => 'Ventas CMC',
+        'nombre'   => 'CMC Service Network Bajío',
         'puesto'   => 'Ventas Bajío',
         'telefono' => $CONTACTO['telefonos'][0]['tel'],
         'whatsapp' => $CONTACTO['whatsapp'],
